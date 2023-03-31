@@ -15,7 +15,7 @@ export const useMyFetch = createFetch({
         },
         // 在请求后处理数据，如：拦截错误、处理过期
         afterFetch(context: AfterFetchContext<Result>) {
-            return {data: context.data, response: context.response}
+            return {data: context.data?.data, response: context.response}
         },
         // 请求错误
         onFetchError({data, error}) {

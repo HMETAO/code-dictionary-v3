@@ -1,7 +1,7 @@
 <template>
-  <div class="login-container flex h-full w-full" >
+    <div class="login-container flex h-full w-full">
         <LoginForm></LoginForm>
-  </div>
+    </div>
 </template>
 <script setup lang="ts">
 import {ref, reactive, toRef, computed, onMounted} from 'vue';

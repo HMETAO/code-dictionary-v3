@@ -15,10 +15,18 @@
           :model="loginForm"
           status-icon>
         <el-form-item>
-          <el-input :prefix-icon="User" placeholder="请输入用户名" v-model="loginForm.username"></el-input>
+          <el-input  placeholder="请输入用户名" v-model="loginForm.username">
+              <template #prefix>
+                  <el-icon><User /></el-icon>
+              </template>
+          </el-input>
         </el-form-item>
         <el-form-item>
-          <el-input :prefix-icon="Lock" placeholder="请输入密码" show-password v-model="loginForm.password"></el-input>
+          <el-input placeholder="请输入密码" show-password v-model="loginForm.password">
+              <template #prefix>
+                  <el-icon><Lock /></el-icon>
+              </template>
+          </el-input>
         </el-form-item>
       </el-form>
       <!--button区-->
