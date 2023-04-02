@@ -1,4 +1,4 @@
-import {createRouter, createWebHistory, RouteRecordRaw} from "vue-router"
+import {createRouter, createWebHistory, Router, RouteRecordRaw} from "vue-router"
 import {useBaseStore} from "../store";
 // 导入进度条
 import {start, close} from "../utils/nporgress";
@@ -7,7 +7,7 @@ let baseStore: any = null
 const routes: Array<RouteRecordRaw> = [
     {
         path: "/",
-        redirect: "/login"
+        redirect: "/home"
     },
     {
         path: "/login",
@@ -17,10 +17,17 @@ const routes: Array<RouteRecordRaw> = [
     {
         path: "/home",
         name: "Home",
-        component: () => import('../view/Home.vue')
+        component: () => import('../view/Home.vue'),
+        children: [
+            {
+                path: "/snippet",
+                name: "Snippet",
+                component: () => import('../components/Snippet.vue')
+            }
+        ]
     }
 ]
-const router = createRouter({
+const router:Router = createRouter({
     history: createWebHistory(),
     routes
 })

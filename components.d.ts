@@ -37,6 +37,7 @@ declare module '@vue/runtime-core' {
     Menus: typeof import('./src/components/Menus.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    Snippet: typeof import('./src/components/Snippet.vue')['default']
   }
   export interface ComponentCustomProperties {
     vLoading: typeof import('element-plus/es')['ElLoadingDirective']

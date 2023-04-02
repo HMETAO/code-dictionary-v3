@@ -4,6 +4,6 @@ import {UseFetchReturn} from "@vueuse/core";
 import {Result} from "../result";
 
 
-export function getMenus():UseFetchReturn<MenusType>{
+export function getMenus():UseFetchReturn<MenusType[]>{
     return useMyFetch<Result<MenusType>>("/api/v1/menus").json();
 }

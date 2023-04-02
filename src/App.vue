@@ -1,12 +1,12 @@
 <template>
-  <div class="common-layout">
-    <el-container>
-      <el-header>
-        <layout-header></layout-header>
-      </el-header>
-      <router-view></router-view>
-    </el-container>
-  </div>
+    <div class="common-layout">
+        <div class="header">
+            <layout-header></layout-header>
+        </div>
+        <div class="main">
+            <router-view></router-view>
+        </div>
+    </div>
 </template>
 <script setup lang="ts">
 
@@ -21,30 +21,18 @@ stateStore.$reset()
 @DefaultColor: #76bbd7;
 
 .common-layout {
+  display: flex;
   height: 100%;
+  flex: 1;
+  flex-direction: column;
 
-  .progress {
-    top: 0;
-    display: flex;
+  .header {
+      //border-bottom: 2px solid #2ecc71;
   }
 
-  .el-container {
-    display: flex;
-    height: 100%;
-    flex: 1;
-    flex-direction: column;
-
-    .el-header {
-      border-bottom: 2px solid #2ecc71;
-    }
-
-    .el-main {
-      display: flex;
-      flex: 1;
-      height: 100%;
-      justify-content: center;
-      align-items: center;
-    }
+  .main {
+    flex: 1
   }
+
 }
 </style>
