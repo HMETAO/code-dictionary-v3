@@ -1,10 +1,10 @@
 <template>
-    <el-drawer v-model="isCategoryDrawer" direction="rtl" :before-close="drawerBeforeCallBack">
-        <template #header>
-            <h4>set title by slot</h4>
-        </template>
+    <el-drawer v-model="isCategoryDrawer" :with-header="false"
+               direction="rtl"
+               :before-close="drawerBeforeCallBack"
+               @open="drawerOpenEventFunction">
         <template #default>
-
+            <el-tree v-loading="isFetching" :data="data"/>
         </template>
         <template #footer>
             <div style="flex: auto">
@@ -16,12 +16,19 @@
 </template>
 <script setup lang="ts">
 import {ref, reactive, toRef, computed, watch} from 'vue';
+import {getCategory} from "../api/category";
 
 // 关闭前回调
 const drawerBeforeCallBack = () => {
     updateModelValueEventFunction(false)
 }
-
+// 请求category但是手动触发模式
+let {data, isFetching, execute} = getCategory(false)
+// drawer打开事件函数
+const drawerOpenEventFunction = () => {
+    // 触发获取category网络请求
+    execute()
+}
 // 父传子参数
 const prop = defineProps<{
     // isCategoryDrawer

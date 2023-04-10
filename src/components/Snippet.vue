@@ -15,6 +15,8 @@
 import {ref, reactive, toRef, computed} from 'vue';
 import MarkDown from "./MarkDown.vue";
 import CategoryDrawer from "./CategoryDrawer.vue";
+import {getCategory} from "../api/category";
+import {CategoryMenusType} from "../type/categoryType";
 
 const isCategoryDrawer = ref<boolean>(false)
 
