@@ -1,11 +1,11 @@
 <template>
     <div class=" h-full w-full flex home-container">
-        <el-row class=" home-row h-full w-full animate__animated animate__bounceInLeft">
-            <el-col :span="3" :xs="0">
+        <el-row class=" home-row h-full w-full">
+            <el-col :span="3" :xs="0" class="animate__animated animate__bounceInLeft">
                 <AsideMenu></AsideMenu>
             </el-col>
             <el-col :span="21" :xs="24">
-                <div class="p-3 w-full h-full">
+                <div class="p-3 w-full h-full animate__animated animate__bounceInRight">
                     <router-view></router-view>
                 </div>
             </el-col>
