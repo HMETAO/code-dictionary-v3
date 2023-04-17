@@ -4,20 +4,51 @@
                :before-close="drawerBeforeCallBack"
                @open="drawerOpenEventFunction">
         <template #default>
-            <el-tree v-loading="isFetching" :data="data"/>
+            <el-tree v-loading="isFetching" :data="data" :expand-on-click-node="false"
+                     @node-click="nodeClickEventFunction">
+                <template v-slot="{node,data}">
+                    <div class="flex w-full">
+                        <div>
+                            <el-icon v-if="!data.snippet">
+                                <Folder/>
+                            </el-icon>
+                            <el-icon v-else>
+                                <Memo/>
+                            </el-icon>
+                            {{ data.label }}
+                        </div>
+                        <div class="flex-1"></div>
+                        <div>
+                            <el-button v-if='!data.snippet' text type="primary" size="small">新增</el-button>
+                        </div>
+                        <div>
+                            <el-button text type="primary" size="small">删除</el-button>
+                        </div>
+                    </div>
+                </template>
+            </el-tree>
         </template>
-        <template #footer>
-            <div style="flex: auto">
-                <el-button @click="updateModelValueEventFunction(false)">cancel</el-button>
-                <el-button type="primary">confirm</el-button>
-            </div>
-        </template>
+
     </el-drawer>
 </template>
 <script setup lang="ts">
 import {ref, reactive, toRef, computed, watch} from 'vue';
 import {getCategory} from "../api/category";
+import {CategoryMenusType} from "../type/categoryType";
+import {getSnippet} from "../api/snippet";
+import {TypeEnum} from "../enums/typeEnum";
+// 点击节点事件函数
+const nodeClickEventFunction = async (data: CategoryMenusType) => {
+    if (data.snippet) {
+        // 查询snippet
+        const res = await getSnippet(data.id.replaceAll('sn-', ''))
+        if (res.data.type == TypeEnum.code) {
 
+        }
+
+        console.log(res)
+    }
+}
 // 关闭前回调
 const drawerBeforeCallBack = () => {
     updateModelValueEventFunction(false)
