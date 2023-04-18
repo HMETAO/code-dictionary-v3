@@ -18,7 +18,7 @@ import {ref, reactive, toRef, computed} from 'vue';
 import MarkDown from "./MarkDown.vue";
 import CategoryDrawer from "./CategoryDrawer.vue";
 import PrismEditor from "./PrismEditor.vue";
-import {useBaseStore} from "../store";
+import {useBaseStore} from "../../store";
 
 const store = useBaseStore();
 // 分类抽屉

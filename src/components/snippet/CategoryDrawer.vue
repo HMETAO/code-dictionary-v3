@@ -35,12 +35,18 @@
     </el-drawer>
 </template>
 <script setup lang="ts">
-import {ref, reactive, toRef, computed, watch} from 'vue';
-import {getCategory} from "../api/category";
-import {CategoryMenusType} from "../type/categoryType";
-import {getSnippet} from "../api/snippet";
-import {TypeEnum} from "../enums/typeEnum";
-import {useBaseStore} from "../store";
+import {getCurrentInstance, ref, watch} from 'vue';
+import {getCategory} from "../../api/category";
+import {CategoryMenusType} from "../../type/categoryType";
+import {getSnippet} from "../../api/snippet";
+import {TypeEnum} from "../../enums/typeEnum";
+import {useBaseStore} from "../../store";
+import {ElMessageBox} from "element-plus";
+import {SnippetType} from "../../type/snippetType";
+import {Result} from "../../result";
+import {SNIPPET_CHANGE_EVENT} from "../../constants/EventConstants";
+
+const instance = getCurrentInstance()
 const store = useBaseStore()
 const changeSnippetEventFunction = () => {
     store.isMarkDown = !store.isMarkDown
@@ -49,9 +55,24 @@ const changeSnippetEventFunction = () => {
 const nodeClickEventFunction = async (data: CategoryMenusType) => {
     if (data.snippet) {
         // 查询snippet
-        const res = await getSnippet(data.id.replaceAll('sn-', ''))
+        const res: Result<SnippetType> = await getSnippet(data.id.replaceAll('sn-', ''))
+        // 判断选择的是否为md文件
         if (res.data.type == TypeEnum.code) {
-
+            ElMessageBox.confirm(
+                '该Snippet为Code文件，需要切换面板展示',
+                '面板需要切换',
+                {
+                    confirmButtonText: 'OK',
+                    cancelButtonText: 'Cancel',
+                    type: 'info',
+                }
+            ).then(() => {
+                // 切换面板
+                store.isMarkDown = false;
+                // 触发函数
+                instance?.proxy?.$bus.emit(SNIPPET_CHANGE_EVENT, res.data)
+            })
+            return
         }
 
         console.log(res)

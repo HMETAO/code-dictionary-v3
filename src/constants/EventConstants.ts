@@ -1,0 +1,1 @@
+export const SNIPPET_CHANGE_EVENT = "SnippetChangeEvent";

@@ -23,7 +23,7 @@ const routes: Array<RouteRecordRaw> = [
             {
                 path: "/snippet",
                 name: "Snippet",
-                component: () => import('../components/Snippet.vue')
+                component: () => import('../components/snippet/Snippet.vue')
             }
         ]
     }
