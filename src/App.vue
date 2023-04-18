@@ -22,12 +22,12 @@ stateStore.$reset()
 
 .common-layout {
   display: flex;
-  height: 100%;
+  height: 100vh;
   flex: 1;
   flex-direction: column;
 
   .header {
-      //border-bottom: 2px solid #2ecc71;
+    //border-bottom: 2px solid #2ecc71;
   }
 
   .main {

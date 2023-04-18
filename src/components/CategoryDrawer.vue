@@ -28,6 +28,9 @@
                 </template>
             </el-tree>
         </template>
+        <template #footer>
+            <el-button type="primary" size="large" @click="changeSnippetEventFunction">切换展示面板</el-button>
+        </template>
 
     </el-drawer>
 </template>
@@ -37,6 +40,11 @@ import {getCategory} from "../api/category";
 import {CategoryMenusType} from "../type/categoryType";
 import {getSnippet} from "../api/snippet";
 import {TypeEnum} from "../enums/typeEnum";
+import {useBaseStore} from "../store";
+const store = useBaseStore()
+const changeSnippetEventFunction = () => {
+    store.isMarkDown = !store.isMarkDown
+}
 // 点击节点事件函数
 const nodeClickEventFunction = async (data: CategoryMenusType) => {
     if (data.snippet) {

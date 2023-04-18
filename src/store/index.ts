@@ -6,14 +6,19 @@ export const useBaseStore = defineStore(Names.BASE, {
 
     state() {
         return {
+            // 用户信息
             user: <UserInfo>{},
+            // token
             token: "",
-            loading: false
+            // 展示面板
+            isMarkDown: false
         }
     },
     getters: {},
     actions: {}
 })
+
+// 此store是非缓存对象用来存储不需要缓存的状态变量
 export const useStateStore = defineStore(Names.STATE, {
 
     state() {

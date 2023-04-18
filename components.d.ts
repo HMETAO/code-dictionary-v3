@@ -11,6 +11,7 @@ declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     AsideMenu: typeof import('./src/components/AsideMenu.vue')['default']
     CategoryDrawer: typeof import('./src/components/CategoryDrawer.vue')['default']
+    EditorHeader: typeof import('./src/components/EditorHeader.vue')['default']
     ElAffix: typeof import('element-plus/es')['ElAffix']
     ElAside: typeof import('element-plus/es')['ElAside']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
@@ -34,6 +35,7 @@ declare module '@vue/runtime-core' {
     ElRow: typeof import('element-plus/es')['ElRow']
     ElSubmenu: typeof import('element-plus/es')['ElSubmenu']
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
+    ElTooltip: typeof import('element-plus/es')['ElTooltip']
     ElTree: typeof import('element-plus/es')['ElTree']
     Header: typeof import('./src/components/layout/header.vue')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
@@ -41,6 +43,7 @@ declare module '@vue/runtime-core' {
     LoginForm: typeof import('./src/components/LoginForm.vue')['default']
     MarkDown: typeof import('./src/components/MarkDown.vue')['default']
     Menus: typeof import('./src/components/Menus.vue')['default']
+    PrismEditor: typeof import('./src/components/PrismEditor.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Snippet: typeof import('./src/components/Snippet.vue')['default']
