@@ -8,38 +8,43 @@
         <div class="editor">
             <prism-editor :tabSize='6'
                           class='my-editor '
-                          v-model="snippet"
+                          v-model="snippetForm.snippet"
                           :highlight='highlighter'
                           line-numbers></prism-editor>
         </div>
     </div>
 </template>
 <script setup lang="ts">
-import {ref, reactive, toRef, computed, getCurrentInstance, onUnmounted} from 'vue';
+import {ref, reactive, toRef, computed, getCurrentInstance, onUnmounted, onBeforeUnmount} from 'vue';
 import {PrismEditor} from "vue-prism-editor";
 import "vue-prism-editor/dist/prismeditor.min.css"; // import the styles somewhere
 import prism from "prismjs";
+
 import "prismjs/themes/prism-tomorrow.css";
 import EditorHeader from "./EditorHeader.vue";
-import {SNIPPET_CHANGE_EVENT} from "../../constants/EventConstants";
-import {SnippetType} from "../../type/snippetType"; // import syntax highlighting styles
+import {BASE_SNIPPET, SNIPPET_GET_EVENT} from "../../constants/EventConstants";
+import {SnippetType} from "../../type/snippetType";
+import {SnippetForm} from "../../form/snippet";
 
-const snippet = ref()
+// this
+const instance = getCurrentInstance()
+
 // 高亮代码
 const highlighter = (code: string) => {
     return prism.highlight(code, prism.languages.js, "java");
 }
 
-const instance = getCurrentInstance()
-// 注册监听切换面板事件
-instance?.proxy?.$bus.on(SNIPPET_CHANGE_EVENT, (snippet) => {
-
+const snippetForm = ref<SnippetForm>({snippet: BASE_SNIPPET})
+// 注册监听获取snippet事件
+instance?.proxy?.$bus.on(SNIPPET_GET_EVENT, (snippet) => {
+    // 获取snippet
+    snippetForm.value = snippet as SnippetType;
 })
 
 // 组件销毁
-onUnmounted(() => {
+onBeforeUnmount(() => {
     // 卸载事件函数
-    instance?.proxy?.$bus.off(SNIPPET_CHANGE_EVENT)
+    instance?.proxy?.$bus.off(SNIPPET_GET_EVENT)
 })
 </script>
 <style scoped lang="less">
@@ -48,7 +53,7 @@ onUnmounted(() => {
   flex-direction: column;
 
   .editor-header {
-    height: 10px;
+    height: 25px;
   }
 
   .editor {

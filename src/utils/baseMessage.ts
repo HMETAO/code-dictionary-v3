@@ -1,4 +1,4 @@
-import {ElMessage} from "element-plus";
+import {ElMessage, ElMessageBox} from "element-plus";
 
 export function successMessage(msg: string) {
     ElMessage({
@@ -26,4 +26,16 @@ export function errorMessage(msg: string) {
         message: msg,
         type: 'error',
     })
+}
+
+export function infoMessageBox(title?: string, content?: string) {
+    return ElMessageBox.confirm(
+        content ?? "内容",
+        title ?? "消息提示",
+        {
+            confirmButtonText: 'OK',
+            cancelButtonText: 'Cancel',
+            type: 'info',
+        }
+    )
 }

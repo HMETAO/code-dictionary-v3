@@ -44,7 +44,8 @@ import {useBaseStore} from "../../store";
 import {ElMessageBox} from "element-plus";
 import {SnippetType} from "../../type/snippetType";
 import {Result} from "../../result";
-import {SNIPPET_CHANGE_EVENT} from "../../constants/EventConstants";
+import {SNIPPET_GET_EVENT} from "../../constants/EventConstants";
+import {infoMessageBox} from "../../utils/baseMessage";
 
 const instance = getCurrentInstance()
 const store = useBaseStore()
@@ -53,29 +54,34 @@ const changeSnippetEventFunction = () => {
 }
 // 点击节点事件函数
 const nodeClickEventFunction = async (data: CategoryMenusType) => {
+    // 若点击的是snippet文件
     if (data.snippet) {
         // 查询snippet
         const res: Result<SnippetType> = await getSnippet(data.id.replaceAll('sn-', ''))
-        // 判断选择的是否为md文件
+        // 选择的是code文件，但是当前在markdown面板
         if (res.data.type == TypeEnum.code) {
-            ElMessageBox.confirm(
-                '该Snippet为Code文件，需要切换面板展示',
-                '面板需要切换',
-                {
-                    confirmButtonText: 'OK',
-                    cancelButtonText: 'Cancel',
-                    type: 'info',
+            if (store.isMarkDown) {
+                try {
+                    await infoMessageBox("界面切换", "选择的Snippet为Code，是否切换界面")
+                    store.isMarkDown = false
+                } catch (e) {
+                    return
                 }
-            ).then(() => {
-                // 切换面板
-                store.isMarkDown = false;
-                // 触发函数
-                instance?.proxy?.$bus.emit(SNIPPET_CHANGE_EVENT, res.data)
-            })
-            return
+            }
+        } else if (res.data.type == TypeEnum.markdown) {
+            if (!store.isMarkDown) {
+                try {
+                    await infoMessageBox("界面切换", "选择的Snippet为Markdown，是否切换界面")
+                    store.isMarkDown = true
+                } catch (e) {
+                    return
+                }
+            }
         }
-
-        console.log(res)
+        // 选择的snippet的分类
+        res.data.categoryId = data.parentId
+        // 触发获取snippet事件
+        instance?.proxy?.$bus.emit(SNIPPET_GET_EVENT, res.data)
     }
 }
 // 关闭前回调

@@ -1,4 +1,4 @@
-export interface SnippetType {
+export interface SnippetForm {
     id?: number
     title?: string
     snippet?: string
