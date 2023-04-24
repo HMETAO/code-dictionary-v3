@@ -2,7 +2,7 @@
     <div class="editor-container h-full">
         <!--header-->
         <div class="editor-header">
-            <EditorHeader></EditorHeader>
+            <EditorHeader v-model="snippetForm"></EditorHeader>
         </div>
         <!--editor-->
         <div class="editor">
@@ -53,7 +53,7 @@ onBeforeUnmount(() => {
   flex-direction: column;
 
   .editor-header {
-    height: 25px;
+    height: 35px;
   }
 
   .editor {

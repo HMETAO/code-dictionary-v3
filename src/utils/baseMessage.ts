@@ -39,3 +39,15 @@ export function infoMessageBox(title?: string, content?: string) {
         }
     )
 }
+
+export function warningMessageBox(title?: string, content?: string) {
+    return ElMessageBox.confirm(
+        content ?? "内容",
+        title ?? "消息提示",
+        {
+            confirmButtonText: 'OK',
+            cancelButtonText: 'Cancel',
+            type: 'warning',
+        }
+    )
+}

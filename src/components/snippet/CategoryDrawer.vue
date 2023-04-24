@@ -31,7 +31,6 @@
         <template #footer>
             <el-button type="primary" size="large" @click="changeSnippetEventFunction">切换展示面板</el-button>
         </template>
-
     </el-drawer>
 </template>
 <script setup lang="ts">

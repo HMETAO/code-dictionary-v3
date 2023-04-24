@@ -18,6 +18,7 @@ const routes: Array<RouteRecordRaw> = [
     {
         path: "/home",
         name: "Home",
+        redirect: "/snippet",
         component: () => import('../view/Home.vue'),
         children: [
             {
