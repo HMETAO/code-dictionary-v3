@@ -2,7 +2,7 @@
     <div class="editor-container h-full">
         <!--header-->
         <div class="editor-header">
-            <EditorHeader v-model="snippetForm"></EditorHeader>
+            <EditorHeader/>
         </div>
         <!--editor-->
         <div class="editor">
@@ -24,21 +24,22 @@ import "prismjs/themes/prism-tomorrow.css";
 import EditorHeader from "./EditorHeader.vue";
 import {BASE_SNIPPET, SNIPPET_GET_EVENT} from "../../constants/EventConstants";
 import {SnippetType} from "../../type/snippetType";
-import {SnippetForm} from "../../form/snippet";
+import {useStateStore} from "../../store";
+import {storeToRefs} from "pinia";
 
 // this
 const instance = getCurrentInstance()
-
+const store = useStateStore()
+const {snippetForm} = storeToRefs(store)
 // 高亮代码
 const highlighter = (code: string) => {
     return prism.highlight(code, prism.languages.js, "java");
 }
 
-const snippetForm = ref<SnippetForm>({snippet: BASE_SNIPPET})
 // 注册监听获取snippet事件
 instance?.proxy?.$bus.on(SNIPPET_GET_EVENT, (snippet) => {
     // 获取snippet
-    snippetForm.value = snippet as SnippetType;
+    store.snippetForm = snippet as SnippetType
 })
 
 // 组件销毁

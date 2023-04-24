@@ -33,18 +33,18 @@ import {BASE_SNIPPET} from "../../constants/EventConstants";
 import {successMessage, warningMessageBox} from "../../utils/baseMessage";
 import {updateSnippet} from "../../api/snippet";
 import SnippetInsertDialog from "./SnippetInsertDialog.vue";
+import {useStateStore} from "../../store";
 
-const props = defineProps<{ modelValue: SnippetType }>()
-const emit = defineEmits<{
-    (e: 'update:modelValue', modelValue: SnippetType): void
-}>()
+const store = useStateStore()
+
+
 const snippetDialogVisible = ref<boolean>(false)
 
 // 点击初始化Snippet面板事件回调
 const initSnippetClickEventFunction = async () => {
     try {
         await warningMessageBox("初始化面板", "是否确定初始化Snippet面板？")
-        emit("update:modelValue", {snippet: BASE_SNIPPET})
+        store.snippetForm = {snippet: BASE_SNIPPET}
     } catch (e) {
         return
     }
@@ -53,8 +53,8 @@ const initSnippetClickEventFunction = async () => {
 // 点击保存按钮事件回调
 const saveSnippetClickEventFunction = () => {
     // 更新操作
-    if (props.modelValue.categoryId) {
-        updateSnippet(props.modelValue);
+    if (store.snippetForm.categoryId) {
+        updateSnippet(store.snippetForm);
         successMessage("更新成功")
     } else {
         snippetDialogVisible.value = true;

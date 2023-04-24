@@ -1,13 +1,19 @@
 <template>
     <div>
-        <el-dialog v-model="snippetDialogVisible" @close="dialogCloseEventFunction">
+        <el-dialog v-model="snippetDialogVisible" @open="dialogOpenEventFunction" @close="dialogCloseEventFunction">
 
         </el-dialog>
     </div>
 </template>
 <script setup lang="ts">
 import {ref, reactive, toRef, computed, watch} from 'vue';
+import {getCategory} from "../../api/category";
 
+let {data, isFetching, execute} = getCategory(false, false)
+
+const dialogOpenEventFunction = () => {
+    execute()
+}
 // 父传子参数
 const prop = defineProps<{
     // snippetDialogVisible
