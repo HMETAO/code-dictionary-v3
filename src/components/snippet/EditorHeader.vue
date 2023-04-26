@@ -44,7 +44,7 @@ const snippetDialogVisible = ref<boolean>(false)
 const initSnippetClickEventFunction = async () => {
     try {
         await warningMessageBox("初始化面板", "是否确定初始化Snippet面板？")
-        store.snippetForm = {snippet: BASE_SNIPPET}
+        store.snippetForm ={snippet: BASE_SNIPPET, categoryId: "1"}
     } catch (e) {
         return
     }
@@ -53,7 +53,7 @@ const initSnippetClickEventFunction = async () => {
 // 点击保存按钮事件回调
 const saveSnippetClickEventFunction = () => {
     // 更新操作
-    if (store.snippetForm.categoryId) {
+    if (store.snippetForm.id) {
         updateSnippet(store.snippetForm);
         successMessage("更新成功")
     } else {

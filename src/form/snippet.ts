@@ -3,5 +3,5 @@ export interface SnippetForm {
     title?: string
     snippet?: string
     type?: number
-    categoryId?: number
+    categoryId?: string
 }

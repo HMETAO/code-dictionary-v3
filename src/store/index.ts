@@ -26,7 +26,7 @@ export const useStateStore = defineStore(Names.STATE, {
     state() {
         return {
             loading: false,
-            snippetForm: <SnippetForm>{snippet: BASE_SNIPPET}
+            snippetForm: <SnippetForm>{snippet: BASE_SNIPPET, categoryId: "1"}
         }
     },
     getters: {},

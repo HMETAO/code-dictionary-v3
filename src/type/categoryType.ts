@@ -1,6 +1,6 @@
 export interface CategoryMenusType {
     id: string
-    parentId: number
+    parentId: string
     label: string
     children?: CategoryMenusType[]
     snippet: boolean
