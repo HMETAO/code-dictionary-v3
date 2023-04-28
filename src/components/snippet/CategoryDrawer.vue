@@ -4,7 +4,7 @@
                :before-close="drawerBeforeCallBack"
                @open="drawerOpenEventFunction">
         <template #default>
-            <el-tree v-loading="isFetching" :data="data" :expand-on-click-node="false"
+            <el-tree v-loading="isFetching" :data="data as CategoryMenusType[]" :expand-on-click-node="false"
                      @node-click="nodeClickEventFunction">
                 <template v-slot="{node,data}">
                     <div class="flex w-full">
@@ -15,7 +15,7 @@
                             <el-icon v-else>
                                 <Memo/>
                             </el-icon>
-                            {{ data.label }}
+                            {{ data.label + (!data.snippet ? "" : (data.type === 0 ? ".cd" : ".md")) }}
                         </div>
                         <div class="flex-1"></div>
                         <div>
@@ -70,7 +70,7 @@ const nodeClickEventFunction = async (data: CategoryMenusType) => {
         // 查询snippet
         const res: Result<SnippetType> = await getSnippet(data.id.replaceAll('sn-', ''))
         // 选择的是code文件，但是当前在markdown面板
-        if (res.data.type == TypeEnum.code) {
+        if (data.type == TypeEnum.code) {
             if (baseStore.isMarkDown) {
                 try {
                     await infoMessageBox("界面切换", "选择的Snippet为Code，是否切换界面")
@@ -79,7 +79,7 @@ const nodeClickEventFunction = async (data: CategoryMenusType) => {
                     return
                 }
             }
-        } else if (res.data.type == TypeEnum.markdown) {
+        } else if (data.type == TypeEnum.markdown) {
             if (!baseStore.isMarkDown) {
                 try {
                     await infoMessageBox("界面切换", "选择的Snippet为Markdown，是否切换界面")

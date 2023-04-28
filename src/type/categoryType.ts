@@ -4,4 +4,5 @@ export interface CategoryMenusType {
     label: string
     children?: CategoryMenusType[]
     snippet: boolean
+    type: number
 }
