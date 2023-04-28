@@ -1,19 +1,20 @@
 <template>
-    <MdEditor v-model="snippetForm.snippet"
-              @onSave="saveMarkdownEventFunction"
-              @onUploadImg="uploadImgEventFunction"
-              :toolbars-exclude="['github']"
-              :no-prettier="true"
-              :showCodeRowNumber="true">
-    </MdEditor>
+    <div class="markdown-box h-full">
+        <MdEditor v-model="snippetForm.snippet"
+                  @onSave="saveMarkdownEventFunction"
+                  @onUploadImg="uploadImgEventFunction"
+                  :toolbars-exclude="['github']"
+                  :no-prettier="true"
+                  :showCodeRowNumber="true">
+        </MdEditor>
+    </div>
 </template>
 <script setup lang="ts">
-import {ref, reactive, toRef, computed, getCurrentInstance, onUnmounted, onBeforeMount} from 'vue';
+import { getCurrentInstance, onBeforeMount} from 'vue';
 import MdEditor from 'md-editor-v3';
 import {SNIPPET_GET_EVENT} from "../../constants/EventConstants";
 import {useStateStore} from "../../store";
 import {storeToRefs} from "pinia";
-import {SnippetForm, SnippetUploadImageForm} from "../../form/snippet";
 import {SnippetType} from "../../type/snippetType";
 import {updateSnippet, uploadImg} from "../../api/snippet";
 
@@ -48,7 +49,13 @@ onBeforeMount(() => {
 })
 </script>
 <style scoped lang="less">
-.md-editor {
-  height: 100% !important;
+.markdown-box {
+  display: flex;
+  flex-direction: column;
+}
+
+:deep(.md-editor) {
+  flex: auto;
+  height: 0;
 }
 </style>
