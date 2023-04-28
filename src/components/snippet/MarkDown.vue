@@ -1,5 +1,8 @@
 <template>
-    <MdEditor v-model="snippetForm.snippet" :toolbars-exclude="['github']"
+    <MdEditor v-model="snippetForm.snippet"
+              @onSave="saveMarkdownEventFunction"
+              @onUploadImg="uploadImgEventFunction"
+              :toolbars-exclude="['github']"
               :no-prettier="true"
               :showCodeRowNumber="true">
     </MdEditor>
@@ -10,13 +13,29 @@ import MdEditor from 'md-editor-v3';
 import {SNIPPET_GET_EVENT} from "../../constants/EventConstants";
 import {useStateStore} from "../../store";
 import {storeToRefs} from "pinia";
-import {SnippetForm} from "../../form/snippet";
+import {SnippetForm, SnippetUploadImageForm} from "../../form/snippet";
 import {SnippetType} from "../../type/snippetType";
+import {updateSnippet, uploadImg} from "../../api/snippet";
 
 const stateStore = useStateStore()
 const {snippetForm} = storeToRefs(stateStore)
 
-
+//点击保存markdown按钮事件回调
+const saveMarkdownEventFunction = () => {
+    updateSnippet(snippetForm.value)
+}
+// markdown 上传图片
+const uploadImgEventFunction = async (files: Array<File>, callback: (urls: Array<string>) => void) => {
+    const form = new FormData();
+    // 组合表单对象批量上传
+    for (const file of files) {
+        form.append('files', file);
+    }
+    // 上传图片
+    const res = await uploadImg(form)
+    // 响应md
+    callback(res.data.urls)
+}
 const instance = getCurrentInstance()
 // 注册监听切换面板事件
 instance?.proxy?.$bus.on(SNIPPET_GET_EVENT, (snippet) => {

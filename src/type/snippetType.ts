@@ -5,3 +5,8 @@ export interface SnippetType {
     type?: number
     categoryId?: string
 }
+
+export interface SnippetUploadImagesType {
+    urls: Array<string>
+
+}

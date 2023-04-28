@@ -5,3 +5,6 @@ export interface SnippetForm {
     type?: number
     categoryId?: string
 }
+export interface SnippetUploadImageForm {
+    file:File
+}
