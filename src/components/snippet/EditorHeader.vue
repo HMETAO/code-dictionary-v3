@@ -29,11 +29,11 @@
 <script setup lang="ts">
 import {ref, reactive, computed} from 'vue';
 import {SnippetType} from "../../type/snippetType";
-import {BASE_SNIPPET} from "../../constants/EventConstants";
 import {successMessage, warningMessageBox} from "../../utils/baseMessage";
 import {updateSnippet} from "../../api/snippet";
 import SnippetInsertDialog from "./SnippetInsertDialog.vue";
 import {useStateStore} from "../../store";
+import {BASE_SNIPPET} from "../../constants/BaseConstants";
 
 const store = useStateStore()
 
@@ -44,7 +44,7 @@ const snippetDialogVisible = ref<boolean>(false)
 const initSnippetClickEventFunction = async () => {
     try {
         await warningMessageBox("初始化面板", "是否确定初始化Snippet面板？")
-        store.snippetForm ={snippet: BASE_SNIPPET, categoryId: "1"}
+        store.snippetForm = BASE_SNIPPET
     } catch (e) {
         return
     }

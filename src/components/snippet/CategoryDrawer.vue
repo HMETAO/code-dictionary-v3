@@ -29,9 +29,13 @@
             </el-tree>
         </template>
         <template #footer>
+            <el-button type="warning" size="large" @click="snippetDialogVisible = true">
+                新增 {{ baseStore.isMarkDown ? "MarkDown" : "Code" }} 文件
+            </el-button>
             <el-button type="primary" size="large" @click="changeSnippetEventFunction">切换展示面板</el-button>
         </template>
     </el-drawer>
+    <SnippetInsertDialog v-model="snippetDialogVisible"/>
 </template>
 <script setup lang="ts">
 import {getCurrentInstance, ref, watch} from 'vue';
@@ -39,17 +43,25 @@ import {getCategory} from "../../api/category";
 import {CategoryMenusType} from "../../type/categoryType";
 import {getSnippet} from "../../api/snippet";
 import {TypeEnum} from "../../enums/typeEnum";
-import {useBaseStore} from "../../store";
+import {useBaseStore, useStateStore} from "../../store";
 import {ElMessageBox} from "element-plus";
 import {SnippetType} from "../../type/snippetType";
 import {Result} from "../../result";
 import {SNIPPET_GET_EVENT} from "../../constants/EventConstants";
 import {infoMessageBox} from "../../utils/baseMessage";
+import SnippetInsertDialog from "./SnippetInsertDialog.vue";
+import {BASE_SNIPPET} from "../../constants/BaseConstants";
 
 const instance = getCurrentInstance()
-const store = useBaseStore()
+const snippetDialogVisible = ref<boolean>(false)
+const baseStore = useBaseStore()
+const stateStore = useStateStore()
+
+// 切换面板事件回调
 const changeSnippetEventFunction = () => {
-    store.isMarkDown = !store.isMarkDown
+    // 切换标志位
+    baseStore.isMarkDown = !baseStore.isMarkDown
+    stateStore.snippetForm = BASE_SNIPPET
 }
 // 点击节点事件函数
 const nodeClickEventFunction = async (data: CategoryMenusType) => {
@@ -59,19 +71,19 @@ const nodeClickEventFunction = async (data: CategoryMenusType) => {
         const res: Result<SnippetType> = await getSnippet(data.id.replaceAll('sn-', ''))
         // 选择的是code文件，但是当前在markdown面板
         if (res.data.type == TypeEnum.code) {
-            if (store.isMarkDown) {
+            if (baseStore.isMarkDown) {
                 try {
                     await infoMessageBox("界面切换", "选择的Snippet为Code，是否切换界面")
-                    store.isMarkDown = false
+                    changeSnippetEventFunction()
                 } catch (e) {
                     return
                 }
             }
         } else if (res.data.type == TypeEnum.markdown) {
-            if (!store.isMarkDown) {
+            if (!baseStore.isMarkDown) {
                 try {
                     await infoMessageBox("界面切换", "选择的Snippet为Markdown，是否切换界面")
-                    store.isMarkDown = true
+                    changeSnippetEventFunction()
                 } catch (e) {
                     return
                 }

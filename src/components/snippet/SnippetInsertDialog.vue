@@ -25,7 +25,7 @@
 <script setup lang="ts">
 import {ref, reactive, toRef, computed, watch} from 'vue';
 import {getCategory} from "../../api/category";
-import {useStateStore} from "../../store";
+import {useBaseStore, useStateStore} from "../../store";
 import {CategoryMenusType} from "../../type/categoryType";
 import {insertSnippet} from "../../api/snippet";
 import {SnippetForm} from "../../form/snippet";
@@ -34,17 +34,20 @@ import {storeToRefs} from "pinia";
 import {successMessage} from "../../utils/baseMessage";
 
 let {data, isFetching, execute} = getCategory(false, false)
-const store = useStateStore()
+const stateStore = useStateStore()
+const baseStore = useBaseStore()
 const categoryProps = {
     value: 'id',
     checkStrictly: true,
     emitPath: false
 }
 
-const {snippetForm} = storeToRefs(store)
+const {snippetForm} = storeToRefs(stateStore)
 const snippetFormRef = ref<FormInstance>()
 // 点击插入snippet按钮
 const insertSnippetClickEventFunction = async () => {
+    // 判断是markdown还是code类型
+    snippetForm.value.type = baseStore.isMarkDown ? 1 : 0;
     await insertSnippet(snippetForm.value as SnippetForm)
     successMessage("插入成功")
     // 关闭dialog

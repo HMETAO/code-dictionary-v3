@@ -22,7 +22,7 @@ import prism from "prismjs";
 
 import "prismjs/themes/prism-tomorrow.css";
 import EditorHeader from "./EditorHeader.vue";
-import {BASE_SNIPPET, SNIPPET_GET_EVENT} from "../../constants/EventConstants";
+import {SNIPPET_GET_EVENT} from "../../constants/EventConstants";
 import {SnippetType} from "../../type/snippetType";
 import {useStateStore} from "../../store";
 import {storeToRefs} from "pinia";

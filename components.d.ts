@@ -50,6 +50,7 @@ declare module '@vue/runtime-core' {
     RouterView: typeof import('vue-router')['RouterView']
     Snippet: typeof import('./src/components/snippet/Snippet.vue')['default']
     SnippetInsertDialog: typeof import('./src/components/snippet/SnippetInsertDialog.vue')['default']
+    Test: typeof import('./src/components/test.vue')['default']
   }
   export interface ComponentCustomProperties {
     vLoading: typeof import('element-plus/es')['ElLoadingDirective']
