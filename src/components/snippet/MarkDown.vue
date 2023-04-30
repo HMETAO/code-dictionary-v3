@@ -17,7 +17,7 @@ import {useStateStore} from "../../store";
 import {storeToRefs} from "pinia";
 import {SnippetType} from "../../type/snippetType";
 import {updateSnippet, uploadImg} from "../../api/snippet";
-import {SnippetForm} from "../../form/snippet";
+import {successMessage} from "../../utils/baseMessage";
 
 const stateStore = useStateStore()
 const {snippetForm} = storeToRefs(stateStore)
@@ -27,6 +27,7 @@ const saveMarkdownEventFunction = () => {
     // 判断是更新还是新增
     if (snippetForm.value.id) {
         updateSnippet(snippetForm.value)
+        successMessage("更新成功")
     } else {
         stateStore.snippetDialogVisible = true
     }
