@@ -11,6 +11,7 @@ declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     AsideMenu: typeof import('./src/components/AsideMenu.vue')['default']
     CategoryDrawer: typeof import('./src/components/snippet/CategoryDrawer.vue')['default']
+    CategoryInsertDialog: typeof import('./src/components/snippet/CategoryInsertDialog.vue')['default']
     EditorHeader: typeof import('./src/components/snippet/EditorHeader.vue')['default']
     ElAffix: typeof import('element-plus/es')['ElAffix']
     ElAside: typeof import('element-plus/es')['ElAside']

@@ -1,5 +1,5 @@
 // 登录表单类型
-export interface LoginFormType {
+export interface LoginForm {
     username?: string
     password?: string
 }

@@ -33,7 +33,7 @@ import {FormInstance} from "element-plus";
 import {storeToRefs} from "pinia";
 import {successMessage} from "../../utils/baseMessage";
 
-let {data, isFetching, execute} = getCategory(false, false)
+const {data, isFetching, execute} = getCategory(false, false)
 const stateStore = useStateStore()
 const baseStore = useBaseStore()
 const categoryProps = {

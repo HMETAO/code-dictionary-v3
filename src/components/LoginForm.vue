@@ -40,7 +40,7 @@
 </template>
 <script setup lang="ts">
 import {ref} from 'vue';
-import {LoginFormType} from "../form/user";
+import {LoginForm} from "../form/user";
 import {Lock, User} from '@element-plus/icons-vue'
 import {useBaseStore, useStateStore} from "../store";
 import {login} from "../api/user";
@@ -48,7 +48,7 @@ import {useRouter} from "vue-router";
 import {Result} from "../result";
 import {UserInfo} from "../type/userType";
 // 登录表单
-const loginForm = ref<LoginFormType>({
+const loginForm = ref<LoginForm>({
   username: "HMETAO",
   password: "123456"
 })

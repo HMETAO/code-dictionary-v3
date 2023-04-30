@@ -1,8 +1,8 @@
 import request from '../utils/request'
-import {LoginFormType} from "../form/user";
+import {LoginForm} from "../form/user";
 import {Result} from "../result";
 import {UserInfo} from "../type/userType";
-export function login(data: LoginFormType): Promise<Result<UserInfo>> {
+export function login(data: LoginForm): Promise<Result<UserInfo>> {
     return request({
         url: '/api/v1/user/login',
         method: 'post',
@@ -18,7 +18,7 @@ export function logout(): Promise<Result> {
 }
 
 
-export function registry(data: LoginFormType): Promise<Result> {
+export function registry(data: LoginForm): Promise<Result> {
     return request({
         url: '/api/v1/user/registry',
         method: 'post',

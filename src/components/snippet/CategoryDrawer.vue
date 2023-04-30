@@ -8,18 +8,22 @@
                      @node-click="nodeClickEventFunction">
                 <template v-slot="{node,data}">
                     <div class="flex w-full">
-                        <div>
-                            <el-icon v-if="!data.snippet">
-                                <Folder/>
-                            </el-icon>
-                            <el-icon v-else>
-                                <Memo/>
-                            </el-icon>
+                        <div style="display: flex;align-items: center;flex-direction: row">
+                            <div style="display: flex;margin-right: 5px;align-items: center;">
+                                <el-icon v-if="!data.snippet">
+                                    <Folder/>
+                                </el-icon>
+                                <el-icon v-else>
+                                    <Memo/>
+                                </el-icon>
+                            </div>
                             {{ data.label + (!data.snippet ? "" : (data.type === 0 ? ".cd" : ".md")) }}
                         </div>
                         <div class="flex-1"></div>
                         <div>
-                            <el-button v-if='!data.snippet' text type="primary" size="small">新增</el-button>
+                            <el-button v-if='!data.snippet' text type="primary" size="small"
+                                       @click="categoryDialogVisible = true">新增
+                            </el-button>
                         </div>
                         <div>
                             <el-button text type="primary" size="small">删除</el-button>
@@ -35,6 +39,8 @@
             <el-button type="primary" size="large" @click="changeSnippetEventFunction">切换展示面板</el-button>
         </template>
     </el-drawer>
+  <!--category-dialog-->
+    <CategoryInsertDialog v-model="categoryDialogVisible"/>
 
 </template>
 <script setup lang="ts">
@@ -51,10 +57,13 @@ import {SNIPPET_GET_EVENT} from "../../constants/EventConstants";
 import {infoMessageBox} from "../../utils/baseMessage";
 import SnippetInsertDialog from "./SnippetInsertDialog.vue";
 import {BASE_SNIPPET} from "../../constants/BaseConstants";
+import CategoryInsertDialog from "./CategoryInsertDialog.vue";
 
 const instance = getCurrentInstance()
 const baseStore = useBaseStore()
 const stateStore = useStateStore()
+// 点击新增 category 事件回调
+const categoryDialogVisible = ref<boolean>(false)
 
 // 切换面板事件回调
 const changeSnippetEventFunction = () => {
