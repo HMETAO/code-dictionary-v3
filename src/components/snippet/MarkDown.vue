@@ -10,20 +10,28 @@
     </div>
 </template>
 <script setup lang="ts">
-import { getCurrentInstance, onBeforeMount} from 'vue';
+import {getCurrentInstance, onBeforeMount} from 'vue';
 import MdEditor from 'md-editor-v3';
 import {SNIPPET_GET_EVENT} from "../../constants/EventConstants";
 import {useStateStore} from "../../store";
 import {storeToRefs} from "pinia";
 import {SnippetType} from "../../type/snippetType";
 import {updateSnippet, uploadImg} from "../../api/snippet";
+import {SnippetForm} from "../../form/snippet";
 
 const stateStore = useStateStore()
 const {snippetForm} = storeToRefs(stateStore)
 
 //点击保存markdown按钮事件回调
 const saveMarkdownEventFunction = () => {
-    updateSnippet(snippetForm.value)
+    // 判断是更新还是新增
+    if (snippetForm.value.id) {
+        updateSnippet(snippetForm.value)
+    } else {
+        stateStore.snippetDialogVisible = true
+    }
+
+
 }
 // markdown 上传图片
 const uploadImgEventFunction = async (files: Array<File>, callback: (urls: Array<string>) => void) => {

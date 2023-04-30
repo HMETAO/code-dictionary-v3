@@ -26,7 +26,8 @@ export const useStateStore = defineStore(Names.STATE, {
     state() {
         return {
             loading: false,
-            snippetForm: <SnippetForm>BASE_SNIPPET
+            snippetForm: <SnippetForm>BASE_SNIPPET,
+            snippetDialogVisible: false
         }
     },
     getters: {},

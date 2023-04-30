@@ -23,7 +23,6 @@
             </el-tooltip>
         </div>
     </div>
-    <SnippetInsertDialog v-model="snippetDialogVisible"/>
 
 </template>
 <script setup lang="ts">
@@ -38,7 +37,6 @@ import {BASE_SNIPPET} from "../../constants/BaseConstants";
 const store = useStateStore()
 
 
-const snippetDialogVisible = ref<boolean>(false)
 
 // 点击初始化Snippet面板事件回调
 const initSnippetClickEventFunction = async () => {
@@ -57,7 +55,7 @@ const saveSnippetClickEventFunction = () => {
         updateSnippet(store.snippetForm);
         successMessage("更新成功")
     } else {
-        snippetDialogVisible.value = true;
+        store.snippetDialogVisible = true;
     }
 }
 

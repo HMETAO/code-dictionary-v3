@@ -29,13 +29,13 @@
             </el-tree>
         </template>
         <template #footer>
-            <el-button type="warning" size="large" @click="snippetDialogVisible = true">
+            <el-button type="warning" size="large" @click="stateStore.snippetDialogVisible = true">
                 新增 {{ baseStore.isMarkDown ? "MarkDown" : "Code" }} 文件
             </el-button>
             <el-button type="primary" size="large" @click="changeSnippetEventFunction">切换展示面板</el-button>
         </template>
     </el-drawer>
-    <SnippetInsertDialog v-model="snippetDialogVisible"/>
+
 </template>
 <script setup lang="ts">
 import {getCurrentInstance, ref, watch} from 'vue';
@@ -53,7 +53,6 @@ import SnippetInsertDialog from "./SnippetInsertDialog.vue";
 import {BASE_SNIPPET} from "../../constants/BaseConstants";
 
 const instance = getCurrentInstance()
-const snippetDialogVisible = ref<boolean>(false)
 const baseStore = useBaseStore()
 const stateStore = useStateStore()
 

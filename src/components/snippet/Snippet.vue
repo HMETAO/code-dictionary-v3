@@ -1,6 +1,6 @@
 <template>
     <div class="w-full h-full snippet-box">
-        <MarkDown v-if="store.isMarkDown"></MarkDown>
+        <MarkDown v-if="baseStore.isMarkDown"></MarkDown>
         <PrismEditor v-else></PrismEditor>
         <div class="snippet-menus">
             <el-button class="snippet-btn" type="primary" @click="isCategoryDrawer = true" size="large" circle>
@@ -11,6 +11,7 @@
         </div>
         <!--snippet选择的drawer-->
         <CategoryDrawer v-model="isCategoryDrawer"></CategoryDrawer>
+        <SnippetInsertDialog v-model="stateStore.snippetDialogVisible"/>
     </div>
 </template>
 <script setup lang="ts">
@@ -18,9 +19,11 @@ import {ref, reactive, toRef, computed} from 'vue';
 import MarkDown from "./MarkDown.vue";
 import CategoryDrawer from "./CategoryDrawer.vue";
 import PrismEditor from "./PrismEditor.vue";
-import {useBaseStore} from "../../store";
+import {useBaseStore,useStateStore} from "../../store";
+import SnippetInsertDialog from "./SnippetInsertDialog.vue";
 
-const store = useBaseStore();
+const baseStore = useBaseStore();
+const stateStore = useStateStore();
 // 分类抽屉
 const isCategoryDrawer = ref<boolean>(false)
 </script>
