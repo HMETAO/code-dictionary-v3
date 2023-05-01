@@ -3,7 +3,6 @@
         <el-dialog
                 title='添加 Category'
                 v-model="categoryDialogVisible"
-                @open="dialogOpenEventFunction"
                 @close='dialogCloseEventFunction'
                 width='25%'>
             <el-form :model='categoryInsertForm' ref='categoryInsertFormRef'>
@@ -71,13 +70,18 @@ const categoryInsertClickEventFunction = async () => {
 
 // 声明获取category接口
 const {data, isFetching, execute} = getCategory(false, false)
+
 let categoryData = ref<CategoryMenusType[]>([{label: "顶级分组", id: "0"}])
-// dialog开启回调
-const dialogOpenEventFunction = async () => {
-    // 发送请求category信息
+
+// 初始化方法
+const init = async () => {
     await execute()
     categoryData.value = categoryData.value.concat(data.value as CategoryMenusType)
 }
+
+// 调用初始化方法
+init()
+
 
 // dialog关闭回调
 const dialogCloseEventFunction = () => {
