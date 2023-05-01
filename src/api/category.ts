@@ -17,10 +17,21 @@ export function getCategory(immediate: boolean = true, snippet?: boolean): UseFe
  * 新增category
  * @param data 表单数据
  */
-export function insertCategory(data: CategoryInsertForm): Promise<Result> {
+export function insertCategory(data: CategoryInsertForm): Promise<Result<CategoryMenusType>> {
     return request({
         url: `/api/v1/category`,
         method: 'post',
         data
+    })
+}
+
+/**
+ * 删除category
+ * @param id categoryId
+ */
+export function deleteCategory(id: string): Promise<Result> {
+    return request({
+        url: `/api/v1/category/` + id,
+        method: 'delete',
     })
 }

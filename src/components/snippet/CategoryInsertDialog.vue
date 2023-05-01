@@ -56,20 +56,22 @@ const prop = defineProps<{
 // 向上触发更新
 const emit = defineEmits<{
     (e: 'update:modelValue', modelValue: boolean): void
+    (e: 'on-insert', data: CategoryMenusType): void
 }>()
 
 // 新增category接口回调
 const categoryInsertClickEventFunction = async () => {
     // 调用接口插入category
-    await insertCategory(categoryInsertForm.value)
+    const res = await insertCategory(categoryInsertForm.value)
     successMessage("添加分组成功")
+    emit('on-insert', res.data)
     // 关闭dialog
     changeCategoryDialogVisible()
 
 }
 
 // 声明获取category接口
-const {data, isFetching, execute} = getCategory(false, false)
+const {data, execute} = getCategory(false, false)
 
 let categoryData = ref<CategoryMenusType[]>([{label: "顶级分组", id: "0"}])
 

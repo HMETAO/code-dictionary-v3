@@ -26,7 +26,9 @@
                             </el-button>
                         </div>
                         <div>
-                            <el-button text type="primary" size="small">删除</el-button>
+                            <el-button text type="primary" size="small" @click="delCategoryEventFunction(data.id)">
+                                删除
+                            </el-button>
                         </div>
                     </div>
                 </template>
@@ -40,22 +42,20 @@
         </template>
     </el-drawer>
   <!--category-dialog-->
-    <CategoryInsertDialog v-model="categoryDialogVisible"/>
+    <CategoryInsertDialog v-model="categoryDialogVisible" @on-insert="insertEventFunction"/>
 
 </template>
 <script setup lang="ts">
 import {getCurrentInstance, ref, watch} from 'vue';
-import {getCategory} from "../../api/category";
+import {deleteCategory, getCategory} from "../../api/category";
 import {CategoryMenusType} from "../../type/categoryType";
 import {getSnippet} from "../../api/snippet";
 import {TypeEnum} from "../../enums/typeEnum";
 import {useBaseStore, useStateStore} from "../../store";
-import {ElMessageBox} from "element-plus";
 import {SnippetType} from "../../type/snippetType";
 import {Result} from "../../result";
 import {SNIPPET_GET_EVENT} from "../../constants/EventConstants";
-import {infoMessageBox} from "../../utils/baseMessage";
-import SnippetInsertDialog from "./SnippetInsertDialog.vue";
+import {infoMessageBox, successMessage} from "../../utils/baseMessage";
 import {BASE_SNIPPET} from "../../constants/BaseConstants";
 import CategoryInsertDialog from "./CategoryInsertDialog.vue";
 
@@ -64,6 +64,23 @@ const baseStore = useBaseStore()
 const stateStore = useStateStore()
 // 点击新增 category 事件回调
 const categoryDialogVisible = ref<boolean>(false)
+// 请求category但是手动触发模式
+let {data, isFetching, execute} = getCategory(false)
+
+
+// 子组件新增成功事件通知
+const insertEventFunction = (sonData: CategoryMenusType) => {
+    execute()
+}
+
+// 删除 category 事件回调
+const delCategoryEventFunction = async (id: string) => {
+    // 调用api删除Category
+    await deleteCategory(id)
+    successMessage("删除 Category 成功")
+    // 刷新category列表
+    execute()
+}
 
 // 切换面板事件回调
 const changeSnippetEventFunction = () => {
@@ -71,8 +88,10 @@ const changeSnippetEventFunction = () => {
     baseStore.isMarkDown = !baseStore.isMarkDown
     stateStore.snippetForm = BASE_SNIPPET
 }
+
 // 点击节点事件函数
 const nodeClickEventFunction = async (data: CategoryMenusType) => {
+    if (!data.id) return
     // 若点击的是snippet文件
     if (data.snippet) {
         // 查询snippet
@@ -103,17 +122,18 @@ const nodeClickEventFunction = async (data: CategoryMenusType) => {
         instance?.proxy?.$bus.emit(SNIPPET_GET_EVENT, res.data)
     }
 }
+
 // 关闭前回调
 const drawerBeforeCallBack = () => {
     updateModelValueEventFunction(false)
 }
-// 请求category但是手动触发模式
-let {data, isFetching, execute} = getCategory(false)
+
 // drawer打开事件函数
 const drawerOpenEventFunction = () => {
     // 触发获取category网络请求
     execute()
 }
+
 // 父传子参数
 const prop = defineProps<{
     // isCategoryDrawer
