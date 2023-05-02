@@ -1,10 +1,11 @@
 import {createRouter, createWebHistory, Router, RouteRecordRaw} from "vue-router"
-import {useBaseStore} from "../store";
+import {useBaseStore, useStateStore} from "../store";
 // 导入进度条
 import {start, close} from "../utils/nporgress";
 import {infoMessage} from "../utils/baseMessage";
 
 let baseStore: any = null
+let stateStore: any = null
 const routes: Array<RouteRecordRaw> = [
     {
         path: "/",
@@ -23,7 +24,12 @@ const routes: Array<RouteRecordRaw> = [
         children: [
             {
                 path: "/snippet",
-                name: "Snippet",
+                name: "snippet",
+                component: () => import('../components/snippet/Snippet.vue')
+            },
+            {
+                path: "/tool",
+                name: "tool",
                 component: () => import('../components/snippet/Snippet.vue')
             }
         ]
@@ -33,13 +39,13 @@ const router: Router = createRouter({
     history: createWebHistory(),
     routes
 })
+// 前置守卫
 router.beforeEach((to, from, next) => {
     start()
-
     if (baseStore === null) {
-        baseStore = useBaseStore();
+        baseStore = useBaseStore()
+        stateStore = useStateStore()
     }
-
     if (to.name !== 'Login' && !baseStore.token) {
         infoMessage("请重新登录后在进行访问。。。")
         next({name: 'Login'})
@@ -47,8 +53,10 @@ router.beforeEach((to, from, next) => {
         next()
     }
 })
+// 后置守卫
 router.afterEach(async (to, from, failure) => {
     close()
+    stateStore.menuActive = to.name
 })
 
 export default router
