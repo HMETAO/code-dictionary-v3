@@ -26,7 +26,7 @@
                             </el-button>
                         </div>
                         <div>
-                            <el-button text type="primary" size="small" @click="delCategoryEventFunction(data.id)">
+                            <el-button text type="primary" size="small" @click="delCategoryEventFunction(data)">
                                 删除
                             </el-button>
                         </div>
@@ -50,7 +50,7 @@
 import {getCurrentInstance, nextTick, ref, watch} from 'vue';
 import {deleteCategory, getCategory} from "../../api/category";
 import {CategoryMenusType} from "../../type/categoryType";
-import {getSnippet} from "../../api/snippet";
+import {deleteSnippet, getSnippet} from "../../api/snippet";
 import {TypeEnum} from "../../enums/typeEnum";
 import {useBaseStore, useStateStore} from "../../store";
 import {SnippetType} from "../../type/snippetType";
@@ -75,12 +75,20 @@ const insertEventFunction = (sonData: CategoryMenusType) => {
 }
 
 // 删除 category 事件回调
-const delCategoryEventFunction = async (id: string) => {
+const delCategoryEventFunction = async (data: CategoryMenusType) => {
     try {
-        await errorMessageBox("删除 Category", "是否确认删除该分组，若该分类下有子分组将移动至通用分组")
-        // 调用api删除Category
-        await deleteCategory(id)
-        successMessage("删除 Category 成功")
+        // 删除的是category
+        if (!data.snippet) {
+            await errorMessageBox("删除 Category", "是否确认删除该分组，若该分类下有子分组将移动至通用分组")
+            // 调用api删除Category
+            await deleteCategory(data.id as string)
+            successMessage("删除 Category 成功")
+        } else {
+            await errorMessageBox("删除 Snippet", "是否确认删除该snippet")
+            // 调用api删除Snippet
+            await deleteSnippet(data.id?.replaceAll("sn-", "") as string)
+            successMessage("删除 Snippet 成功")
+        }
         // 刷新category列表
         execute()
     } catch (e) {

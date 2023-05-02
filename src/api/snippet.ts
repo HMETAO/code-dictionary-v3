@@ -50,3 +50,10 @@ export function insertSnippet(data: SnippetForm): Promise<Result> {
         data
     })
 }
+
+export function deleteSnippet(id: string): Promise<Result> {
+    return request({
+        url: `/api/v1/snippet/` + id,
+        method: 'delete'
+    })
+}
