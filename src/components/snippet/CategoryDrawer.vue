@@ -108,7 +108,6 @@ const nodeClickEventFunction = async (data: CategoryMenusType) => {
                 try {
                     await infoMessageBox("界面切换", "选择的Snippet为Code，是否切换界面")
                     changeSnippetEventFunction()
-                    console.log(222)
                 } catch (e) {
                     return
                 }
