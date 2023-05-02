@@ -35,6 +35,7 @@
             </el-tree>
         </template>
         <template #footer>
+            <!--footer区域-->
             <el-button type="warning" size="large" @click="stateStore.snippetDialogVisible = true">
                 新增 {{ baseStore.isMarkDown ? "MarkDown" : "Code" }} 文件
             </el-button>
@@ -46,7 +47,7 @@
 
 </template>
 <script setup lang="ts">
-import {getCurrentInstance, ref, watch} from 'vue';
+import {getCurrentInstance, nextTick, ref, watch} from 'vue';
 import {deleteCategory, getCategory} from "../../api/category";
 import {CategoryMenusType} from "../../type/categoryType";
 import {getSnippet} from "../../api/snippet";
@@ -55,7 +56,7 @@ import {useBaseStore, useStateStore} from "../../store";
 import {SnippetType} from "../../type/snippetType";
 import {Result} from "../../result";
 import {SNIPPET_GET_EVENT} from "../../constants/EventConstants";
-import {infoMessageBox, successMessage} from "../../utils/baseMessage";
+import {errorMessageBox, infoMessageBox, successMessage} from "../../utils/baseMessage";
 import {BASE_SNIPPET} from "../../constants/BaseConstants";
 import CategoryInsertDialog from "./CategoryInsertDialog.vue";
 
@@ -75,11 +76,16 @@ const insertEventFunction = (sonData: CategoryMenusType) => {
 
 // 删除 category 事件回调
 const delCategoryEventFunction = async (id: string) => {
-    // 调用api删除Category
-    await deleteCategory(id)
-    successMessage("删除 Category 成功")
-    // 刷新category列表
-    execute()
+    try {
+        await errorMessageBox("删除 Category", "是否确认删除该分组，若该分类下有子分组将移动至通用分组")
+        // 调用api删除Category
+        await deleteCategory(id)
+        successMessage("删除 Category 成功")
+        // 刷新category列表
+        execute()
+    } catch (e) {
+        return
+    }
 }
 
 // 切换面板事件回调
@@ -102,6 +108,7 @@ const nodeClickEventFunction = async (data: CategoryMenusType) => {
                 try {
                     await infoMessageBox("界面切换", "选择的Snippet为Code，是否切换界面")
                     changeSnippetEventFunction()
+                    console.log(222)
                 } catch (e) {
                     return
                 }
@@ -118,6 +125,8 @@ const nodeClickEventFunction = async (data: CategoryMenusType) => {
         }
         // 选择的snippet的分类
         res.data.categoryId = data.parentId
+        // 让数据先更新，界面切换后会注册 SNIPPET_GET_EVENT 事件否则造成发了通知，但是页面未注册事件的情况
+        await nextTick()
         // 触发获取snippet事件
         instance?.proxy?.$bus.emit(SNIPPET_GET_EVENT, res.data)
     }

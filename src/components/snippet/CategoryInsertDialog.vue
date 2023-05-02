@@ -5,6 +5,7 @@
                 v-model="categoryDialogVisible"
                 @close='dialogCloseEventFunction'
                 width='25%'>
+            <!--category 表单-->
             <el-form :model='categoryInsertForm' ref='categoryInsertFormRef'>
                 <el-form-item label='分组名：' prop='name'>
                     <el-input v-model='categoryInsertForm.name' placeholder='请输入分组名称'></el-input>
