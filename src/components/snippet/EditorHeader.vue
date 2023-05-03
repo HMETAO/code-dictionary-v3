@@ -32,7 +32,7 @@ import {successMessage, warningMessageBox} from "../../utils/baseMessage";
 import {updateSnippet} from "../../api/snippet";
 import SnippetInsertDialog from "./SnippetInsertDialog.vue";
 import {useStateStore} from "../../store";
-import {BASE_SNIPPET} from "../../constants/BaseConstants";
+import {BASE_SNIPPET} from "../../constants/baseConstants";
 
 const store = useStateStore()
 

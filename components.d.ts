@@ -33,11 +33,14 @@ declare module '@vue/runtime-core' {
     ElMenu: typeof import('element-plus/es')['ElMenu']
     ElMenuItem: typeof import('element-plus/es')['ElMenuItem']
     ElMenuItemGroup: typeof import('element-plus/es')['ElMenuItemGroup']
+    ElPagination: typeof import('element-plus/es')['ElPagination']
     ElProgress: typeof import('element-plus/es')['ElProgress']
     ElRadio: typeof import('element-plus/es')['ElRadio']
     ElRow: typeof import('element-plus/es')['ElRow']
     ElSubmenu: typeof import('element-plus/es')['ElSubmenu']
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
+    ElTable: typeof import('element-plus/es')['ElTable']
+    ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
     ElTree: typeof import('element-plus/es')['ElTree']
     Header: typeof import('./src/components/layout/header.vue')['default']
@@ -52,6 +55,8 @@ declare module '@vue/runtime-core' {
     Snippet: typeof import('./src/components/snippet/Snippet.vue')['default']
     SnippetInsertDialog: typeof import('./src/components/snippet/SnippetInsertDialog.vue')['default']
     Test: typeof import('./src/components/test.vue')['default']
+    Tool: typeof import('./src/components/tool/Tool.vue')['default']
+    ToolTable: typeof import('./src/components/tool/ToolTable.vue')['default']
   }
   export interface ComponentCustomProperties {
     vLoading: typeof import('element-plus/es')['ElLoadingDirective']

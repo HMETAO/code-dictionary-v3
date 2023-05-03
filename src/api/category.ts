@@ -4,7 +4,7 @@ import {Result} from "../result";
 import {CategoryMenusType} from "../type/categoryType";
 import {SnippetForm} from "../form/snippet";
 import request from "../utils/request";
-import {CategoryInsertForm} from "../form/Category";
+import {CategoryInsertForm} from "../form/category";
 
 /**
  * 通过useFetch的方式请求category但是为手动触发

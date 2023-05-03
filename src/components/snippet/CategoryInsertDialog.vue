@@ -27,7 +27,7 @@
 </template>
 <script setup lang="ts">
 
-import {CategoryInsertForm} from "../../form/Category";
+import {CategoryInsertForm} from "../../form/category";
 import {ref, watch} from "vue";
 import {getCategory, insertCategory} from "../../api/category";
 import {CategoryMenusType} from "../../type/categoryType";

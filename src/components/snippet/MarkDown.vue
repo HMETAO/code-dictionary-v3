@@ -12,7 +12,7 @@
 <script setup lang="ts">
 import {getCurrentInstance, onBeforeMount} from 'vue';
 import MdEditor from 'md-editor-v3';
-import {SNIPPET_GET_EVENT} from "../../constants/EventConstants";
+import {SNIPPET_GET_EVENT} from "../../constants/eventConstants";
 import {useStateStore} from "../../store";
 import {storeToRefs} from "pinia";
 import {SnippetType} from "../../type/snippetType";

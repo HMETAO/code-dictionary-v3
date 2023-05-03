@@ -55,9 +55,9 @@ import {TypeEnum} from "../../enums/typeEnum";
 import {useBaseStore, useStateStore} from "../../store";
 import {SnippetType} from "../../type/snippetType";
 import {Result} from "../../result";
-import {SNIPPET_GET_EVENT} from "../../constants/EventConstants";
+import {SNIPPET_GET_EVENT} from "../../constants/eventConstants";
 import {errorMessageBox, infoMessageBox, successMessage} from "../../utils/baseMessage";
-import {BASE_SNIPPET} from "../../constants/BaseConstants";
+import {BASE_SNIPPET} from "../../constants/baseConstants";
 import CategoryInsertDialog from "./CategoryInsertDialog.vue";
 
 const instance = getCurrentInstance()

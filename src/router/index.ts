@@ -30,7 +30,7 @@ const routes: Array<RouteRecordRaw> = [
             {
                 path: "/tool",
                 name: "tool",
-                component: () => import('../components/snippet/Snippet.vue')
+                component: () => import('../components/tool/Tool.vue')
             }
         ]
     }
