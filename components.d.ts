@@ -56,6 +56,7 @@ declare module '@vue/runtime-core' {
     SnippetInsertDialog: typeof import('./src/components/snippet/SnippetInsertDialog.vue')['default']
     Test: typeof import('./src/components/test.vue')['default']
     Tool: typeof import('./src/components/tool/Tool.vue')['default']
+    ToolHeader: typeof import('./src/components/tool/ToolHeader.vue')['default']
     ToolTable: typeof import('./src/components/tool/ToolTable.vue')['default']
   }
   export interface ComponentCustomProperties {
