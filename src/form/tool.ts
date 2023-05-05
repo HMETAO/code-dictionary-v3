@@ -1,4 +1,4 @@
 export interface ToolQueryForm {
-    pageSize?: number,
-    pageNum?: number
+    pageSize: number,
+    pageNum: number
 }
