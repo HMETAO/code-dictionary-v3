@@ -14,3 +14,14 @@ export function getTool(query: ToolQueryForm): Promise<Result<PageInfo>> {
         params: query
     })
 }
+
+/**
+ * 删除tool
+ * @param id toolId
+ */
+export function delTool(id: number): Promise<Result<PageInfo>> {
+    return request({
+        url: '/api/v1/tool/' + id,
+        method: 'delete',
+    })
+}

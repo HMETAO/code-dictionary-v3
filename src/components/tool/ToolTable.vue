@@ -1,39 +1,16 @@
 <template>
     <div class="w-full table-box h-full">
-        <el-table border
-                  highlight-current-row
-                  :data='tableData.list'
-                  style="margin-bottom: 20px;flex: 1"
+        <el-table border highlight-current-row :data='tableData.list' style="margin-bottom: 20px;flex: 1"
                   class="w-full">
-            <el-table-column
-                    type='selection'>
-            </el-table-column>
-            <el-table-column
-                    align='center'
-                    prop='toolName'
-                    label='工具名'>
-            </el-table-column>
-            <el-table-column
-                    align='center'
-                    prop='toolType'
-                    label='工具类型'>
-            </el-table-column>
-            <el-table-column
-                    align='center'
-                    prop='toolSize'
-                    label='工具大小 (kb)'>
-            </el-table-column>
-            <el-table-column
-                    align='center'
-                    prop='createTime'
-                    label='上传时间'>
-            </el-table-column>
-            <el-table-column
-                    align='center'
-                    label='操作'>
-                <template v-slot='scope'>
+            <el-table-column type='selection'></el-table-column>
+            <el-table-column align='center' prop='toolName' label='工具名'></el-table-column>
+            <el-table-column align='center' prop='toolType' label='工具类型'></el-table-column>
+            <el-table-column align='center' prop='toolSize' label='工具大小 (kb)'></el-table-column>
+            <el-table-column align='center' prop='createTime' label='上传时间'></el-table-column>
+            <el-table-column align='center' label='操作'>
+                <template #default="scope">
                     <el-button type='primary' size='small'>下载</el-button>
-                    <el-button type='danger' size='small'>删除</el-button>
+                    <el-button type='danger' size='small' @click="deleteToolEventFunction(scope.row)">删除</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -49,8 +26,9 @@
 <script setup lang="ts">
 import {ref} from 'vue';
 import {ToolQueryForm} from "../../form/tool";
-import {getTool} from "../../api/tool";
-import {PageInfo} from "../../type/toolType";
+import {delTool, getTool} from "../../api/tool";
+import {PageInfo, ToolType} from "../../type/toolType";
+import {successMessage} from "../../utils/baseMessage";
 
 // 请求form
 const queryForm = ref<ToolQueryForm>({pageSize: 10, pageNum: 1})
@@ -58,11 +36,19 @@ const queryForm = ref<ToolQueryForm>({pageSize: 10, pageNum: 1})
 // 表格数据
 const tableData = ref<PageInfo>({})
 
+
 // 请求tool数据初始化
 getTool(queryForm.value).then((res) => {
     tableData.value = res.data
 })
-
+// 删除Tool事件回调
+const deleteToolEventFunction = async (raw: ToolType) => {
+    await delTool(raw.id)
+    tableData.value.list = tableData.value.list?.filter(item => {
+        return item.id != raw.id;
+    })
+    successMessage("删除成功")
+}
 // 请求参数发生变化事件回调
 const queryPropChangeEventFunction = async () => {
     const res = await getTool(queryForm.value)
