@@ -1,6 +1,8 @@
 <template>
     <div class="w-full table-box h-full">
-        <el-table border highlight-current-row :data='tableData.list' style="margin-bottom: 20px;flex: 1"
+        <el-table border highlight-current-row :data='tableData.list'
+                  style="margin-bottom: 20px;flex: 1"
+                  @selection-change="selectChangeEventFunction"
                   class="w-full">
             <el-table-column type='selection'></el-table-column>
             <el-table-column align='center' prop='toolName' label='工具名'></el-table-column>
@@ -24,12 +26,14 @@
     </div>
 </template>
 <script setup lang="ts">
-import {ref} from 'vue';
+import {getCurrentInstance, ref} from 'vue';
 import {ToolQueryForm} from "../../form/tool";
 import {delTool, getTool} from "../../api/tool";
 import {PageInfo, ToolType} from "../../type/toolType";
 import {successMessage} from "../../utils/baseMessage";
+import {TOOLS_ID_CHANGE_EVENT} from "../../constants/eventConstants";
 
+const instance = getCurrentInstance()
 // 请求form
 const queryForm = ref<ToolQueryForm>({pageSize: 10, pageNum: 1})
 
@@ -41,6 +45,13 @@ const tableData = ref<PageInfo>({})
 getTool(queryForm.value).then((res) => {
     tableData.value = res.data
 })
+
+// 选择框发生改变事件回调
+const selectChangeEventFunction = (val: ToolType[]) => {
+    // 触发ids更新事件
+    instance?.proxy?.$bus.emit(TOOLS_ID_CHANGE_EVENT, val)
+}
+
 // 删除Tool事件回调
 const deleteToolEventFunction = async (raw: ToolType) => {
     await delTool(raw.id)

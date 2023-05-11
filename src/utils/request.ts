@@ -34,6 +34,9 @@ service.interceptors.response.use(
      * You can also judge the status by HTTP Status Code
      */
     (response: AxiosResponse) => {
+        if (response.data instanceof Blob) {
+            return {data: response.data, headers: response.headers}
+        }
         return {...response.data, headers: response.headers}
     },
     (err: AxiosError) => {

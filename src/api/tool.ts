@@ -2,6 +2,7 @@ import {Result} from "../result";
 import {PageInfo} from "../type/toolType";
 import {ToolQueryForm} from "../form/tool";
 import request from "../utils/request";
+import qs from "qs";
 
 /**
  * 获取tool列表
@@ -25,3 +26,21 @@ export function delTool(id: number): Promise<Result<PageInfo>> {
         method: 'delete',
     })
 }
+
+
+/**
+ * 下载工具
+ * @param ids toolIds
+ */
+export function downloadTools(ids: Array<number>) {
+    return request({
+        url: '/api/v1/tool/download',
+        method: 'get',
+        params: {ids: ids},
+        paramsSerializer: {
+            serialize: params => qs.stringify(params, {indices: false}),
+        },
+        responseType: "blob"
+    })
+}
+
