@@ -11,7 +11,8 @@
             <el-table-column align='center' prop='createTime' label='上传时间'></el-table-column>
             <el-table-column align='center' label='操作'>
                 <template #default="scope">
-                    <el-button type='primary' size='small'>下载</el-button>
+                    <el-button type='primary' size='small' @click="downloadToolEventFunction(scope.row)">下载
+                    </el-button>
                     <el-button type='danger' size='small' @click="deleteToolEventFunction(scope.row)">删除</el-button>
                 </template>
             </el-table-column>
@@ -28,7 +29,7 @@
 <script setup lang="ts">
 import {getCurrentInstance, ref} from 'vue';
 import {ToolQueryForm} from "../../form/tool";
-import {delTool, getTool} from "../../api/tool";
+import {delTool, downloadTools, getTool} from "../../api/tool";
 import {PageInfo, ToolType} from "../../type/toolType";
 import {successMessage} from "../../utils/baseMessage";
 import {TOOLS_ID_CHANGE_EVENT} from "../../constants/eventConstants";
@@ -45,6 +46,11 @@ const tableData = ref<PageInfo>({})
 getTool(queryForm.value).then((res) => {
     tableData.value = res.data
 })
+
+// 下载事件回调
+const downloadToolEventFunction = (raw: ToolType) => {
+    location.href = raw.url
+}
 
 // 选择框发生改变事件回调
 const selectChangeEventFunction = (val: ToolType[]) => {
