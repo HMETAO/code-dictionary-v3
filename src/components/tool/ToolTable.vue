@@ -32,19 +32,27 @@ import {ToolQueryForm} from "../../form/tool";
 import {delTool, downloadTools, getTool} from "../../api/tool";
 import {PageInfo, ToolType} from "../../type/toolType";
 import {successMessage} from "../../utils/baseMessage";
-import {TOOLS_ID_CHANGE_EVENT} from "../../constants/eventConstants";
+import {TOOL_UPLOAD_SUCCESS_EVENT, TOOLS_ID_CHANGE_EVENT} from "../../constants/eventConstants";
 
 const instance = getCurrentInstance()
+
+
 // 请求form
 const queryForm = ref<ToolQueryForm>({pageSize: 10, pageNum: 1})
 
 // 表格数据
 const tableData = ref<PageInfo>({})
-
-
+const init = () => {
 // 请求tool数据初始化
-getTool(queryForm.value).then((res) => {
-    tableData.value = res.data
+    getTool(queryForm.value).then((res) => {
+        tableData.value = res.data
+    })
+}
+init()
+
+//监听Tool上传成功事件
+instance?.proxy?.$bus.on(TOOL_UPLOAD_SUCCESS_EVENT, () => {
+    init()
 })
 
 // 下载事件回调

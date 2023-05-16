@@ -43,6 +43,7 @@ declare module '@vue/runtime-core' {
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
     ElTree: typeof import('element-plus/es')['ElTree']
+    ElUpload: typeof import('element-plus/es')['ElUpload']
     Header: typeof import('./src/components/layout/header.vue')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
     LayoutHeader: typeof import('./src/components/layout/LayoutHeader.vue')['default']
@@ -58,6 +59,9 @@ declare module '@vue/runtime-core' {
     Tool: typeof import('./src/components/tool/Tool.vue')['default']
     ToolHeader: typeof import('./src/components/tool/ToolHeader.vue')['default']
     ToolTable: typeof import('./src/components/tool/ToolTable.vue')['default']
+    ToolUploadDialog: typeof import('./src/components/tool/ToolUploadDialog.vue')['default']
+    Uploaddialog: typeof import('./src/components/tool/ToolUploadDialog.vue')['default']
+    UploadDialog: typeof import('./src/components/tool/ToolUploadDialog.vue')['default']
   }
   export interface ComponentCustomProperties {
     vLoading: typeof import('element-plus/es')['ElLoadingDirective']

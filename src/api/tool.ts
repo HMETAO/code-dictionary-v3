@@ -4,6 +4,9 @@ import {ToolQueryForm} from "../form/tool";
 import request from "../utils/request";
 import qs from "qs";
 
+// 上传ToolURL
+export const TOOL_UPLOAD_ACTIVE = import.meta.env.VITE_BASE_API + "/api/v1/tool/upload"
+
 /**
  * 获取tool列表
  * @param query 请求参数
