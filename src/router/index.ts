@@ -31,9 +31,15 @@ const routes: Array<RouteRecordRaw> = [
                 path: "/tool",
                 name: "tool",
                 component: () => import('../components/tool/Tool.vue')
+            },
+            {
+                path: "/other",
+                name: 'other',
+                component: () => import('../components/other/Other.vue')
             }
         ]
     }
+
 ]
 const router: Router = createRouter({
     history: createWebHistory(),

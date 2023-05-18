@@ -1,0 +1,63 @@
+@font-face {
+  font-family: "iconfont"; /* Project id 3616280 */
+  src: url('iconfont.woff2?t=1684240204381') format('woff2'),
+       url('iconfont.woff?t=1684240204381') format('woff'),
+       url('iconfont.ttf?t=1684240204381') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-games:before {
+  content: "\e63f";
+}
+
+.icon-json-full:before {
+  content: "\ea42";
+}
+
+.icon-json1:before {
+  content: "\ea43";
+}
+
+.icon-json:before {
+  content: "\e60e";
+}
+
+.icon-SSHmiyue:before {
+  content: "\e7b6";
+}
+
+.icon-chart:before {
+  content: "\e63e";
+}
+
+.icon-quick-copy:before {
+  content: "\e886";
+}
+
+.icon-github-square:before {
+  content: "\e690";
+}
+
+.icon-share:before {
+  content: "\e6f3";
+}
+
+.icon-star:before {
+  content: "\e7df";
+}
+
+.icon-github-fill:before {
+  content: "\e885";
+}
+
+.icon-shui:before {
+  content: "\e70d";
+}
+
