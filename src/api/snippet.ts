@@ -41,7 +41,7 @@ export function updateSnippet(data: SnippetForm): Promise<Result> {
 
 /**
  * 插入snippet
- * @param data
+ * @param data 插入数据
  */
 export function insertSnippet(data: SnippetForm): Promise<Result> {
     return request({
@@ -51,6 +51,10 @@ export function insertSnippet(data: SnippetForm): Promise<Result> {
     })
 }
 
+/**
+ * 删除snippet
+ * @param id snippetId
+ */
 export function deleteSnippet(id: string): Promise<Result> {
     return request({
         url: `/api/v1/snippet/` + id,

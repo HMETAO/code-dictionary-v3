@@ -8,32 +8,33 @@
         </el-button>
         <el-dialog v-model="dialogVisible" center title="SSH 配置" width='35%' class="ssh-dialog">
             <div>
-                <el-form :model='sshForm'>
-                    <el-form-item label='host：' :label-width='formLabelWidth'>
+                <el-form :model='sshForm' :rules="rules">
+                    <el-form-item label='host：' :label-width='formLabelWidth' prop="host">
                         <el-input v-model='sshForm.host' autocomplete='off'></el-input>
                     </el-form-item>
-                    <el-form-item label='username：' :label-width='formLabelWidth'>
+                    <el-form-item label='username：' :label-width='formLabelWidth' prop="username">
                         <el-input v-model='sshForm.username' autocomplete='off'></el-input>
                     </el-form-item>
-                    <el-form-item label='password：' :label-width='formLabelWidth'>
+                    <el-form-item label='password：' :label-width='formLabelWidth' prop="password">
                         <el-input v-model='sshForm.password' autocomplete='off' show-password></el-input>
                     </el-form-item>
-                    <el-form-item label='port：' :label-width='formLabelWidth'>
+                    <el-form-item label='port：' :label-width='formLabelWidth' prop="port">
                         <el-input v-model='sshForm.port' autocomplete='off'></el-input>
                     </el-form-item>
                 </el-form>
             </div>
             <template #footer>
                 <el-button @click='dialogVisible = false'>取 消</el-button>
-                <el-button type='primary' @click='sshClickEventFunction'>确 定</el-button>
+                <el-button type='primary' @click='dialogClickEventFunction'>确 定</el-button>
             </template>
         </el-dialog>
-
     </div>
 </template>
 <script setup lang="ts">
-import {ref} from 'vue';
+import {reactive, ref} from 'vue';
 import {SSHForm} from "../../form/other";
+import {FormRules} from "element-plus";
+import {setSSH} from "../../api/other";
 
 const formLabelWidth = 100
 // dialog
@@ -43,6 +44,29 @@ const sshForm = ref<SSHForm>({port: 22, username: 'root'})
 // 点击开启ssh事件回调
 const sshClickEventFunction = () => {
     dialogVisible.value = true;
+}
+// 表单规则
+const rules = reactive<FormRules>({
+    host: [
+        {required: true, message: '请输入连接主机的host', trigger: 'blur'}
+    ],
+    username: [
+        {required: true, message: '请输入连接登录主机用户', trigger: 'blur'}
+    ],
+    port: [
+        {required: true, message: '请输入port', trigger: 'blur'}
+    ],
+    password: [
+        {required: true, message: '请输入密码', trigger: 'blur'}
+    ]
+})
+
+// dialog确认按钮事件回调
+const dialogClickEventFunction = () => {
+    // 设置ssh
+    setSSH(sshForm.value).then(() => {
+
+    })
 }
 </script>
 <style scoped lang="less">
