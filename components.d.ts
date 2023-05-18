@@ -59,6 +59,7 @@ declare module '@vue/runtime-core' {
     SnippetInsertDialog: typeof import('./src/components/snippet/SnippetInsertDialog.vue')['default']
     SSH: typeof import('./src/components/other/SSH.vue')['default']
     SSHDialog: typeof import('./src/components/other/SSHDialog.vue')['default']
+    Term: typeof import('./src/components/other/Term.vue')['default']
     Test: typeof import('./src/components/test.vue')['default']
     Tool: typeof import('./src/components/tool/Tool.vue')['default']
     ToolHeader: typeof import('./src/components/tool/ToolHeader.vue')['default']

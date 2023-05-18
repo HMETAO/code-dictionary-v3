@@ -35,12 +35,13 @@ import {reactive, ref} from 'vue';
 import {SSHForm} from "../../form/other";
 import {FormRules} from "element-plus";
 import {setSSH} from "../../api/other";
+import {useRoute, useRouter} from "vue-router";
 
 const formLabelWidth = 100
 // dialog
 const dialogVisible = ref<boolean>(false)
 
-const sshForm = ref<SSHForm>({port: 22, username: 'root'})
+const sshForm = ref<SSHForm>({host: "47.98.249.34", port: 22, username: 'root'})
 // 点击开启ssh事件回调
 const sshClickEventFunction = () => {
     dialogVisible.value = true;
@@ -60,12 +61,12 @@ const rules = reactive<FormRules>({
         {required: true, message: '请输入密码', trigger: 'blur'}
     ]
 })
-
+const router = useRouter()
 // dialog确认按钮事件回调
 const dialogClickEventFunction = () => {
     // 设置ssh
     setSSH(sshForm.value).then(() => {
-
+        router.push({name: 'term'})
     })
 }
 </script>
