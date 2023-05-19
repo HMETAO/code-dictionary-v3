@@ -1,8 +1,8 @@
 <template>
   <div class="header w-full h-full">
-
     <el-menu class="w-full"
              mode="horizontal"
+             menu-trigger="click"
              :ellipsis="false">
       <el-menu-item index="0">
         <div class="animate__animated animate__backInLeft web-site-title">
@@ -10,12 +10,28 @@
         </div>
       </el-menu-item>
       <div class="flex-grow"/>
-      <el-menu-item index="1">Processing Center</el-menu-item>
+      <el-sub-menu index="1" class="animate__animated animate__backInRight">
+        <template #title>
+          <div class="header-user-info">
+            <el-avatar shape="square" :src='baseStore.user.avatar'/>
+            <div style="margin-left: 10px; font-weight: 600; color: #34495e">{{ baseStore.user.username }}</div>
+          </div>
+        </template>
+        <el-menu-item index="2-1" style="justify-content: center">
+          退出登录
+        </el-menu-item>
+        <el-menu-item index="2-2" style="justify-content: center">
+          修改信息
+        </el-menu-item>
+      </el-sub-menu>
     </el-menu>
   </div>
 </template>
 <script setup lang="ts">
 import {ref, reactive, toRef, computed} from 'vue';
+import {useBaseStore} from "../../store";
+
+const baseStore = useBaseStore()
 
 </script>
 <style scoped lang="less">
@@ -24,6 +40,13 @@ import {ref, reactive, toRef, computed} from 'vue';
 .header {
   display: flex;
   align-items: center;
+
+  .header-user-info {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
   .flex-grow {
     flex-grow: 1;
