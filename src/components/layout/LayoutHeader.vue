@@ -10,7 +10,7 @@
         </div>
       </el-menu-item>
       <div class="flex-grow"/>
-      <el-sub-menu index="1" class="animate__animated animate__backInRight">
+      <el-sub-menu index="1" class="animate__animated animate__backInRight" v-if="token">
         <template #title>
           <div class="header-user-info">
             <el-avatar shape="square" :src='baseStore.user.avatar'/>
@@ -32,9 +32,11 @@ import {ref, reactive, toRef, computed} from 'vue';
 import {useBaseStore} from "../../store";
 import {logout} from "../../api/user";
 import {useRouter} from "vue-router";
+import {storeToRefs} from "pinia";
 
 const router = useRouter()
 const baseStore = useBaseStore()
+const {token} = storeToRefs(baseStore)
 
 // 退出登录事件回调
 const logoutEventFunction = async () => {
