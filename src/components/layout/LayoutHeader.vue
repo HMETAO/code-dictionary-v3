@@ -1,21 +1,18 @@
 <template>
-    <div class="header w-full h-full">
+  <div class="header w-full h-full">
 
-        <el-menu
-                class="w-full"
-                mode="horizontal"
-                :ellipsis="false"
-        >
-            <el-menu-item index="0">
-                <div class="animate__animated animate__backInLeft web-site-title">
-                    Code Dictionary
-                </div>
-            </el-menu-item>
-            <div class="flex-grow"/>
-            <el-menu-item index="1">Processing Center</el-menu-item>
-        </el-menu>
-
-    </div>
+    <el-menu class="w-full"
+             mode="horizontal"
+             :ellipsis="false">
+      <el-menu-item index="0">
+        <div class="animate__animated animate__backInLeft web-site-title">
+          Code Dictionary
+        </div>
+      </el-menu-item>
+      <div class="flex-grow"/>
+      <el-menu-item index="1">Processing Center</el-menu-item>
+    </el-menu>
+  </div>
 </template>
 <script setup lang="ts">
 import {ref, reactive, toRef, computed} from 'vue';

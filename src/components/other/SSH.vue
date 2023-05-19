@@ -41,7 +41,7 @@ const formLabelWidth = 100
 // dialog
 const dialogVisible = ref<boolean>(false)
 
-const sshForm = ref<SSHForm>({host: "47.98.249.34", port: 22, username: 'root'})
+const sshForm = ref<SSHForm>({host: "", port: 22, username: 'root'})
 // 点击开启ssh事件回调
 const sshClickEventFunction = () => {
     dialogVisible.value = true;
