@@ -17,9 +17,9 @@
             <div style="margin-left: 10px; font-weight: 600; color: #34495e">{{ baseStore.user.username }}</div>
           </div>
         </template>
-        <el-menu-item index="2-2" style="justify-content: center">
-          修改信息
-        </el-menu-item>
+        <!--        <el-menu-item index="2-2" style="justify-content: center">-->
+        <!--          修改信息-->
+        <!--        </el-menu-item>-->
         <el-menu-item index="2-1" style="justify-content: center" @click="logoutEventFunction">
           退出登录
         </el-menu-item>

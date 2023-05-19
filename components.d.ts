@@ -10,6 +10,7 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     AsideMenu: typeof import('./src/components/AsideMenu.vue')['default']
+    Calendar: typeof import('./src/components/calendar/Calendar.vue')['default']
     CategoryDrawer: typeof import('./src/components/snippet/CategoryDrawer.vue')['default']
     CategoryInsertDialog: typeof import('./src/components/snippet/CategoryInsertDialog.vue')['default']
     EditorHeader: typeof import('./src/components/snippet/EditorHeader.vue')['default']
@@ -17,6 +18,7 @@ declare module '@vue/runtime-core' {
     ElAside: typeof import('element-plus/es')['ElAside']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElButton: typeof import('element-plus/es')['ElButton']
+    ElCalendar: typeof import('element-plus/es')['ElCalendar']
     ElCard: typeof import('element-plus/es')['ElCard']
     ElCascader: typeof import('element-plus/es')['ElCascader']
     ElCheckbox: typeof import('element-plus/es')['ElCheckbox']
