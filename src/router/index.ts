@@ -13,12 +13,12 @@ const routes: Array<RouteRecordRaw> = [
     },
     {
         path: "/login",
-        name: 'Login',
+        name: 'login',
         component: () => import('../view/Login.vue')
     },
     {
         path: "/home",
-        name: "Home",
+        name: "home",
         redirect: "/snippet",
         component: () => import('../view/Home.vue'),
         children: [
@@ -57,9 +57,9 @@ router.beforeEach((to, from, next) => {
         baseStore = useBaseStore()
         stateStore = useStateStore()
     }
-    if (to.name !== 'Login' && !baseStore.token) {
+    if (to.name !== 'login' && !baseStore.token) {
         infoMessage("请重新登录后在进行访问。。。")
-        next({name: 'Login'})
+        next({name: 'login'})
     } else {
         next()
     }

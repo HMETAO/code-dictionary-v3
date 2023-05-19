@@ -17,11 +17,11 @@
             <div style="margin-left: 10px; font-weight: 600; color: #34495e">{{ baseStore.user.username }}</div>
           </div>
         </template>
-        <el-menu-item index="2-1" style="justify-content: center">
-          退出登录
-        </el-menu-item>
         <el-menu-item index="2-2" style="justify-content: center">
           修改信息
+        </el-menu-item>
+        <el-menu-item index="2-1" style="justify-content: center" @click="logoutEventFunction">
+          退出登录
         </el-menu-item>
       </el-sub-menu>
     </el-menu>
@@ -30,9 +30,21 @@
 <script setup lang="ts">
 import {ref, reactive, toRef, computed} from 'vue';
 import {useBaseStore} from "../../store";
+import {logout} from "../../api/user";
+import {useRouter} from "vue-router";
 
+const router = useRouter()
 const baseStore = useBaseStore()
 
+// 退出登录事件回调
+const logoutEventFunction = async () => {
+  try {
+    await logout()
+  } finally {
+    baseStore.$reset()
+    await router.push({name: "login"})
+  }
+}
 </script>
 <style scoped lang="less">
 @DefaultColor: #76bbd7;
