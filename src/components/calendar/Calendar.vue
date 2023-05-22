@@ -19,8 +19,10 @@ let calendar = ref<CalendarType[]>([]);
 const flag = ref<boolean>(false)
 const map = new Map();
 const init = async () => {
+  // 获取日历
   const res = await getCalendar()
   calendar.value = res.data
+  // 构造
   calendar.value.forEach(item => {
     let key = item.dates?.[0]
     if (map.has(key)) {
