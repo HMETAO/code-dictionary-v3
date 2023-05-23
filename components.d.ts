@@ -13,6 +13,7 @@ declare module '@vue/runtime-core' {
     Calendar: typeof import('./src/components/calendar/Calendar.vue')['default']
     CategoryDrawer: typeof import('./src/components/snippet/CategoryDrawer.vue')['default']
     CategoryInsertDialog: typeof import('./src/components/snippet/CategoryInsertDialog.vue')['default']
+    Communicate: typeof import('./src/components/communicate/Communicate.vue')['default']
     EditorHeader: typeof import('./src/components/snippet/EditorHeader.vue')['default']
     ElAffix: typeof import('element-plus/es')['ElAffix']
     ElAside: typeof import('element-plus/es')['ElAside']
