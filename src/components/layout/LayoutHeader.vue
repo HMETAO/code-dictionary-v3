@@ -14,7 +14,7 @@
         <template #title>
           <div class="header-user-info">
             <el-avatar shape="square" :src='baseStore.user.avatar'/>
-            <div style="margin-left: 10px; font-weight: 600; color: #34495e">{{ baseStore.user.username }}</div>
+            <div class="user-info-text">{{ baseStore.user.username }}</div>
           </div>
         </template>
         <!--        <el-menu-item index="2-2" style="justify-content: center">-->
