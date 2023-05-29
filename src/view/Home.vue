@@ -8,12 +8,14 @@
         </transition>
       </el-col>
       <el-col :span="21" :xs="24">
-        <transition enter-active-class="animate__animated animate__bounceInRight" appear
-                    appear-active-class="animate__animated animate__bounceInRight">
-          <div class="p-3 w-full h-full ">
-            <router-view></router-view>
-          </div>
-        </transition>
+        <div class="p-3 w-full h-full ">
+          <router-view v-slot="{ Component }">
+            <transition enter-active-class="animate__animated animate__bounceInRight" appear
+                        appear-active-class="animate__animated animate__bounceInRight">
+              <component :is="Component"/>
+            </transition>
+          </router-view>
+        </div>
       </el-col>
     </el-row>
   </div>
