@@ -4,3 +4,9 @@ export interface FriendType {
     salveId: number
     friendName: string
 }
+
+export interface FriendInformationType {
+    content?: string
+    salveId?: number
+    createTime?: string
+}
