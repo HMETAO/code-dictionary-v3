@@ -50,7 +50,7 @@ const routes: Array<RouteRecordRaw> = [
             {
                 path: "/communicate",
                 name: 'communicate',
-                component: () => import('../components/communicate/Communicate.vue')
+                component: () => import('../components/communicate/TK.vue')
             },
         ]
     }

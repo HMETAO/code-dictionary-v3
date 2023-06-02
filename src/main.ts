@@ -8,6 +8,7 @@ import App from './App.vue'
 import mitt from 'mitt'
 import pinia from "./plugin/pinia";
 import router from "./router";
+import Tuikit from "./plugin/tuikit";
 const app = createApp(App)
 
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
@@ -23,5 +24,6 @@ app.config.globalProperties.$bus = Mit
 
 app.use(pinia)
 app.use(router)
+app.use(Tuikit)
 app.mount('#app')
 
