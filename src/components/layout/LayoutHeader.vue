@@ -28,9 +28,8 @@
   </div>
 </template>
 <script setup lang="ts">
-import {ref, reactive, toRef, computed} from 'vue';
 import {useBaseStore} from "../../store";
-import {logout} from "../../api/user";
+import {logout, logoutIM} from "../../api/user";
 import {useRouter} from "vue-router";
 import {storeToRefs} from "pinia";
 
@@ -41,7 +40,10 @@ const {token} = storeToRefs(baseStore)
 // 退出登录事件回调
 const logoutEventFunction = async () => {
   try {
+    // 退出登录
     await logout()
+    // 退出IM
+    await logoutIM()
   } finally {
     baseStore.$reset()
     await router.push({name: "login"})
