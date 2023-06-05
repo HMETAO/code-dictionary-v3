@@ -7,7 +7,7 @@
         <TUIConversation @current="handleCurrentConversation"/>
       </div>
       <div class="chat" v-show="!data.env?.isH5 || data.currentModel === 'message'">
-        <TUIChat></TUIChat>
+        <TUIChat><el-skeleton :rows="5" /></TUIChat>
       </div>
     </div>
   </div>
