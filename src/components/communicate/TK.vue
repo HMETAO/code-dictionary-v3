@@ -7,7 +7,9 @@
         <TUIConversation @current="handleCurrentConversation"/>
       </div>
       <div class="chat" v-show="!data.env?.isH5 || data.currentModel === 'message'">
-        <TUIChat><el-skeleton :rows="5" /></TUIChat>
+        <TUIChat>
+          <el-skeleton :rows="5"/>
+        </TUIChat>
       </div>
     </div>
   </div>
@@ -15,13 +17,16 @@
 </template>
 
 <script lang="ts" setup>
-import {reactive,} from 'vue';
+import {onBeforeUnmount, reactive,} from 'vue';
 import {TUIEnv} from '../../TUIKit/TUIPlugin';
 import {handleErrorPrompts} from '../../TUIKit/TUIComponents/container/utils';
 import TUIChat from "../../TUIKit/TUIComponents/container/TUIChat/index.vue";
 import TUIConversation from "../../TUIKit/TUIComponents/container/TUIConversation/index.vue";
 import TUISearch from "../../TUIKit/TUIComponents/container/TUISearch/index.vue";
+import {loginIM, logoutIM} from "../../api/user";
+import {useBaseStore} from "../../store";
 
+const baseStore = useBaseStore();
 const data = reactive({
   env: TUIEnv(),
   currentModel: 'conversation',
@@ -32,29 +37,16 @@ const TUIServer = (window as any)?.TUIKitTUICore?.TUIServer;
 const handleCurrentConversation = (value: string) => {
   data.currentModel = value ? 'message' : 'conversation';
 };
-// beforeCalling：在拨打电话前与收到通话邀请前执行
-const beforeCalling = (type: string, error: any) => {
-  if (error) {
-    handleErrorPrompts(error, type);
-    return;
-  }
-  data.showCall = true;
-};
-// afterCalling：结束通话后执行
-const afterCalling = () => {
-  data.showCall = false;
-  data.showCallMini = false;
-};
-// onMinimized：组件切换最小化状态时执行
-const onMinimized = (oldMinimizedStatus: boolean, newMinimizedStatus: boolean) => {
-  data.showCall = !newMinimizedStatus;
-  data.showCallMini = newMinimizedStatus;
-};
-// onMessageSentByMe：在整个通话过程内发送消息时执行
-const onMessageSentByMe = async (message: any) => {
-  TUIServer?.TUIChat?.handleMessageSentByMeToView(message);
-  return;
-};
+const init = async () => {
+  // 登录腾讯IM系统
+  await loginIM(baseStore.user.username)
+}
+init()
+
+onBeforeUnmount(async () => {
+  // 退出IM
+  await logoutIM()
+})
 </script>
 
 

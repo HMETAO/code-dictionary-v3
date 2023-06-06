@@ -71,8 +71,6 @@ const loginFunctionEvent = async () => {
     stateStore.loading = true
     // 请求登录接口
     const res: Result<UserInfo> = await login(loginForm.value)
-    // 登录腾讯IM系统
-    await loginIM(res.data.username)
     // 存储用户信息
     baseStore.user = res.data
     baseStore.token = res.data.token

@@ -42,8 +42,6 @@ const logoutEventFunction = async () => {
   try {
     // 退出登录
     await logout()
-    // 退出IM
-    await logoutIM()
   } finally {
     baseStore.$reset()
     await router.push({name: "login"})
