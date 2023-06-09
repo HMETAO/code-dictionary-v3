@@ -69,6 +69,7 @@ declare module '@vue/runtime-core' {
     RouterView: typeof import('vue-router')['RouterView']
     Snippet: typeof import('./src/components/snippet/Snippet.vue')['default']
     SnippetInsertDialog: typeof import('./src/components/snippet/SnippetInsertDialog.vue')['default']
+    SnippetTree: typeof import('./src/components/snippet/SnippetTree.vue')['default']
     SSH: typeof import('./src/components/other/SSH.vue')['default']
     SSHDialog: typeof import('./src/components/other/SSHDialog.vue')['default']
     Term: typeof import('./src/components/other/Term.vue')['default']
