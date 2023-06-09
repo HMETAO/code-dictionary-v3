@@ -1,24 +1,26 @@
 <template>
-  <el-tree v-loading="isFetching" :data="data as CategoryMenusType[]" :expand-on-click-node="false"
-           @node-click="nodeClickEventFunction">
-    <template v-slot="{node,data}">
-      <div class="flex w-full">
-        <div style="display: flex;align-items: center;flex-direction: row">
-          <div style="display: flex;margin-right: 5px;align-items: center;">
-            <el-icon v-if="!data.snippet">
-              <Folder/>
-            </el-icon>
-            <el-icon v-else>
-              <Memo/>
-            </el-icon>
+  <div class="tree-container h-full">
+    <el-tree v-loading="isFetching" :data="data as CategoryMenusType[]" :expand-on-click-node="false"
+             @node-click="nodeClickEventFunction">
+      <template v-slot="{node,data}">
+        <div class="flex w-full">
+          <div style="display: flex;align-items: center;flex-direction: row">
+            <div style="display: flex;margin-right: 5px;align-items: center;">
+              <el-icon v-if="!data.snippet">
+                <Folder/>
+              </el-icon>
+              <el-icon v-else>
+                <Memo/>
+              </el-icon>
+            </div>
+            {{ data.label + (!data.snippet ? "" : (data.type === 0 ? ".cd" : ".md")) }}
           </div>
-          {{ data.label + (!data.snippet ? "" : (data.type === 0 ? ".cd" : ".md")) }}
+          <div class="flex-1"></div>
+          <slot name="node-end" :data="data as CategoryMenusType"></slot>
         </div>
-        <div class="flex-1"></div>
-        <slot name="node-end" :data="data"></slot>
-      </div>
-    </template>
-  </el-tree>
+      </template>
+    </el-tree>
+  </div>
 
 </template>
 <script setup lang="ts">
@@ -45,5 +47,7 @@ const nodeClickEventFunction = (data: CategoryMenusType) => {
 }
 </script>
 <style scoped lang="less">
-
+.tree-container {
+  overflow-y: auto;
+}
 </style>

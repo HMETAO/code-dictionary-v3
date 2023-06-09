@@ -14,6 +14,7 @@ import Replies from './plugin-components/replies';
 // import Call from './plugin-components/call';
 import ImagePreviewer from './plugin-components/imagePreviewer';
 import MessageInput from './message-input';
+import SnippetSend from "./plugin-components/snippet/SnippetSend.vue";
 
 let sendComponents: any = {
   Face,
@@ -22,6 +23,7 @@ let sendComponents: any = {
   File,
   // Evaluate,
   Words,
+  SnippetSend,
   // Call,
 };
 

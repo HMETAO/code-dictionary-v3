@@ -27,11 +27,11 @@
 </template>
 <script setup lang="ts">
 
-import {CategoryInsertForm} from "../../form/category";
+import {CategoryInsertForm} from "@/form/category";
 import {ref, watch} from "vue";
-import {getCategory, insertCategory} from "../../api/category";
-import {CategoryMenusType} from "../../type/categoryType";
-import {successMessage} from "../../utils/baseMessage";
+import {getCategory, insertCategory} from "@/api/category";
+import {CategoryMenusType} from "@/type/categoryType";
+import {successMessage} from "@/utils/baseMessage";
 import {FormInstance} from "element-plus";
 
 

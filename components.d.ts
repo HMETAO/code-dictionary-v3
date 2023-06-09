@@ -23,8 +23,12 @@ declare module '@vue/runtime-core' {
     EditorHeader: typeof import('./src/components/snippet/EditorHeader.vue')['default']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElButton: typeof import('element-plus/es')['ElButton']
+    ElCalendar: typeof import('element-plus/es')['ElCalendar']
     ElCard: typeof import('element-plus/es')['ElCard']
+    ElCascader: typeof import('element-plus/es')['ElCascader']
     ElCol: typeof import('element-plus/es')['ElCol']
+    ElDialog: typeof import('element-plus/es')['ElDialog']
+    ElDrawer: typeof import('element-plus/es')['ElDrawer']
     ElForm: typeof import('element-plus/es')['ElForm']
     ElFormItem: typeof import('element-plus/es')['ElFormItem']
     ElIcon: typeof import('element-plus/es')['ElIcon']
@@ -34,6 +38,9 @@ declare module '@vue/runtime-core' {
     ElRow: typeof import('element-plus/es')['ElRow']
     ElSkeleton: typeof import('element-plus/es')['ElSkeleton']
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
+    ElTag: typeof import('element-plus/es')['ElTag']
+    ElTooltip: typeof import('element-plus/es')['ElTooltip']
+    ElTree: typeof import('element-plus/es')['ElTree']
     Evaluate: typeof import('./src/components/TUIKit/TUIComponents/container/TUIChat/plugin-components/evaluate/evaluate.vue')['default']
     Face: typeof import('./src/components/TUIKit/TUIComponents/container/TUIChat/plugin-components/face/Face.vue')['default']
     File: typeof import('./src/components/TUIKit/TUIComponents/container/TUIChat/plugin-components/file/file.vue')['default']
@@ -90,6 +97,7 @@ declare module '@vue/runtime-core' {
     Slider: typeof import('./src/components/TUIKit/TUIComponents/components/slider/index.vue')['default']
     Snippet: typeof import('./src/components/snippet/Snippet.vue')['default']
     SnippetInsertDialog: typeof import('./src/components/snippet/SnippetInsertDialog.vue')['default']
+    SnippetSend: typeof import('./src/components/TUIKit/TUIComponents/container/TUIChat/plugin-components/snippet/SnippetSend.vue')['default']
     SnippetTree: typeof import('./src/components/snippet/SnippetTree.vue')['default']
     SSH: typeof import('./src/components/other/SSH.vue')['default']
     Term: typeof import('./src/components/other/Term.vue')['default']
@@ -109,5 +117,8 @@ declare module '@vue/runtime-core' {
     TypingHeader: typeof import('./src/components/TUIKit/TUIComponents/container/TUIChat/plugin-components/typingHeader/typingHeader.vue')['default']
     Video: typeof import('./src/components/TUIKit/TUIComponents/container/TUIChat/plugin-components/video/video.vue')['default']
     Words: typeof import('./src/components/TUIKit/TUIComponents/container/TUIChat/plugin-components/words/words.vue')['default']
+  }
+  export interface ComponentCustomProperties {
+    vLoading: typeof import('element-plus/es')['ElLoadingDirective']
   }
 }

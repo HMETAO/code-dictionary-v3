@@ -28,8 +28,8 @@
   </div>
 </template>
 <script setup lang="ts">
-import {useBaseStore} from "../../store";
-import {logout, logoutIM} from "../../api/user";
+import {useBaseStore} from "@/store";
+import {logout} from "@/api/user";
 import {useRouter} from "vue-router";
 import {storeToRefs} from "pinia";
 
