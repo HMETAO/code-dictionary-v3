@@ -25,8 +25,8 @@
 </template>
 <script setup lang="ts">
 import {getCurrentInstance} from 'vue';
-import {CategoryMenusType} from "../../type/categoryType";
-import {getCategory} from "../../api/category";
+import {CategoryMenusType} from "@/type/categoryType";
+import {getCategory} from "@/api/category";
 
 // 请求category但是手动触发模式
 let {data, isFetching, execute} = getCategory(false)

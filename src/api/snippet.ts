@@ -1,7 +1,7 @@
 import request from "../utils/request";
-import {SnippetType, SnippetUploadImagesType} from "../type/snippetType";
-import {Result} from "../result";
-import {SnippetForm, SnippetUploadImageForm} from "../form/snippet";
+import {SnippetType, SnippetUploadImagesType} from "@/type/snippetType";
+import {Result} from "@/result";
+import {ReceiveSnippetForm, SnippetForm, SnippetUploadImageForm} from "@/form/snippet";
 
 /**
  * markdown上传图片
@@ -59,5 +59,17 @@ export function deleteSnippet(id: string): Promise<Result> {
     return request({
         url: `/api/v1/snippet/` + id,
         method: 'delete'
+    })
+}
+
+/**
+ * 接收用户的Snippet
+ * @param data receiveSnippet信息
+ */
+export function receiveSnippet(data: ReceiveSnippetForm): Promise<Result> {
+    return request({
+        url: `/api/v1/snippet/receive`,
+        method: 'post',
+        data
     })
 }

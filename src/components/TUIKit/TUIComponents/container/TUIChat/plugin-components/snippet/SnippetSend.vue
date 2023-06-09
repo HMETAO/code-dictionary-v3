@@ -33,7 +33,11 @@ import {Coordinate} from "@element-plus/icons-vue";
 import SnippetTree from "@/components/snippet/SnippetTree.vue";
 import {CategoryMenusType} from "@/type/categoryType";
 import {infoMessageBox} from "@/utils/baseMessage";
+import TUIChat from "@/components/TUIKit/TUIComponents/container/TUIChat/index.vue";
+import constant from "@/components/TUIKit/TUIComponents/container/constant";
+import {useBaseStore} from "@/store";
 
+const baseStore = useBaseStore()
 const dialogVisible = ref<boolean>(false)
 const props = defineProps<{
   isH5: boolean
@@ -52,8 +56,25 @@ const nodeClickEventFunction = (data: CategoryMenusType) => {
   if (!data.snippet) {
     return
   }
-
+  infoMessageBox("Send", `确认将 ${data.label} 发送给 ${props.conversation.toAccount} ？`)
+      .then(() => {
+        const custom = {
+          data: {
+            // 自定义消息类型的标识字段
+            businessID: constant.typeSnippet,
+            id: data.id,
+            // 发送的snippet label
+            label: data.label,
+            isDisable: false,
+            uid: baseStore.user.id,
+            type: data.type
+          },
+        };
+        TUIChat.TUIServer.sendCustomMessage(custom)
+        dialogVisible.value = false
+      })
 }
+
 </script>
 <style scoped lang="less">
 .snippet {

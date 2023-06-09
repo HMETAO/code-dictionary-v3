@@ -24,6 +24,7 @@ const constant: any = {
   typeMute: 'mute',
   typeOrder: 'order',
   typeService: 'consultion',
+  typeSnippet: 'snippet',
   typeReply: 'quick_reply',
   typeEvaluate: 'evaluation',
   typeTextLink: 'text_link',
