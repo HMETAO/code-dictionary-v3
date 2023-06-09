@@ -47,12 +47,10 @@ import {ref} from 'vue';
 import {LoginForm} from "../form/user";
 import {Lock, User} from '@element-plus/icons-vue'
 import {useBaseStore, useStateStore} from "../store";
-import {login, loginIM} from "../api/user";
+import {login} from "../api/user";
 import {useRouter} from "vue-router";
 import {Result} from "../result";
 import {UserInfo} from "../type/userType";
-import TUIKit from "../plugin/tuikit";
-import {genTestUserSig} from "../TUIKit";
 
 
 // 登录表单

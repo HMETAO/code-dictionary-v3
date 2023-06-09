@@ -1,6 +1,6 @@
 import TUIComponents from './TUIComponents';
 import { TUICore } from './TUICore';
-import { genTestUserSig } from './debug/index';
+import { genTestUserSig } from './debug';
 
 export default {
   TUICore,

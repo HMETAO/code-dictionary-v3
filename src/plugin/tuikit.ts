@@ -1,4 +1,4 @@
-import {TUIComponents, TUICore} from '../TUIKit';
+import {TUIComponents, TUICore} from '../components/TUIKit';
 // import TUICallKit
 import {TUICallKit} from '@tencentcloud/call-uikit-vue';
 
