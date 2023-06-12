@@ -1,4 +1,3 @@
-<!--todo snippet新增刷新BUG-->
 <template>
   <el-drawer v-model="isCategoryDrawer" :with-header="false"
              direction="rtl"
@@ -35,16 +34,16 @@
 </template>
 <script setup lang="ts">
 import {getCurrentInstance, nextTick, ref, watch} from 'vue';
-import {deleteCategory} from "../../api/category";
-import {CategoryMenusType} from "../../type/categoryType";
-import {deleteSnippet, getSnippet} from "../../api/snippet";
-import {TypeEnum} from "../../enums/typeEnum";
-import {useBaseStore, useStateStore} from "../../store";
-import {SnippetType} from "../../type/snippetType";
-import {Result} from "../../result";
-import {SNIPPET_GET_EVENT} from "../../constants/eventConstants";
-import {errorMessageBox, infoMessageBox, successMessage} from "../../utils/baseMessage";
-import {BASE_SNIPPET} from "../../constants/baseConstants";
+import {deleteCategory} from "@/api/category";
+import {CategoryMenusType} from "@/type/categoryType";
+import {deleteSnippet, getSnippet} from "@/api/snippet";
+import {TypeEnum} from "@/enums/typeEnum";
+import {useBaseStore, useStateStore} from "@/store";
+import {SnippetType} from "@/type/snippetType";
+import {Result} from "@/result";
+import {SNIPPET_GET_EVENT, SNIPPET_INSERT_EVEN} from "@/constants/eventConstants";
+import {errorMessageBox, infoMessageBox, successMessage} from "@/utils/baseMessage";
+import {BASE_SNIPPET} from "@/constants/baseConstants";
 import CategoryInsertDialog from "./CategoryInsertDialog.vue";
 import SnippetTree from "./SnippetTree.vue";
 
@@ -66,6 +65,11 @@ const prop = defineProps<{
 const emit = defineEmits<{
   (e: 'update:modelValue', modelValue: boolean): void
 }>()
+
+// 新增Snippet触发回调
+instance?.proxy?.$bus.on(SNIPPET_INSERT_EVEN, () => {
+  snippetTreeRef.value.execute()
+})
 
 // 监听父类modelValue变化映射到isCategoryDrawer
 const isCategoryDrawer = ref<boolean>(false)
@@ -144,7 +148,7 @@ const delCategoryEventFunction = async (data: CategoryMenusType) => {
 }
 
 // 子组件新增成功事件通知
-const insertEventFunction = (sonData: CategoryMenusType) => {
+const insertEventFunction = () => {
   snippetTreeRef.value.execute()
 }
 
