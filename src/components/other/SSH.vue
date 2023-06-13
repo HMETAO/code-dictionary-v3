@@ -30,10 +30,10 @@
 </template>
 <script setup lang="ts">
 import {reactive, ref} from 'vue';
-import {SSHForm} from "../../form/other";
+import {SSHForm} from "@/form/other";
 import {FormRules} from "element-plus";
-import {setSSH} from "../../api/other";
-import {useRoute, useRouter} from "vue-router";
+import {setSSH} from "@/api/other";
+import {useRouter} from "vue-router";
 
 const formLabelWidth = 100
 // dialog
