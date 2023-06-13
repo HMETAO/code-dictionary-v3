@@ -1,8 +1,8 @@
 import {defineStore} from "pinia";
 import {Names} from "./store-name";
-import {UserInfo} from "../type/userType";
-import {SnippetForm} from "../form/snippet";
-import {BASE_SNIPPET} from "../constants/baseConstants";
+import {UserInfo} from "@/type/userType";
+import {SnippetForm} from "@/form/snippet";
+import {BASE_SNIPPET} from "@/constants/baseConstants";
 
 export const useBaseStore = defineStore(Names.BASE, {
 

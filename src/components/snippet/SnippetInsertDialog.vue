@@ -23,7 +23,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import {ref, reactive, toRef, computed, watch, getCurrentInstance} from 'vue';
+import {ref, watch, getCurrentInstance} from 'vue';
 import {getCategory} from "@/api/category";
 import {useBaseStore, useStateStore} from "@/store";
 import {CategoryMenusType} from "@/type/categoryType";
@@ -32,7 +32,7 @@ import {SnippetForm} from "@/form/snippet";
 import {FormInstance} from "element-plus";
 import {storeToRefs} from "pinia";
 import {successMessage} from "@/utils/baseMessage";
-import {SNIPPET_INSERT_EVEN} from "@/constants/eventConstants";
+import {SNIPPET_GET_EVENT, SNIPPET_INSERT_EVEN} from "@/constants/eventConstants";
 
 const {data, execute} = getCategory(false, false)
 const stateStore = useStateStore()
@@ -50,9 +50,11 @@ const snippetFormRef = ref<FormInstance>()
 const insertSnippetClickEventFunction = async () => {
   // 判断是markdown还是code类型
   snippetForm.value.type = baseStore.isMarkDown ? 1 : 0;
-  await insertSnippet(snippetForm.value as SnippetForm)
+  const res = await insertSnippet(snippetForm.value as SnippetForm)
   successMessage("插入成功")
   instance?.proxy?.$bus.emit(SNIPPET_INSERT_EVEN)
+  // 刷新Snippet界面数据
+  instance?.proxy?.$bus.emit(SNIPPET_GET_EVENT, res.data)
   // 关闭dialog
   changeSnippetDialogVisible()
 }

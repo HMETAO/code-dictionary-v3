@@ -8,5 +8,4 @@ export interface SnippetType {
 
 export interface SnippetUploadImagesType {
     urls: Array<string>
-
 }
