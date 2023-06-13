@@ -1,8 +1,8 @@
-import {createRouter, createWebHistory, Router, RouteRecordRaw} from "vue-router"
-import {useBaseStore, useStateStore} from "../store";
+import {createRouter, createWebHashHistory, Router, RouteRecordRaw} from "vue-router"
+import {useBaseStore, useStateStore} from "@/store";
 // 导入进度条
-import {start, close} from "../utils/nporgress";
-import {infoMessage} from "../utils/baseMessage";
+import {start, close} from "@/utils/nporgress";
+import {infoMessage} from "@/utils/baseMessage";
 
 let baseStore: any = null
 let stateStore: any = null
@@ -57,7 +57,7 @@ const routes: Array<RouteRecordRaw> = [
 
 ]
 const router: Router = createRouter({
-    history: createWebHistory(),
+    history: createWebHashHistory(),
     routes
 })
 // 前置守卫
