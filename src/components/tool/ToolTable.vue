@@ -1,38 +1,42 @@
 <template>
-    <div class="w-full table-box h-full">
-        <el-table border highlight-current-row :data='tableData.list'
-                  style="margin-bottom: 20px;flex: 1"
-                  @selection-change="selectChangeEventFunction"
-                  class="w-full">
-            <el-table-column type='selection'></el-table-column>
-            <el-table-column align='center' prop='toolName' label='工具名'></el-table-column>
-            <el-table-column align='center' prop='toolType' label='工具类型'></el-table-column>
-            <el-table-column align='center' prop='toolSize' label='工具大小 (kb)'></el-table-column>
-            <el-table-column align='center' prop='createTime' label='上传时间'></el-table-column>
-            <el-table-column align='center' label='操作'>
-                <template #default="scope">
-                    <el-button type='primary' size='small' @click="downloadToolEventFunction(scope.row)">下载
-                    </el-button>
-                    <el-button type='danger' size='small' @click="deleteToolEventFunction(scope.row)">删除</el-button>
-                </template>
-            </el-table-column>
-        </el-table>
-        <el-pagination
-                :page-size="5"
-                v-model:current-page="queryForm.pageNum"
-                background
-                :page-count="tableData.pages"
-                @update:current-page="queryPropChangeEventFunction"
-                layout="prev, pager, next"/>
+  <div class="w-full table-box h-full">
+    <div class="table-container w-full">
+      <el-table border highlight-current-row :data='tableData.list'
+                style="margin-bottom: 20px;flex: 1"
+                @selection-change="selectChangeEventFunction"
+                class="w-full">
+        <el-table-column type='selection'></el-table-column>
+        <el-table-column align='center' prop='toolName' label='工具名'></el-table-column>
+        <el-table-column align='center' prop='toolType' label='工具类型'></el-table-column>
+        <el-table-column align='center' prop='toolSize' label='工具大小 (kb)'></el-table-column>
+        <el-table-column align='center' prop='createTime' label='上传时间'></el-table-column>
+        <el-table-column align='center' label='操作'>
+          <template #default="scope">
+            <el-button type='primary' size='small' @click="downloadToolEventFunction(scope.row)">下载
+            </el-button>
+            <el-button type='danger' size='small' @click="deleteToolEventFunction(scope.row)">删除</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
     </div>
+    <div>
+      <el-pagination
+          :page-size="5"
+          v-model:current-page="queryForm.pageNum"
+          background
+          :page-count="tableData.pages"
+          @update:current-page="queryPropChangeEventFunction"
+          layout="prev, pager, next"/>
+    </div>
+  </div>
 </template>
 <script setup lang="ts">
 import {getCurrentInstance, ref} from 'vue';
-import {ToolQueryForm} from "../../form/tool";
-import {delTool, downloadTools, getTool} from "../../api/tool";
-import {PageInfo, ToolType} from "../../type/toolType";
-import {successMessage} from "../../utils/baseMessage";
-import {TOOL_UPLOAD_SUCCESS_EVENT, TOOLS_ID_CHANGE_EVENT} from "../../constants/eventConstants";
+import {ToolQueryForm} from "@/form/tool";
+import {delTool, getTool} from "@/api/tool";
+import {PageInfo, ToolType} from "@/type/toolType";
+import {successMessage} from "@/utils/baseMessage";
+import {TOOL_UPLOAD_SUCCESS_EVENT, TOOLS_ID_CHANGE_EVENT} from "@/constants/eventConstants";
 
 const instance = getCurrentInstance()
 
@@ -44,40 +48,40 @@ const queryForm = ref<ToolQueryForm>({pageSize: 10, pageNum: 1})
 const tableData = ref<PageInfo>({})
 const init = () => {
 // 请求tool数据初始化
-    getTool(queryForm.value).then((res) => {
-        tableData.value = res.data
-    })
+  getTool(queryForm.value).then((res) => {
+    tableData.value = res.data
+  })
 }
 init()
 
 //监听Tool上传成功事件
 instance?.proxy?.$bus.on(TOOL_UPLOAD_SUCCESS_EVENT, () => {
-    init()
+  init()
 })
 
 // 下载事件回调
 const downloadToolEventFunction = (raw: ToolType) => {
-    location.href = raw.url
+  location.href = raw.url
 }
 
 // 选择框发生改变事件回调
 const selectChangeEventFunction = (val: ToolType[]) => {
-    // 触发ids更新事件
-    instance?.proxy?.$bus.emit(TOOLS_ID_CHANGE_EVENT, val)
+  // 触发ids更新事件
+  instance?.proxy?.$bus.emit(TOOLS_ID_CHANGE_EVENT, val)
 }
 
 // 删除Tool事件回调
 const deleteToolEventFunction = async (raw: ToolType) => {
-    await delTool(raw.id)
-    tableData.value.list = tableData.value.list?.filter(item => {
-        return item.id != raw.id;
-    })
-    successMessage("删除成功")
+  await delTool(raw.id)
+  tableData.value.list = tableData.value.list?.filter(item => {
+    return item.id != raw.id;
+  })
+  successMessage("删除成功")
 }
 // 请求参数发生变化事件回调
 const queryPropChangeEventFunction = async () => {
-    const res = await getTool(queryForm.value)
-    tableData.value = res.data
+  const res = await getTool(queryForm.value)
+  tableData.value = res.data
 }
 </script>
 <style scoped lang="less">
@@ -85,5 +89,11 @@ const queryPropChangeEventFunction = async () => {
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  .table-container {
+    flex: auto;
+    height: 0;
+    overflow-y: auto;
+  }
 }
 </style>
