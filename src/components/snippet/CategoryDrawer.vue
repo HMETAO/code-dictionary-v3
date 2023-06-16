@@ -68,7 +68,8 @@ const emit = defineEmits<{
 
 // 新增Snippet触发回调
 instance?.proxy?.$bus.on(SNIPPET_INSERT_EVEN, () => {
-  snippetTreeRef.value.execute()
+  if (snippetTreeRef.value)
+    snippetTreeRef.value.execute()
 })
 
 // 监听父类modelValue变化映射到isCategoryDrawer
