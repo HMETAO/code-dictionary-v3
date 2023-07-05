@@ -1,7 +1,9 @@
 <template>
   <div class="community-box h-full w-full">
     <div class="community-left">
-
+      <div class="community-left-container">
+        <CommunityItem v-for="item in community.list" :key="item.id" :community="item"/>
+      </div>
     </div>
     <div class="community-right ">
     </div>
@@ -11,17 +13,16 @@
 import {ref} from 'vue';
 import CommunityItem from "@/components/community/CommunityItem.vue";
 import {getCommunities} from "@/api/community";
-import {PageInfo, Result} from "@/result";
+import {PageInfo} from "@/result";
 import {CommunityType} from "@/type/communityType";
 import {BaseQueryForm} from "@/form/base";
 
 const queryForm = ref<BaseQueryForm>({pageSize: 10, pageNum: 1})
 const community = ref<PageInfo<CommunityType>>({})
 
-
 // 初始化方法
 const init = async () => {
-  const res = await getCommunities()
+  const res = await getCommunities(queryForm.value)
   community.value = res.data
 }
 init()
@@ -30,13 +31,24 @@ init()
 <style scoped lang="less">
 .community-box {
   display: flex;
+  height: 100%;
+  width: 100%;
 
   .community-left {
     display: flex;
-    flex: auto;
+    flex: 1;
+    height: 100%;
+    overflow: auto;
+
+    .community-left-container {
+      flex: auto;
+      height: 0;
+    }
+
   }
 
   .community-right {
+    display: flex;
     flex: 1;
     border-left: 1px solid #dcdfe6;
   }
