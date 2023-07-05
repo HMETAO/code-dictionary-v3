@@ -32,20 +32,21 @@
 </template>
 <script setup lang="ts">
 import {getCurrentInstance, ref} from 'vue';
-import {ToolQueryForm} from "@/form/tool";
 import {delTool, getTool} from "@/api/tool";
-import {PageInfo, ToolType} from "@/type/toolType";
+import {ToolType} from "@/type/toolType";
 import {successMessage} from "@/utils/baseMessage";
 import {TOOL_UPLOAD_SUCCESS_EVENT, TOOLS_ID_CHANGE_EVENT} from "@/constants/eventConstants";
+import {PageInfo} from "@/result";
+import {BaseQueryForm} from "@/form/base";
 
 const instance = getCurrentInstance()
 
 
 // 请求form
-const queryForm = ref<ToolQueryForm>({pageSize: 10, pageNum: 1})
+const queryForm = ref<BaseQueryForm>({pageSize: 10, pageNum: 1})
 
 // 表格数据
-const tableData = ref<PageInfo>({})
+const tableData = ref<PageInfo<ToolType>>({})
 const init = () => {
 // 请求tool数据初始化
   getTool(queryForm.value).then((res) => {

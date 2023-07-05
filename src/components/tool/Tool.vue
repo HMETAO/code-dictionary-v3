@@ -9,10 +9,7 @@
     </div>
 </template>
 <script setup lang="ts">
-import {ref} from 'vue';
 import ToolTable from "./ToolTable.vue";
-import {ToolQueryForm} from "../../form/tool";
-import {getTool} from "../../api/tool";
 import ToolHeader from "./ToolHeader.vue";
 
 </script>

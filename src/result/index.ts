@@ -9,3 +9,9 @@ export interface Result<T = any> {
     message: string
 }
 
+export interface PageInfo<T> {
+    pageNum?: number
+    pages?: number
+    total?: number
+    list?: Array<T>
+}

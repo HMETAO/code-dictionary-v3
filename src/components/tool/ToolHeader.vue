@@ -7,9 +7,9 @@
 </template>
 <script setup lang="ts">
 import {getCurrentInstance, ref} from 'vue';
-import {TOOLS_ID_CHANGE_EVENT} from "../../constants/eventConstants";
-import {ToolType} from "../../type/toolType";
-import {downloadTools} from "../../api/tool";
+import {TOOLS_ID_CHANGE_EVENT} from "@/constants/eventConstants";
+import {ToolType} from "@/type/toolType";
+import {downloadTools} from "@/api/tool";
 import UploadDialog from "./ToolUploadDialog.vue";
 
 const instance = getCurrentInstance();

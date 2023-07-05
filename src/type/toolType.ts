@@ -6,10 +6,3 @@ export interface ToolType {
     url: string
     createTime: Date
 }
-
-export interface PageInfo {
-    pageNum?: number
-    pages?: number
-    total?: number
-    list?: Array<ToolType>
-}

@@ -16,10 +16,10 @@
 </template>
 
 <script setup lang="ts">
-import {getMenus} from "../api/menus";
-import {MenusType} from "../type/menusType";
+import {getMenus} from "@/api/menus";
+import {MenusType} from "@/type/menusType";
 import { Coordinate} from '@element-plus/icons-vue'
-import {useStateStore} from "../store";
+import {useStateStore} from "@/store";
 const stateStore = useStateStore()
 // 使用vueFetch调用getMenus返回响应式对象
 const menus = getMenus().data

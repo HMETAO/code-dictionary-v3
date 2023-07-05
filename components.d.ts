@@ -15,6 +15,8 @@ declare module '@vue/runtime-core' {
     CategoryDrawer: typeof import('./src/components/snippet/CategoryDrawer.vue')['default']
     CategoryInsertDialog: typeof import('./src/components/snippet/CategoryInsertDialog.vue')['default']
     Communicate: typeof import('./src/components/communicate/Communicate.vue')['default']
+    Community: typeof import('./src/components/community/Community.vue')['default']
+    CommunityItem: typeof import('./src/components/community/CommunityItem.vue')['default']
     Components: typeof import('./src/components/TUIKit/TUIComponents/container/TUIChat/components/index.vue')['default']
     CreateGroup: typeof import('./src/components/TUIKit/TUIComponents/container/TUISearch/components/createGroup/index.vue')['default']
     Custom: typeof import('./src/components/TUIKit/TUIComponents/container/TUIChat/plugin-components/custom/Custom.vue')['default']
