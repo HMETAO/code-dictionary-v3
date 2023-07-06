@@ -11,7 +11,8 @@
 </template>
 <script setup lang="ts">
 import {getCurrentInstance, onBeforeUnmount} from 'vue';
-import MdEditor from 'md-editor-v3';
+import { MdEditor } from 'md-editor-v3';
+import 'md-editor-v3/lib/style.css';
 import {SNIPPET_GET_EVENT} from "@/constants/eventConstants";
 import {useStateStore} from "@/store";
 import {storeToRefs} from "pinia";
@@ -65,13 +66,7 @@ onBeforeUnmount(() => {
 :deep(.md-editor) {
   flex: auto;
   height: 0;
-  h1 { font-size: 2em; margin: .67em 0 }
-  h2 { font-size: 1.5em; margin: .75em 0 }
-  h3 { font-size: 1.17em; margin: .83em 0 }
-  h4, p, blockquote, ul, fieldset, form, ol, dl, dir, menu { margin: 1.12em 0 }
-  h5 { font-size: .83em; margin: 1.5em 0 }
-  h6 { font-size: .75em; margin: 1.67em 0 }
-  h1, h2, h3, h4, h5, h6, b,strong { font-weight: bolder }
+
 }
 
 

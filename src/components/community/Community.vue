@@ -1,5 +1,5 @@
 <template>
-  <div class="community-box h-full w-full">
+  <div class="community-box  w-full">
     <div class="community-left">
       <div class="community-left-container">
         <CommunityItem v-for="item in community.list" :key="item.id" :community="item"/>
@@ -31,14 +31,15 @@ init()
 <style scoped lang="less">
 .community-box {
   display: flex;
-  height: 100%;
   width: 100%;
+  height: 100%;
 
   .community-left {
     display: flex;
     flex: 1;
     height: 100%;
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
 
     .community-left-container {
       flex: auto;
