@@ -1,20 +1,18 @@
 <template>
   <div class="community-item-box">
     <div class="community-box-container">
-      <div class="community-user-header">
-        <div class="community-user-info">
-          <div class="community-user-info-left">
-            <el-avatar :size="25" :src="community.userInfo?.avatar"/>
-            <div class="user-info-text">
-              {{ community.userInfo.username }}
-            </div>
+      <div class="community-user-info">
+        <div class="community-user-info-left">
+          <el-avatar :size="25" :src="community.userInfo?.avatar"/>
+          <div class="user-info-text">
+            {{ community.userInfo.username }}
           </div>
-          <div>
-            {{ community.snippetInfo.type == TypeEnum.code ? "Code" : "MarkDown" }}
-          </div>
-          <div class="community-user-info-right">
-            {{ community.createTime }}
-          </div>
+        </div>
+        <div>
+          {{ community.snippetInfo.type == TypeEnum.code ? "Code" : "MarkDown" }}
+        </div>
+        <div class="community-user-info-right">
+          {{ community.createTime }}
         </div>
       </div>
       <div class="community-item-preview">
@@ -48,8 +46,8 @@ init()
   width: 100%;
   max-height: 400px;
   margin-bottom: 10px;
-  overflow-y: auto;
   overflow-x: hidden;
+  overflow-y: hidden;
   border-bottom: 1px solid @bc;
 
   .community-box-container {
@@ -63,25 +61,25 @@ init()
       overflow-y: auto;
     }
 
-    .community-user-header {
+    .community-item-preview::-webkit-scrollbar {
+      display: none
+    }
+
+    .community-user-info {
+      width: 100%;
       display: flex;
       height: 30px;
+      border-bottom: 1px solid @bc;
+      justify-content: space-between;
 
-      .community-user-info {
-        width: 100%;
+      .community-user-info-left {
         display: flex;
-        border-bottom: 1px solid @bc;
-        justify-content: space-between;
+        justify-items: center;
+        align-items: center;
+      }
 
-        .community-user-info-left {
-          display: flex;
-          justify-items: center;
-          align-items: center;
-        }
-
-        .community-user-info-right {
-          margin-right: 25px;
-        }
+      .community-user-info-right {
+        margin-right: 25px;
       }
     }
 
