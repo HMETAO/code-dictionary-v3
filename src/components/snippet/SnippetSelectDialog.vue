@@ -3,6 +3,7 @@
       v-model="dialogVisible"
       title="选择发送的Snippet"
       @open="dialogOpenEventFunction"
+      @close="emit('update:modelValue',false)"
       width="40%">
     <div class="dialog-box">
       <div class="dialog-container">
