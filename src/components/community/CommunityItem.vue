@@ -58,7 +58,7 @@ init()
 
     .community-item-preview {
       max-height: 370px;
-      overflow-y: auto;
+      overflow: auto;
     }
 
     .community-item-preview::-webkit-scrollbar {

@@ -19,12 +19,11 @@
 <script lang="ts" setup>
 import {onBeforeUnmount, reactive,} from 'vue';
 import {TUIEnv} from '../TUIKit/TUIPlugin';
-import {handleErrorPrompts} from '../TUIKit/TUIComponents/container/utils';
 import TUIChat from "../TUIKit/TUIComponents/container/TUIChat/index.vue";
 import TUIConversation from "../TUIKit/TUIComponents/container/TUIConversation/index.vue";
 import TUISearch from "../TUIKit/TUIComponents/container/TUISearch/index.vue";
-import {loginIM, logoutIM} from "../../api/user";
-import {useBaseStore} from "../../store";
+import {loginIM, logoutIM} from "@/api/user";
+import {useBaseStore} from "@/store";
 
 const baseStore = useBaseStore();
 const data = reactive({

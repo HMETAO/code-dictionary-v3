@@ -3,9 +3,7 @@
     <el-icon title="发送Snippet" @click="dialogVisible = true">
       <Coordinate/>
     </el-icon>
-    <main class="snippet-main">
-
-    </main>
+    <main class="snippet-main"></main>
     <el-dialog
         v-model="dialogVisible"
         title="选择发送的Snippet"
@@ -19,9 +17,6 @@
       <template #footer>
           <span class="dialog-footer">
             <el-button @click="dialogVisible = false">Cancel</el-button>
-            <el-button type="primary" @click="dialogVisible = false">
-              Confirm
-            </el-button>
           </span>
       </template>
     </el-dialog>

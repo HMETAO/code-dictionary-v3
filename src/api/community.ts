@@ -4,10 +4,25 @@ import {CommunityType} from "@/type/communityType";
 import {BaseQueryForm} from "@/form/base";
 
 
-export function getCommunities(query:BaseQueryForm): Promise<Result<PageInfo<CommunityType>>> {
+/**
+ * 获取社区列表
+ * @param query 请求参数
+ */
+export function getCommunities(query: BaseQueryForm): Promise<Result<PageInfo<CommunityType>>> {
     return request({
         url: '/api/v1/community',
         method: 'get',
-        data:query
+        data: query
+    })
+}
+
+/**
+ * 发布内容
+ * @param snippetId 发布snippetId
+ */
+export function insertCommunity(snippetId: number): Promise<Result> {
+    return request({
+        url: '/api/v1/community/' + snippetId,
+        method: 'post',
     })
 }
