@@ -15,11 +15,12 @@
             v-model:current-page="queryForm.pageNum"
             @update:current-page="queryPropChangeEventFunction"
         />
+        <el-button size="small" type="primary" style="margin-left: 10px" @click="dialog = true">发布</el-button>
       </div>
     </div>
     <div class="community-right">
-      <div class="community-right-header">
-        <el-button size="small" type="primary" style="margin-left: 10px" @click="dialog = true">发布</el-button>
+      <div class="community-right-box">
+        <GithubTrend/>
       </div>
     </div>
   </div>
@@ -36,6 +37,7 @@ import SnippetSelectDialog from "@/components/snippet/SnippetSelectDialog.vue";
 import SnippetTree from "@/components/snippet/SnippetTree.vue";
 import {CategoryMenusType} from "@/type/categoryType";
 import {infoMessageBox} from "@/utils/baseMessage";
+import GithubTrend from "@/components/community/GitHubTrend.vue";
 
 const queryForm = ref<BaseQueryForm>({pageSize: 5, pageNum: 1})
 const community = ref<PageInfo<CommunityType>>({})
@@ -109,12 +111,12 @@ init()
     width: 50%;
     border-left: 1px solid @bc;
 
-    .community-right-header {
+    .community-right-box {
       width: 100%;
-      border-bottom: 1px solid @bc;
-      height: 30px;
-
+      flex: 1;
+      overflow: auto;
     }
+
   }
 
 }
