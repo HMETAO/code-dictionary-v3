@@ -1,7 +1,16 @@
 import request from "../utils/request";
 import {SnippetType, SnippetUploadImagesType} from "@/type/snippetType";
 import {Result} from "@/result";
-import {ReceiveSnippetForm, SnippetForm} from "@/form/snippet";
+import {ReceiveSnippetForm, RunCodeForm, SnippetForm} from "@/form/snippet";
+
+
+export function runCode(data: RunCodeForm): Promise<Result> {
+    return request({
+        url: `/api/v1/snippet/run`,
+        method: 'post',
+        data
+    })
+}
 
 /**
  * markdown上传图片
@@ -43,7 +52,7 @@ export function updateSnippet(data: SnippetForm): Promise<Result> {
  * 插入snippet
  * @param data 插入数据
  */
-export function insertSnippet(data: SnippetForm):Promise<Result<SnippetType>>  {
+export function insertSnippet(data: SnippetForm): Promise<Result<SnippetType>> {
     return request({
         url: `/api/v1/snippet`,
         method: 'post',

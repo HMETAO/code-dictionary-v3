@@ -15,3 +15,9 @@ export interface ReceiveSnippetForm {
     snippetId: number
     uid: number
 }
+
+export interface RunCodeForm {
+    code?: string
+    codeEnum?: string
+    args?: string
+}

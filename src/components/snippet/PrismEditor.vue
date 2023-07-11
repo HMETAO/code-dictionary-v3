@@ -15,16 +15,16 @@
     </div>
 </template>
 <script setup lang="ts">
-import {ref, reactive, toRef, computed, getCurrentInstance, onUnmounted, onBeforeUnmount} from 'vue';
+import {getCurrentInstance,onBeforeUnmount} from 'vue';
 import {PrismEditor} from "vue-prism-editor";
 import "vue-prism-editor/dist/prismeditor.min.css"; // import the styles somewhere
 import prism from "prismjs";
 
 import "prismjs/themes/prism-tomorrow.css";
 import EditorHeader from "./EditorHeader.vue";
-import {SNIPPET_GET_EVENT} from "../../constants/eventConstants";
-import {SnippetType} from "../../type/snippetType";
-import {useStateStore} from "../../store";
+import {SNIPPET_GET_EVENT} from "@/constants/eventConstants";
+import {SnippetType} from "@/type/snippetType";
+import {useStateStore} from "@/store";
 import {storeToRefs} from "pinia";
 
 // this
