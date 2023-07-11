@@ -36,7 +36,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import {ref, reactive, computed} from 'vue';
+import {ref, reactive, computed, onMounted, onUnmounted} from 'vue';
 import {successMessage, warningMessageBox} from "@/utils/baseMessage";
 import {updateSnippet} from "@/api/snippet";
 import {useStateStore} from "@/store";
@@ -44,7 +44,22 @@ import {BASE_SNIPPET} from "@/constants/baseConstants";
 
 const store = useStateStore()
 const runCodeDrawer = ref<boolean>(false)
+// ctrl+s键盘按下处理回调
+const saveContent = (e: KeyboardEvent) => {
+  if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+    saveSnippetClickEventFunction()
+    e.preventDefault()
+  }
+}
 
+onMounted(() => {
+  document.addEventListener('keydown', saveContent)
+})
+
+onUnmounted(() => {
+  document.removeEventListener('keydown', saveContent)
+
+})
 
 // 点击初始化Snippet面板事件回调
 const initSnippetClickEventFunction = async () => {
