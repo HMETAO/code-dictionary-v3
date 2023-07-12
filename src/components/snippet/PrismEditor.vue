@@ -1,21 +1,21 @@
 <template>
-    <div class="editor-container h-full">
-        <!--header-->
-        <div class="editor-header">
-            <EditorHeader/>
-        </div>
-        <!--editor-->
-        <div class="editor">
-            <prism-editor :tabSize='6'
-                          class='my-editor '
-                          v-model="snippetForm.snippet"
-                          :highlight='highlighter'
-                          line-numbers></prism-editor>
-        </div>
+  <div class="editor-container h-full">
+    <!--header-->
+    <div class="editor-header">
+      <EditorHeader/>
     </div>
+    <!--editor-->
+    <div class="editor">
+      <prism-editor
+          class='my-editor '
+          v-model="snippetForm.snippet"
+          :highlight='highlighter'
+          line-numbers></prism-editor>
+    </div>
+  </div>
 </template>
 <script setup lang="ts">
-import {getCurrentInstance,onBeforeUnmount} from 'vue';
+import {getCurrentInstance, onBeforeUnmount} from 'vue';
 import {PrismEditor} from "vue-prism-editor";
 import "vue-prism-editor/dist/prismeditor.min.css"; // import the styles somewhere
 import prism from "prismjs";
@@ -33,19 +33,19 @@ const store = useStateStore()
 const {snippetForm} = storeToRefs(store)
 // 高亮代码
 const highlighter = (code: string) => {
-    return prism.highlight(code, prism.languages.js, "java");
+  return prism.highlight(code, prism.languages.js, "java");
 }
 
 // 注册监听获取snippet事件
 instance?.proxy?.$bus.on(SNIPPET_GET_EVENT, (snippet) => {
-    // 获取snippet
-    store.snippetForm = snippet as SnippetType
+  // 获取snippet
+  store.snippetForm = snippet as SnippetType
 })
 
 // 组件销毁
 onBeforeUnmount(() => {
-    // 卸载事件函数
-    instance?.proxy?.$bus.off(SNIPPET_GET_EVENT)
+  // 卸载事件函数
+  instance?.proxy?.$bus.off(SNIPPET_GET_EVENT)
 })
 </script>
 <style scoped lang="less">
