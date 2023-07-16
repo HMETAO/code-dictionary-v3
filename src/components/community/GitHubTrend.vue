@@ -72,9 +72,7 @@ export default {
       githubTrend(this.trendQuery)
           .then(res => {
             this.trends = res.data
-          }).catch(err => {
-        errorMessage(err)
-      })
+          })
     },
     // since切换回调
     // sinceChangeEventFunction() {
