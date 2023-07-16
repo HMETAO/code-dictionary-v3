@@ -1,7 +1,6 @@
 import {createApp} from 'vue'
 import './assets/css/globel.css'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
-import 'element-plus/dist/index.css'
 import 'md-editor-v3/lib/style.css';
 import 'animate.css';
 import App from './App.vue'
