@@ -36,7 +36,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import {ref, reactive, computed, onMounted, onUnmounted} from 'vue';
+import {ref, onMounted, onUnmounted} from 'vue';
 import {successMessage, warningMessageBox} from "@/utils/baseMessage";
 import {updateSnippet} from "@/api/snippet";
 import {useStateStore} from "@/store";
@@ -63,12 +63,9 @@ onUnmounted(() => {
 
 // 点击初始化Snippet面板事件回调
 const initSnippetClickEventFunction = async () => {
-  try {
-    await warningMessageBox("初始化面板", "是否确定初始化Snippet面板？")
-    store.snippetForm = BASE_SNIPPET
-  } catch (e) {
-    return
-  }
+  await warningMessageBox("初始化面板", "是否确定初始化Snippet面板？")
+  store.snippetForm = JSON.parse(BASE_SNIPPET)
+
 }
 
 // 点击保存按钮事件回调

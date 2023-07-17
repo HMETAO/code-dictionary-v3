@@ -87,7 +87,7 @@ const updateModelValueEventFunction = (val: boolean) => {
 const changeSnippetEventFunction = () => {
   // 切换标志位
   baseStore.isMarkDown = !baseStore.isMarkDown
-  stateStore.snippetForm = BASE_SNIPPET
+  stateStore.snippetForm = JSON.parse(BASE_SNIPPET)
 }
 
 // node点击事件回调
