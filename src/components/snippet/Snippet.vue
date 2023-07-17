@@ -15,11 +15,11 @@
     </div>
 </template>
 <script setup lang="ts">
-import {ref, reactive, toRef, computed} from 'vue';
+import {ref} from 'vue';
 import MarkDown from "./MarkDown.vue";
 import CategoryDrawer from "./CategoryDrawer.vue";
 import PrismEditor from "./PrismEditor.vue";
-import {useBaseStore,useStateStore} from "../../store";
+import {useBaseStore,useStateStore} from "@/store";
 import SnippetInsertDialog from "./SnippetInsertDialog.vue";
 
 const baseStore = useBaseStore();
