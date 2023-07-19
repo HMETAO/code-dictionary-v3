@@ -9,7 +9,7 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
-    AsideMenu: typeof import('./src/components/AsideMenu.vue')['default']
+    AsideMenu: typeof import('./src/components/layout/AsideMenu.vue')['default']
     Calendar: typeof import('./src/components/calendar/Calendar.vue')['default']
     Call: typeof import('./src/components/TUIKit/TUIComponents/container/TUIChat/plugin-components/call/call.vue')['default']
     CategoryDrawer: typeof import('./src/components/snippet/CategoryDrawer.vue')['default']
@@ -64,7 +64,7 @@ declare module '@vue/runtime-core' {
     List: typeof import('./src/components/TUIKit/TUIComponents/container/TUIConversation/components/list/index.vue')['default']
     ListItem: typeof import('./src/components/TUIKit/TUIComponents/container/TUIConversation/components/list-item/index.vue')['default']
     Location: typeof import('./src/components/TUIKit/TUIComponents/container/TUIChat/plugin-components/location/Location.vue')['default']
-    LoginForm: typeof import('./src/components/LoginForm.vue')['default']
+    LoginForm: typeof import('./src/components/login/LoginForm.vue')['default']
     Manage: typeof import('./src/components/TUIKit/TUIComponents/container/TUIChat/manage-components/manage.vue')['default']
     ManageMember: typeof import('./src/components/TUIKit/TUIComponents/container/TUIChat/manage-components/manage-member.vue')['default']
     ManageName: typeof import('./src/components/TUIKit/TUIComponents/container/TUIChat/manage-components/manage-name.vue')['default']
@@ -99,6 +99,7 @@ declare module '@vue/runtime-core' {
     OtherQuickPlug: typeof import('./src/components/other/OtherQuickPlug.vue')['default']
     PrismEditor: typeof import('./src/components/snippet/PrismEditor.vue')['default']
     ReadReceiptDialog: typeof import('./src/components/TUIKit/TUIComponents/container/TUIChat/plugin-components/readReceiptDialog/readReceiptDialog.vue')['default']
+    RegistryDialog: typeof import('./src/components/login/RegistryDialog.vue')['default']
     Replies: typeof import('./src/components/TUIKit/TUIComponents/container/TUIChat/plugin-components/replies/replies.vue')['default']
     RepliesItem: typeof import('./src/components/TUIKit/TUIComponents/container/TUIChat/plugin-components/replies/replies-item.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']

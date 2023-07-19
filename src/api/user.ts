@@ -1,9 +1,9 @@
 import request from '../utils/request'
-import {LoginForm} from "../form/user";
-import {Result} from "../result";
-import {UserInfo} from "../type/userType";
+import {LoginForm} from "@/form/user";
+import {Result} from "@/result";
+import {UserInfo} from "@/type/userType";
 import TUIKit from "../plugin/tuikit";
-import {genTestUserSig} from "../components/TUIKit";
+import {genTestUserSig} from "@/components/TUIKit";
 
 export function login(data: LoginForm): Promise<Result<UserInfo>> {
     return request({
@@ -21,7 +21,7 @@ export function logout(): Promise<Result> {
 }
 
 
-export function registry(data: LoginForm): Promise<Result> {
+export function registry(data:FormData): Promise<Result> {
     return request({
         url: '/api/v1/user/registry',
         method: 'post',

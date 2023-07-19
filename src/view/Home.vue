@@ -21,8 +21,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import {ref, reactive, toRef, computed} from 'vue';
-import AsideMenu from "../components/AsideMenu.vue";
+import AsideMenu from "../components/layout/AsideMenu.vue";
 
 </script>
 <style scoped lang="less">

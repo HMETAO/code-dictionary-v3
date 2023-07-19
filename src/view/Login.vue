@@ -4,8 +4,7 @@
     </div>
 </template>
 <script setup lang="ts">
-import {ref, reactive, toRef, computed, onMounted} from 'vue';
-import LoginForm from "../components/LoginForm.vue";
+import LoginForm from "../components/login/LoginForm.vue";
 
 
 </script>

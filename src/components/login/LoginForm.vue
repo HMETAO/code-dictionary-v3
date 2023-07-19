@@ -35,22 +35,24 @@
       </el-form>
       <!--button区-->
       <div class="flex login-form-button-box animate__animated animate__fadeInUp">
-        <el-button round plain @click="loginFunctionEvent">Login</el-button>
+        <el-button round plain @click="loginClickEventFunction">Login</el-button>
         <div class="m-4 text-gray-600/75 ">OR</div>
-        <el-button round plain>Registry</el-button>
+        <el-button round plain @click="registryDialogFormVisible = true">Registry</el-button>
       </div>
     </el-card>
   </div>
+  <RegistryDialog v-model="registryDialogFormVisible"/>
 </template>
 <script setup lang="ts">
 import {ref} from 'vue';
-import {LoginForm} from "../form/user";
+import {LoginForm} from "@/form/user";
 import {Lock, User} from '@element-plus/icons-vue'
-import {useBaseStore, useStateStore} from "../store";
-import {login} from "../api/user";
+import {useBaseStore, useStateStore} from "@/store";
+import {login} from "@/api/user";
 import {useRouter} from "vue-router";
-import {Result} from "../result";
-import {UserInfo} from "../type/userType";
+import {Result} from "@/result";
+import {UserInfo} from "@/type/userType";
+import RegistryDialog from "@/components/login/RegistryDialog.vue";
 
 
 // 登录表单
@@ -62,8 +64,10 @@ const loginForm = ref<LoginForm>({
 const baseStore = useBaseStore()
 const stateStore = useStateStore()
 const router = useRouter()
+
+const registryDialogFormVisible = ref<boolean>(false)
 // 点击登录请求回调
-const loginFunctionEvent = async () => {
+const loginClickEventFunction = async () => {
   try {
     // 全局loading
     stateStore.loading = true
