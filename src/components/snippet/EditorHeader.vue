@@ -58,7 +58,6 @@ onMounted(() => {
 
 onUnmounted(() => {
   document.removeEventListener('keydown', saveContent)
-
 })
 
 // 点击初始化Snippet面板事件回调

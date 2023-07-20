@@ -44,7 +44,7 @@
   <RegistryDialog v-model="registryDialogFormVisible"/>
 </template>
 <script setup lang="ts">
-import {ref} from 'vue';
+import {onMounted, onUnmounted, ref} from 'vue';
 import {LoginForm} from "@/form/user";
 import {Lock, User} from '@element-plus/icons-vue'
 import {useBaseStore, useStateStore} from "@/store";
@@ -54,7 +54,20 @@ import {Result} from "@/result";
 import {UserInfo} from "@/type/userType";
 import RegistryDialog from "@/components/login/RegistryDialog.vue";
 
+const enter = (e: KeyboardEvent) => {
+  if (e.key === 'Enter') {
+    loginClickEventFunction()
+    e.preventDefault()
+  }
+}
 
+onMounted(() => {
+  document.addEventListener('keydown', enter)
+})
+
+onUnmounted(() => {
+  document.removeEventListener('keydown', enter)
+})
 // 登录表单
 const loginForm = ref<LoginForm>({
   username: "",
@@ -77,8 +90,6 @@ const loginClickEventFunction = async () => {
     baseStore.user = res.data
     baseStore.token = res.data.token
     await router.push('/home')
-  } catch (e) {
-    return
   } finally {
     // 关闭loading
     stateStore.loading = false
