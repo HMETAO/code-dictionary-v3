@@ -5,7 +5,8 @@
       <el-form
           label-width='0px'
           :model='registryForm'
-          ref='registryFormRef'
+          :rules="rules"
+          ref='ruleFormRef'
       >
         <!-- 用户名 -->
         <el-form-item prop='username'>
@@ -73,8 +74,8 @@
         </el-upload>
         <!-- 按钮区域 -->
         <el-form-item class='login-btn'>
-          <el-button type='primary' @click='registryClickEventFunction()'>注册</el-button>
-          <el-button type='info' @click='resetCloseEventFunction()'>重置</el-button>
+          <el-button type='primary' @click='registryClickEventFunction'>注册</el-button>
+          <el-button type='info' @click='resetCloseEventFunction'>重置</el-button>
         </el-form-item>
       </el-form>
     </el-dialog>
@@ -84,13 +85,67 @@
 
 import {reactive, ref, watch} from "vue";
 import {RegistryForm} from "@/form/user";
-import {FormInstance, UploadUserFile} from "element-plus";
+import {FormInstance, FormRules, UploadUserFile} from "element-plus";
 import {registry} from "@/api/user";
-import {successMessage} from "@/utils/baseMessage";
+import {infoMessage, successMessage} from "@/utils/baseMessage";
+
 
 const fileList = ref<UploadUserFile[]>([])
-const registryFormRef = ref<FormInstance>()
+const ruleFormRef = ref<FormInstance>()
 
+// 自定义规则
+const validatePass = (rule: any, value: any, callback: any) => {
+  if (value === '') {
+    callback(new Error('请输入密码'))
+  } else {
+    if (registryForm.checkPassword !== '') {
+      ruleFormRef.value?.validateField('checkPassword')
+    }
+    callback()
+  }
+}
+const validatePass2 = (rule: any, value: any, callback: any) => {
+  if (value === '') {
+    callback(new Error('请再次输入密码'))
+  } else if (value !== registryForm.password) {
+    callback(new Error('两次输入密码不一致!'))
+  } else {
+    callback()
+  }
+}
+// 表单rules
+const rules = reactive<FormRules>({
+  username: [
+    {required: true, message: '请输入用户名', trigger: 'blur'}
+  ],
+  password: [
+    {
+      pattern: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
+      message: '长度至少为8，至少含有一个字母和一个数字',
+      trigger: 'blur'
+    },
+    {required: true, validator: validatePass, trigger: 'blur'}
+  ],
+  checkPassword: [
+    {required: true, validator: validatePass2, trigger: 'blur'}
+  ],
+  mobile: [
+    {
+      required: true,
+      pattern: /^1(3\d|4[5-9]|5[0-35-9]|6[2567]|7[0-8]|8\d|9[0-35-9])\d{8}$/,
+      message: '手机号格式错误',
+      trigger: 'blur'
+    }
+  ],
+  email: [
+    {
+      required: true,
+      pattern: /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/,
+      trigger: 'blur',
+      message: '邮箱格式错误'
+    }
+  ]
+})
 const props = defineProps<{
   modelValue: boolean
 }>()
@@ -105,6 +160,7 @@ watch(() => props.modelValue, () => {
 )
 const registryForm = reactive<RegistryForm>({})
 
+// 关闭注册dialog事件回调
 const registryDialogCloseEventFunction = () => {
   emit("update:modelValue", false)
   resetCloseEventFunction()
@@ -112,21 +168,29 @@ const registryDialogCloseEventFunction = () => {
 
 // 点击注册事件回调函数
 const registryClickEventFunction = async () => {
-  // 构建formData对象
-  const formData = new FormData()
-  formData.append('username', registryForm.username as string)
-  formData.append('password', registryForm.password as string)
-  formData.append('email', registryForm.email as string)
-  formData.append('mobile', registryForm.mobile as string)
-  if (fileList.value.length != 0)
-    formData.append('file', fileList.value[0] as any)
-  await registry(formData)
-  successMessage("注册成功")
-  registryDialogCloseEventFunction()
+  ruleFormRef.value?.validate(async (isValid) => {
+    if (isValid) {
+      // 构建formData对象
+      const formData = new FormData()
+      formData.append('username', registryForm.username as string)
+      formData.append('password', registryForm.password as string)
+      formData.append('email', registryForm.email as string)
+      formData.append('mobile', registryForm.mobile as string)
+      if (fileList.value.length != 0)
+        formData.append('file', fileList.value[0].raw as File)
+      await registry(formData)
+      successMessage("注册成功")
+      registryDialogCloseEventFunction()
+    } else {
+      infoMessage("请按要求填写注册表单")
+    }
+
+  })
+
 }
 
 const resetCloseEventFunction = () => {
-  registryFormRef.value?.resetFields()
+  ruleFormRef.value?.resetFields()
   fileList.value = []
 }
 </script>

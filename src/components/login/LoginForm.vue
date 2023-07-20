@@ -57,8 +57,8 @@ import RegistryDialog from "@/components/login/RegistryDialog.vue";
 
 // 登录表单
 const loginForm = ref<LoginForm>({
-  username: "HMETAO",
-  password: "123456"
+  username: "",
+  password: ""
 })
 
 const baseStore = useBaseStore()

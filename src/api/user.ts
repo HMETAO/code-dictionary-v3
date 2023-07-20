@@ -31,6 +31,7 @@ export function registry(data: FormData): Promise<Result> {
 /**
  * 登录IM
  * @param userID userID
+ * @param userSig
  */
 export function loginIM(userID: string, userSig: string): Promise<any> {
     // login TUIKit
