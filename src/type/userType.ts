@@ -6,4 +6,5 @@ export interface UserInfo {
     avatar: string
     lastLoginTime: string
     mobile: string
+    userSig:string
 }

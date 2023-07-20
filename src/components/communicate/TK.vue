@@ -38,7 +38,7 @@ const handleCurrentConversation = (value: string) => {
 };
 const init = async () => {
   // 登录腾讯IM系统
-  await loginIM(baseStore.user.username)
+  await loginIM(baseStore.user.username, baseStore.user.userSig)
 }
 init()
 
