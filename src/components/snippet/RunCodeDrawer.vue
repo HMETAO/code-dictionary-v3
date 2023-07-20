@@ -1,8 +1,9 @@
 <template>
   <div>
-
     <el-drawer v-model="drawer" :size="drawerSize + '%'"
-              :lock-scroll="false" append-to-body
+               :lock-scroll="false" append-to-body
+               modal-class="modal-box"
+               :modal="false"
                @close="closeDrawer">
       <template #header>
         <h4>运行代码</h4>
@@ -47,7 +48,6 @@
         </div>
       </template>
     </el-drawer>
-
   </div>
 </template>
 <script setup lang="ts">
@@ -56,15 +56,15 @@ import {useStateStore} from "@/store";
 import {runCode} from "@/api/snippet";
 import {CodeEnum} from "@/enums/codeEnum";
 
-const stateStore = useStateStore()
 const drawerSize = ref<number>(35)
 const args = ref<string>("")
 const codeEnum = ref<string>(CodeEnum.Cpp)
 const codeResult = ref<string>("")
 // run点击事件回调
 const runClickEventFunction = async () => {
+  console.log(props.snippet)
   const res = await runCode({
-    code: stateStore.snippetForm.snippet,
+    code: props.snippet,
     codeEnum: codeEnum.value, args: args.value
   })
   codeResult.value = res.data
@@ -72,6 +72,7 @@ const runClickEventFunction = async () => {
 
 const props = defineProps<{
   modelValue: boolean
+  snippet: string
 }>()
 
 const drawer = ref<boolean>(false)

@@ -17,10 +17,8 @@
 <script setup lang="ts">
 import {getCurrentInstance, onBeforeUnmount} from 'vue';
 import {PrismEditor} from "vue-prism-editor";
-import "vue-prism-editor/dist/prismeditor.min.css"; // import the styles somewhere
 import prism from "prismjs";
 
-import "prismjs/themes/prism-tomorrow.css";
 import EditorHeader from "./EditorHeader.vue";
 import {SNIPPET_GET_EVENT} from "@/constants/eventConstants";
 import {SnippetType} from "@/type/snippetType";
@@ -73,7 +71,7 @@ onBeforeUnmount(() => {
   line-height: 1.5;
 }
 
-.prism-editor__textarea:focus {
+:deep(.prism-editor__textarea) {
   outline: none;
 }
 </style>

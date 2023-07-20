@@ -56,6 +56,11 @@ const routes: Array<RouteRecordRaw> = [
                 name: 'community',
                 component: () => import('../components/community/Community.vue')
             },
+            {
+                path: "/ide",
+                name: 'ide',
+                component: () => import('../components/ide/IDE.vue')
+            }
         ]
     }
 

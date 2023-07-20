@@ -53,3 +53,6 @@ body, html {
     font-weight: 600;
     color: #34495e;
 }
+.modal-box{
+    position: unset !important;
+}

@@ -25,14 +25,14 @@
           effect="dark"
           content="运行代码"
           placement="top">
-        <el-button type="primary" circle size="default" @click="runCodeDrawer = true">
+        <el-button type="primary" circle size="default" @click="runCodeDrawer = !runCodeDrawer">
           <el-icon>
             <Cpu/>
           </el-icon>
         </el-button>
       </el-tooltip>
     </div>
-    <RunCodeDrawer v-model="runCodeDrawer"/>
+    <RunCodeDrawer v-model="runCodeDrawer" v-model:snippet="store.snippetForm.snippet"/>
   </div>
 </template>
 <script setup lang="ts">

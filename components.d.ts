@@ -58,6 +58,8 @@ declare module '@vue/runtime-core' {
     File: typeof import('./src/components/TUIKit/TUIComponents/container/TUIChat/plugin-components/file/file.vue')['default']
     Forward: typeof import('./src/components/TUIKit/TUIComponents/container/TUIChat/plugin-components/forward/forward.vue')['default']
     GitHubTrend: typeof import('./src/components/community/GitHubTrend.vue')['default']
+    IDE: typeof import('./src/components/ide/IDE.vue')['default']
+    IDEHeader: typeof import('./src/components/ide/IDEHeader.vue')['default']
     Image: typeof import('./src/components/TUIKit/TUIComponents/container/TUIChat/plugin-components/image/image.vue')['default']
     ImagePreviewer: typeof import('./src/components/TUIKit/TUIComponents/container/TUIChat/plugin-components/imagePreviewer/imagePreviewer.vue')['default']
     LayoutHeader: typeof import('./src/components/layout/LayoutHeader.vue')['default']

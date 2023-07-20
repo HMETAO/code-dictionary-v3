@@ -9,6 +9,8 @@ import pinia from "./plugin/pinia";
 import router from "./router";
 import Tuikit from "./plugin/tuikit";
 const app = createApp(App)
+import "vue-prism-editor/dist/prismeditor.min.css"; // import the styles somewhere
+import "prismjs/themes/prism-tomorrow.css";
 
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
     app.component(key, component)
