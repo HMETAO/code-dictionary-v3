@@ -32,7 +32,6 @@
 
 <script>
 import {githubTrend} from '@/api/other'
-import {errorMessage} from '@/utils/baseMessage'
 
 export default {
   name: 'github-trend',

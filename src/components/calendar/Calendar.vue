@@ -23,8 +23,8 @@
 </template>
 <script setup lang="ts">
 import {ref} from 'vue';
-import {getCalendar} from "../../api/calendar";
-import {CalendarType} from "../../type/calendar";
+import {getCalendar} from "@/api/calendar";
+import {CalendarType} from "@/type/calendar";
 
 let calendar = ref<CalendarType[]>([]);
 const flag = ref<boolean>(false)
