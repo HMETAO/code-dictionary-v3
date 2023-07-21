@@ -34,3 +34,15 @@ export const useStateStore = defineStore(Names.STATE, {
     getters: {},
     actions: {}
 })
+
+export const useIDEStore = defineStore(Names.IDE, {
+
+    state() {
+        return {
+            ideBackGroundColor: 'rgba(61,61,61,1.0)',
+            ideColor: 'rgba(204,204,204,1.0)'
+        }
+    },
+    getters: {},
+    actions: {}
+})

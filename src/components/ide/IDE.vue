@@ -8,6 +8,7 @@
     <div class="ide">
       <prism-editor
           class='ide-editor '
+          :style="{'background':ideBackGroundColor,'color':ideColor}"
           v-model="snippet"
           :highlight='highlighter'
           line-numbers></prism-editor>
@@ -20,7 +21,10 @@ import prism from "prismjs";
 import {PrismEditor} from "vue-prism-editor";
 import {ref} from "vue";
 import IDEHeader from "@/components/ide/IDEHeader.vue";
+import {useIDEStore} from "@/store";
+import {storeToRefs} from "pinia";
 
+const {ideBackGroundColor, ideColor} = storeToRefs(useIDEStore())
 const snippet = ref<string>("")
 // 高亮代码
 const highlighter = (code: string) => {

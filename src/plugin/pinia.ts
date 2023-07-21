@@ -2,7 +2,7 @@ import {createPinia, PiniaPluginContext} from "pinia";
 import {nextTick} from "vue";
 import {ElLoading} from "element-plus";
 import {LoadingInstance} from "element-plus/es/components/loading/src/loading";
-import {Names} from "../store/store-name";
+import {Names} from "@/store/store-name";
 
 // pinia start
 const pinia = createPinia()
