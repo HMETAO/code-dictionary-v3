@@ -19,7 +19,6 @@ import {useIDEStore} from "@/store";
 
 const {ideBackGroundColor, ideColor} = storeToRefs(useIDEStore())
 
-console.log(ideBackGroundColor.value);
 const runCodeDrawer = ref<boolean>(false)
 const saveContent = (e: KeyboardEvent) => {
   if ((e.ctrlKey || e.metaKey) && e.key === 's') {

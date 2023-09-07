@@ -1,6 +1,6 @@
 import {AfterFetchContext, createFetch} from '@vueuse/core'
 import {errorMessage} from "./baseMessage";
-import {Result} from "../result";
+import {Result} from "@/result";
 
 export const useMyFetch = <T>(url: string, immediate: boolean = true) => {
     return createOption(immediate)<T>(url)

@@ -60,6 +60,11 @@ const routes: Array<RouteRecordRaw> = [
                 path: "/ide",
                 name: 'ide',
                 component: () => import('../components/ide/IDE.vue')
+            },
+            {
+                path: "/user",
+                name: 'user',
+                component: () => import('../components/user/User.vue')
             }
         ]
     }

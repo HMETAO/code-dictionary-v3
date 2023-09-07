@@ -1,8 +1,12 @@
 import request from '../utils/request'
 import {LoginForm} from "@/form/user";
-import {Result} from "@/result";
-import {UserInfo} from "@/type/userType";
+import {PageInfo, Result} from "@/result";
+import {UserInfo, UserRole} from "@/type/userType";
 import TUIKit from "../plugin/tuikit";
+import {UseFetchReturn} from "@vueuse/core";
+import {MenusType} from "@/type/menusType";
+import {useMyFetch} from "@/utils/requestFetch";
+import {BaseQueryForm} from "@/form/base";
 
 export function login(data: LoginForm): Promise<Result<UserInfo>> {
     return request({
@@ -19,7 +23,10 @@ export function logout(): Promise<Result> {
     })
 }
 
-
+/**
+ * 用户注册
+ * @param data 用户数据
+ */
 export function registry(data: FormData): Promise<Result> {
     return request({
         url: '/api/v1/user/registry',
@@ -48,4 +55,14 @@ export function loginIM(userID: string, userSig: string): Promise<any> {
 export function logoutIM(): Promise<any> {
     // login TUIKit
     return TUIKit.logout();
+}
+
+
+/**
+ * 获取用户列表
+ * @param immediate 手动触发
+ * @param query 请求参数
+ */
+export function getUsers(immediate: boolean = true, query: BaseQueryForm): UseFetchReturn<PageInfo<UserRole>> {
+    return useMyFetch<PageInfo<UserRole>>(`/api/v1/admin/user?pageSize=${query.pageSize}&pageNum=${query.pageNum}`, immediate).get().json();
 }
