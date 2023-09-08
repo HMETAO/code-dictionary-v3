@@ -60,9 +60,12 @@ export function logoutIM(): Promise<any> {
 
 /**
  * 获取用户列表
- * @param immediate 手动触发
  * @param query 请求参数
  */
-export function getUsers(immediate: boolean = true, query: BaseQueryForm): UseFetchReturn<PageInfo<UserRole>> {
-    return useMyFetch<PageInfo<UserRole>>(`/api/v1/admin/user?pageSize=${query.pageSize}&pageNum=${query.pageNum}`, immediate).get().json();
+export function getUsers(query: BaseQueryForm): Promise<Result<PageInfo<UserRole>>> {
+    return request({
+        url: `/api/v1/admin/user`,
+        method: 'get',
+        params: query
+    })
 }

@@ -1,5 +1,5 @@
 <template>
-  <el-table :data="modelValue as Array<UserRole>" style="width: 100%" border>
+  <el-table :data="userTable as Array<UserRole>" style="width: 100%" border>
     <el-table-column type="expand">
       <template #default="props">
         <el-tag style="margin: 0 10px" v-for="(item,index) in props.row.roles" :key="index">{{ item.roleName }}</el-tag>
@@ -21,10 +21,19 @@
 <script lang="ts" setup>
 
 import {UserRole} from "@/type/userType";
+import {ref, watch} from "vue";
 
 const props = defineProps<{
   modelValue: Array<UserRole>
 }>()
+const userTable = ref<UserRole[]>()
+
+watch<UserRole[]>(() => props.modelValue, () => {
+  console.log(props.modelValue)
+  userTable.value = props.modelValue
+})
+
+
 </script>
 <style scoped lang="less">
 
