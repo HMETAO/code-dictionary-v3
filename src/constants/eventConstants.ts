@@ -11,4 +11,6 @@ export const TOOL_UPLOAD_SUCCESS_EVENT = "ToolUploadSuccessEvent"
 export const INFORMATION_GET_EVENT = "InformationGetEvent"
 
 // Snippet插入成功
-export const SNIPPET_INSERT_EVEN = "SnippetInsertEvent"
+export const SNIPPET_INSERT_EVENT = "SnippetInsertEvent"
+
+export const DELETE_USER_EVENT = "DeleteUserEvent"

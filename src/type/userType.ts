@@ -4,7 +4,7 @@ export interface UserInfo {
     username?: string
     token?: string
     email?: string
-    id?: number
+    id?: string
     avatar?: string
     lastLoginTime?: string
     mobile?: string

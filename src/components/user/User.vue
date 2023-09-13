@@ -16,29 +16,41 @@
 </template>
 <script lang="ts" setup>
 import UserTable from "@/components/user/UserTable.vue";
-import {ref} from "vue";
+import {getCurrentInstance, onMounted, onUnmounted, ref} from "vue";
 import {BaseQueryForm} from "@/form/base";
 import {getUsers} from "@/api/user";
 import {PageInfo} from "@/result";
 import {UserRole} from "@/type/userType";
+import {DELETE_USER_EVENT} from "@/constants/eventConstants";
 
 const queryForm = ref<BaseQueryForm>({pageNum: 1, pageSize: 5})
 
 const tableData = ref<PageInfo<UserRole>>({})
+const instance = getCurrentInstance()
 
 const findUser = async () => {
   const res = await getUsers(queryForm.value)
   tableData.value = res.data
-  console.log(tableData.value.list)
 }
+
 
 // 初始化方法
 const init = () => {
   findUser()
 }
+onMounted(() => {
+  //监听删除用户事件
+  instance?.proxy?.$bus.on(DELETE_USER_EVENT, () => {
+    findUser()
+  })
+})
+
+onUnmounted(() => {
+  // 删除事件
+  instance?.proxy?.$bus.off(DELETE_USER_EVENT)
+})
 
 init()
-
 // 页号改变事件回调函数
 const queryPropChangeEventFunction = () => {
   findUser()

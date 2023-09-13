@@ -31,7 +31,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import {getCurrentInstance, ref} from 'vue';
+import {getCurrentInstance, onMounted, onUnmounted, ref} from 'vue';
 import {delTool, getTool} from "@/api/tool";
 import {ToolType} from "@/type/toolType";
 import {successMessage} from "@/utils/baseMessage";
@@ -55,10 +55,17 @@ const init = () => {
 }
 init()
 
-//监听Tool上传成功事件
-instance?.proxy?.$bus.on(TOOL_UPLOAD_SUCCESS_EVENT, () => {
-  init()
+onMounted(() => {
+  //监听Tool上传成功事件
+  instance?.proxy?.$bus.on(TOOL_UPLOAD_SUCCESS_EVENT, () => {
+    init()
+  })
 })
+
+onUnmounted(() => {
+  instance?.proxy?.$bus.off(TOOL_UPLOAD_SUCCESS_EVENT)
+})
+
 
 // 下载事件回调
 const downloadToolEventFunction = (raw: ToolType) => {

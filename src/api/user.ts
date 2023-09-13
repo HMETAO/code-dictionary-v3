@@ -69,3 +69,15 @@ export function getUsers(query: BaseQueryForm): Promise<Result<PageInfo<UserRole
         params: query
     })
 }
+
+/**
+ * 删除用户
+ * @param userId 用户ID
+ */
+export function deleteUser(userId: string): Promise<Result> {
+    return request({
+        url: `/api/v1/admin/user/` + userId,
+        method: 'delete',
+    })
+}
+
