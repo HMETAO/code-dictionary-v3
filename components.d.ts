@@ -132,6 +132,7 @@ declare module '@vue/runtime-core' {
     TypingHeader: typeof import('./src/components/TUIKit/TUIComponents/container/TUIChat/plugin-components/typingHeader/typingHeader.vue')['default']
     User: typeof import('./src/components/user/User.vue')['default']
     UserTable: typeof import('./src/components/user/UserTable.vue')['default']
+    UserUpdateInfoDialog: typeof import('./src/components/user/UserUpdateInfoDialog.vue')['default']
     Video: typeof import('./src/components/TUIKit/TUIComponents/container/TUIChat/plugin-components/video/video.vue')['default']
     Words: typeof import('./src/components/TUIKit/TUIComponents/container/TUIChat/plugin-components/words/words.vue')['default']
   }

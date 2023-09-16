@@ -28,9 +28,9 @@
 <script setup lang="ts">
 import {getCurrentInstance, ref, watch} from 'vue';
 import type {UploadInstance} from "element-plus";
-import {TOOL_UPLOAD_ACTIVE} from "../../api/tool";
-import {errorMessage, successMessage} from "../../utils/baseMessage";
-import {TOOL_UPLOAD_SUCCESS_EVENT} from "../../constants/eventConstants";
+import {TOOL_UPLOAD_ACTIVE} from "@/api/tool";
+import {successMessage} from "@/utils/baseMessage";
+import {TOOL_UPLOAD_SUCCESS_EVENT} from "@/constants/eventConstants";
 
 const instance = getCurrentInstance()
 // 向上触发更新

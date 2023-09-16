@@ -13,4 +13,5 @@ export const INFORMATION_GET_EVENT = "InformationGetEvent"
 // Snippet插入成功
 export const SNIPPET_INSERT_EVENT = "SnippetInsertEvent"
 
+// 删除用户成功
 export const DELETE_USER_EVENT = "DeleteUserEvent"
