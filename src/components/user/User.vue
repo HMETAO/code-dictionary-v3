@@ -9,8 +9,7 @@
           layout="prev, pager, next"
           :page-count="tableData.pages"
           v-model:current-page="queryForm.pageNum"
-          @update:current-page="queryPropChangeEventFunction"
-      />
+          @update:current-page="queryPropChangeEventFunction"/>
     </div>
   </div>
 </template>

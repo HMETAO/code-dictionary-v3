@@ -81,3 +81,13 @@ export function deleteUser(userId: string): Promise<Result> {
     })
 }
 
+/**
+ * 查询用户
+ * @param userId 用户ID
+ */
+export function getUser(userId: string): Promise<Result<UserRole>> {
+    return request({
+        url: `/api/v1/user/` + userId,
+        method: 'get',
+    })
+}

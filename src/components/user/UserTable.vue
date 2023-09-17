@@ -11,12 +11,13 @@
     <el-table-column prop="lastLoginTime" label="最后登录时间" align="center"/>
     <el-table-column prop="" label="操作" align="center">
       <template #default="scope">
-        <el-button type="primary" size="small" @click="updateDialogVisible = true">修改</el-button>
+        <el-button type="primary" size="small" @click="userUpdateInfoDialogRef.editUserInfo(scope.row.id)">修改
+        </el-button>
         <el-button type="danger" size="small" @click="deleteEventFunction(scope.row)">删除</el-button>
       </template>
     </el-table-column>
   </el-table>
-  <UserUpdateInfoDialog v-model="updateDialogVisible"/>
+  <UserUpdateInfoDialog ref="userUpdateInfoDialogRef"/>
 </template>
 
 <script lang="ts" setup>
@@ -35,10 +36,12 @@ const props = defineProps<{
 const emit = defineEmits<{}>()
 const userTable = ref<UserRole[]>()
 
+const userUpdateInfoDialogRef = ref<InstanceType<typeof UserUpdateInfoDialog>>()
+
 watch<UserRole[]>(() => props.modelValue, () => {
   userTable.value = props.modelValue
 })
-const updateDialogVisible = ref<boolean>()
+
 // 点击删除用户事件回调
 const deleteEventFunction = async (row: UserRole) => {
   errorMessageBox(undefined, `是否删除 ${row.username} `).then(async () => {
@@ -47,7 +50,6 @@ const deleteEventFunction = async (row: UserRole) => {
     instance?.proxy?.$bus.emit(DELETE_USER_EVENT)
   })
 }
-
 
 </script>
 <style scoped lang="less">

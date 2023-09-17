@@ -74,8 +74,8 @@
         </el-upload>
         <!-- 按钮区域 -->
         <el-form-item class='login-btn'>
-          <el-button type='primary' @click='registryClickEventFunction'>注册</el-button>
-          <el-button type='info' @click='resetCloseEventFunction'>重置</el-button>
+          <el-button type='primary' @click='registryClickEventFunction'>注 册</el-button>
+          <el-button type='info' @click='resetCloseEventFunction'>重 置</el-button>
         </el-form-item>
       </el-form>
     </el-dialog>
@@ -153,6 +153,7 @@ const props = defineProps<{
 const emit = defineEmits<{
   (e: 'update:modelValue', modelValue: boolean): void
 }>()
+
 const dialogVisible = ref<boolean>(false)
 watch(() => props.modelValue, () => {
       dialogVisible.value = props.modelValue
@@ -184,9 +185,7 @@ const registryClickEventFunction = async () => {
     } else {
       infoMessage("请按要求填写注册表单")
     }
-
   })
-
 }
 
 const resetCloseEventFunction = () => {
