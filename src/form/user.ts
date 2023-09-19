@@ -15,3 +15,17 @@ export interface RegistryForm {
     email?: string
     file?: object
 }
+
+
+export interface BaseUserInfoForm {
+    id?: string
+    //用户名
+    username?: string
+    //手机号
+    mobile?: string
+    email?: string
+}
+
+export interface UserRoleUpdateForm extends BaseUserInfoForm {
+    roles?: string[]
+}

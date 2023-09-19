@@ -5,14 +5,14 @@
       width="30%">
     <el-form
         label-width='0px'
-        :model='userRoleForm'
+        :model='userRoleUpdateForm'
         :rules="rules"
         ref='ruleFormRef'>
       <!-- 用户名 -->
       <el-form-item prop='username'>
         <el-input
             placeholder='请输入用户名'
-            v-model='userRoleForm.username'>
+            v-model='userRoleUpdateForm.username'>
           <template #prefix>
             <el-icon>
               <UserFilled/>
@@ -22,7 +22,7 @@
       </el-form-item>
       <!--手机号-->
       <el-form-item prop='mobile'>
-        <el-input placeholder='手机号' v-model='userRoleForm.mobile'>
+        <el-input placeholder='手机号' v-model='userRoleUpdateForm.mobile'>
           <template #prefix>
             <el-icon>
               <Iphone/>
@@ -32,7 +32,7 @@
       </el-form-item>
       <!--邮箱-->
       <el-form-item prop='email'>
-        <el-input placeholder='邮箱' v-model='userRoleForm.email'>
+        <el-input placeholder='邮箱' v-model='userRoleUpdateForm.email'>
           <template #prefix>
             <el-icon>
               <Position/>
@@ -40,31 +40,22 @@
           </template>
         </el-input>
       </el-form-item>
-      <!--头像-->
-      <!--      <el-upload-->
-      <!--          v-model:file-list="fileList"-->
-      <!--          list-type='picture'-->
-      <!--          action=''-->
-      <!--          :limit='1'-->
-      <!--          :auto-upload='false'-->
-      <!--          accept='image/png, image/jpeg'>-->
-      <!--        <el-button size='small' type='primary'>上传头像</el-button>-->
-      <!--      </el-upload>-->
     </el-form>
     <template #footer>
-      <el-button type="primary" @click="">Create</el-button>
+      <el-button type="primary" @click="updateClickEventFunction">Update</el-button>
       <el-button @click='closeDialogEventFunction'>Cancel</el-button>
     </template>
   </el-dialog>
 </template>
 <script lang="ts" setup>
 import {getCurrentInstance, reactive, ref} from "vue";
-import {getUser} from "@/api/user";
-import {UserRole} from "@/type/userType";
+import {getUser, updateUser} from "@/api/user";
 import {FormRules} from "element-plus";
+import {UserRoleUpdateForm} from "@/form/user";
+import {successMessage} from "@/utils/baseMessage";
 
 const instance = getCurrentInstance()
-const userRoleForm = ref<UserRole>({})
+const userRoleUpdateForm = ref<UserRoleUpdateForm>({})
 // 表单rules
 const rules = reactive<FormRules>({
   username: [
@@ -92,13 +83,27 @@ const rules = reactive<FormRules>({
 const emit = defineEmits<{
   (e: "closeDialogEventFunction"): void
 }>()
+const updateClickEventFunction = async () => {
+  await updateUser(userRoleUpdateForm.value)
+  successMessage("修改成功")
+  dialogVisible.value = false;
+}
 
 // 点击修改用户信息
 const editUserInfo = async (userId: string) => {
   dialogVisible.value = true
   // 查询要修改用户的信息
   const res = await getUser(userId)
-  userRoleForm.value = res.data;
+  userRoleUpdateForm.value = (({id, email, username, mobile}) => ({
+    id,
+    email,
+    username,
+    mobile
+  }))(res.data)
+
+  userRoleUpdateForm.value.roles = res.data.roles?.map(item => {
+    return item.id
+  });
 }
 
 // 监听父类modelValue变化映射到updateDialogVisible

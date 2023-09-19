@@ -1,5 +1,5 @@
 import request from '../utils/request'
-import {LoginForm} from "@/form/user";
+import {BaseUserInfoForm, LoginForm, UserRoleUpdateForm} from "@/form/user";
 import {PageInfo, Result} from "@/result";
 import {UserInfo, UserRole} from "@/type/userType";
 import TUIKit from "../plugin/tuikit";
@@ -89,5 +89,13 @@ export function getUser(userId: string): Promise<Result<UserRole>> {
     return request({
         url: `/api/v1/user/` + userId,
         method: 'get',
+    })
+}
+
+export function updateUser(data: UserRoleUpdateForm | BaseUserInfoForm): Promise<Result<UserRole>> {
+    return request({
+        url: `/api/v1/user/`,
+        method: 'put',
+        data
     })
 }
