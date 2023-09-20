@@ -20,7 +20,7 @@ import {BaseQueryForm} from "@/form/base";
 import {getUsers} from "@/api/user";
 import {PageInfo} from "@/result";
 import {UserRole} from "@/type/userType";
-import {DELETE_USER_EVENT} from "@/constants/eventConstants";
+import {DELETE_USER_EVENT, UPDATE_USER_EVENT} from "@/constants/eventConstants";
 
 const queryForm = ref<BaseQueryForm>({pageNum: 1, pageSize: 10})
 
@@ -42,11 +42,17 @@ onMounted(() => {
   instance?.proxy?.$bus.on(DELETE_USER_EVENT, () => {
     findUser()
   })
+  // 监听更新用户事件
+  instance?.proxy?.$bus.on(UPDATE_USER_EVENT, () => {
+    console.log(111)
+    findUser()
+  })
 })
 
 onUnmounted(() => {
   // 删除事件
   instance?.proxy?.$bus.off(DELETE_USER_EVENT)
+  instance?.proxy?.$bus.off(UPDATE_USER_EVENT)
 })
 
 init()

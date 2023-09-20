@@ -70,6 +70,7 @@ import {UserRoleUpdateForm} from "@/form/user";
 import {successMessage} from "@/utils/baseMessage";
 import {getRoles} from "@/api/role";
 import {Role} from "@/type/roleType";
+import {UPDATE_USER_EVENT} from "@/constants/eventConstants";
 
 const instance = getCurrentInstance()
 const userRoleUpdateForm = ref<UserRoleUpdateForm>({})
@@ -113,6 +114,7 @@ const updateClickEventFunction = async () => {
   await updateUser(userRoleUpdateForm.value)
   successMessage("修改成功")
   dialogVisible.value = false;
+  instance?.proxy?.$bus.emit(UPDATE_USER_EVENT)
 }
 
 // 点击修改用户信息
@@ -128,12 +130,10 @@ const editUserInfo = async (userId: string) => {
     mobile
   }))(res.data)
   // 跟已有的roles合并并去重
-
   roles.value = unique(roles.value.map(r => toRaw(r)).concat(res.data.roles as any))
   userRoleUpdateForm.value.roles = res.data.roles?.map(item => {
     return item.id
   });
-  console.log(roles.value)
 }
 
 const unique = (arr: Array<Role>) => {

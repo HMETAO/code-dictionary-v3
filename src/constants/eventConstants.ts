@@ -15,3 +15,6 @@ export const SNIPPET_INSERT_EVENT = "SnippetInsertEvent"
 
 // 删除用户成功
 export const DELETE_USER_EVENT = "DeleteUserEvent"
+
+// 更新用户成功
+export const UPDATE_USER_EVENT = "UpdateUserEvent"
