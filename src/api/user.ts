@@ -92,6 +92,10 @@ export function getUser(userId: string): Promise<Result<UserRole>> {
     })
 }
 
+/**
+ * 更行用户
+ * @param data 用户数据
+ */
 export function updateUser(data: UserRoleUpdateForm | BaseUserInfoForm): Promise<Result<UserRole>> {
     return request({
         url: `/api/v1/user/`,

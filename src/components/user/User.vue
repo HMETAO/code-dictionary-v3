@@ -22,7 +22,7 @@ import {PageInfo} from "@/result";
 import {UserRole} from "@/type/userType";
 import {DELETE_USER_EVENT} from "@/constants/eventConstants";
 
-const queryForm = ref<BaseQueryForm>({pageNum: 1, pageSize: 5})
+const queryForm = ref<BaseQueryForm>({pageNum: 1, pageSize: 10})
 
 const tableData = ref<PageInfo<UserRole>>({})
 const instance = getCurrentInstance()

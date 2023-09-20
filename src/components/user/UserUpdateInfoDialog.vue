@@ -1,5 +1,6 @@
 <template>
   <el-dialog
+      @open="openDialogEventFunction"
       @close="closeDialogEventFunction"
       v-model="dialogVisible"
       width="30%">
@@ -40,6 +41,20 @@
           </template>
         </el-input>
       </el-form-item>
+      <el-form-item>
+        <el-select
+            :disabled="roles.length === 0"
+            v-model="userRoleUpdateForm.roles"
+            multiple
+            placeholder="Select"
+            style="width: 240px">
+          <el-option
+              v-for="item in roles"
+              :key="item.id"
+              :label="item.roleName"
+              :value="item.id"/>
+        </el-select>
+      </el-form-item>
     </el-form>
     <template #footer>
       <el-button type="primary" @click="updateClickEventFunction">Update</el-button>
@@ -53,6 +68,8 @@ import {getUser, updateUser} from "@/api/user";
 import {FormRules} from "element-plus";
 import {UserRoleUpdateForm} from "@/form/user";
 import {successMessage} from "@/utils/baseMessage";
+import {getRoles} from "@/api/role";
+import {Role} from "@/type/roleType";
 
 const instance = getCurrentInstance()
 const userRoleUpdateForm = ref<UserRoleUpdateForm>({})
@@ -79,6 +96,13 @@ const rules = reactive<FormRules>({
   ]
 })
 
+const roles = ref<Role[]>([])
+
+// 开启dialog事件函数
+const openDialogEventFunction = async () => {
+  const res = await getRoles()
+  roles.value = res.data
+}
 // 向上触发更新
 const emit = defineEmits<{
   (e: "closeDialogEventFunction"): void
@@ -94,16 +118,22 @@ const editUserInfo = async (userId: string) => {
   dialogVisible.value = true
   // 查询要修改用户的信息
   const res = await getUser(userId)
+  // 将一部分数据结构出来给form
   userRoleUpdateForm.value = (({id, email, username, mobile}) => ({
     id,
     email,
     username,
     mobile
   }))(res.data)
-
+  // 跟已有的roles合并并去重
+  roles.value = unique(roles.value.concat(res.data.roles as any))
   userRoleUpdateForm.value.roles = res.data.roles?.map(item => {
     return item.id
   });
+}
+
+const unique = (arr: Array<any>) => {
+  return Array.from(new Set(arr))
 }
 
 // 监听父类modelValue变化映射到updateDialogVisible
