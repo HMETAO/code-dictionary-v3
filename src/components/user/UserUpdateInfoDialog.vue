@@ -41,7 +41,7 @@
           </template>
         </el-input>
       </el-form-item>
-      <el-form-item>
+      <el-form-item prop="roles">
         <el-select
             :disabled="roles.length === 0"
             v-model="userRoleUpdateForm.roles"
@@ -63,9 +63,9 @@
   </el-dialog>
 </template>
 <script lang="ts" setup>
-import {getCurrentInstance, reactive, ref} from "vue";
+import {getCurrentInstance, reactive, ref, toRaw, toRef, toRefs} from "vue";
 import {getUser, updateUser} from "@/api/user";
-import {FormRules} from "element-plus";
+import {FormInstance, FormRules} from "element-plus";
 import {UserRoleUpdateForm} from "@/form/user";
 import {successMessage} from "@/utils/baseMessage";
 import {getRoles} from "@/api/role";
@@ -73,6 +73,8 @@ import {Role} from "@/type/roleType";
 
 const instance = getCurrentInstance()
 const userRoleUpdateForm = ref<UserRoleUpdateForm>({})
+
+const ruleFormRef = ref<FormInstance>()
 // 表单rules
 const rules = reactive<FormRules>({
   username: [
@@ -126,14 +128,17 @@ const editUserInfo = async (userId: string) => {
     mobile
   }))(res.data)
   // 跟已有的roles合并并去重
-  roles.value = unique(roles.value.concat(res.data.roles as any))
+
+  roles.value = unique(roles.value.map(r => toRaw(r)).concat(res.data.roles as any))
   userRoleUpdateForm.value.roles = res.data.roles?.map(item => {
     return item.id
   });
+  console.log(roles.value)
 }
 
-const unique = (arr: Array<any>) => {
-  return Array.from(new Set(arr))
+const unique = (arr: Array<Role>) => {
+  const res = new Map();
+  return arr.filter((item) => !res.has(item.id) && res.set(item.id, 1));
 }
 
 // 监听父类modelValue变化映射到updateDialogVisible
@@ -141,6 +146,7 @@ const dialogVisible = ref<boolean>(false)
 
 // 关闭dialog事件回调
 const closeDialogEventFunction = () => {
+  ruleFormRef.value?.resetFields()
   dialogVisible.value = false;
 }
 
