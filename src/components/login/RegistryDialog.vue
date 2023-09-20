@@ -83,13 +83,14 @@
 </template>
 <script setup lang="ts">
 
-import {reactive, ref, watch} from "vue";
+import {getCurrentInstance, reactive, ref, watch} from "vue";
 import {RegistryForm} from "@/form/user";
 import {FormInstance, FormRules, UploadUserFile} from "element-plus";
 import {registry} from "@/api/user";
 import {infoMessage, successMessage} from "@/utils/baseMessage";
+import {REGISTRY_USER_EVENT} from "@/constants/eventConstants";
 
-
+const instance = getCurrentInstance();
 const fileList = ref<UploadUserFile[]>([])
 const ruleFormRef = ref<FormInstance>()
 
@@ -181,6 +182,7 @@ const registryClickEventFunction = async () => {
         formData.append('file', fileList.value[0].raw as File)
       await registry(formData)
       successMessage("注册成功")
+      instance?.proxy?.$bus?.emit(REGISTRY_USER_EVENT)
       registryDialogCloseEventFunction()
     } else {
       infoMessage("请按要求填写注册表单")

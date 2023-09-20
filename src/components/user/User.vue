@@ -1,5 +1,8 @@
 <template>
   <div class="user-box">
+    <div class="user-box-header">
+      <UserHeader/>
+    </div>
     <div class="user-box-table">
       <UserTable v-model="tableData.list"/>
     </div>
@@ -20,7 +23,8 @@ import {BaseQueryForm} from "@/form/base";
 import {getUsers} from "@/api/user";
 import {PageInfo} from "@/result";
 import {UserRole} from "@/type/userType";
-import {DELETE_USER_EVENT, UPDATE_USER_EVENT} from "@/constants/eventConstants";
+import {DELETE_USER_EVENT, REGISTRY_USER_EVENT, UPDATE_USER_EVENT} from "@/constants/eventConstants";
+import UserHeader from "@/components/user/UserHeader.vue";
 
 const queryForm = ref<BaseQueryForm>({pageNum: 1, pageSize: 10})
 
@@ -44,7 +48,10 @@ onMounted(() => {
   })
   // 监听更新用户事件
   instance?.proxy?.$bus.on(UPDATE_USER_EVENT, () => {
-    console.log(111)
+    findUser()
+  })
+
+  instance?.proxy?.$bus.on(REGISTRY_USER_EVENT, () => {
     findUser()
   })
 })
@@ -53,6 +60,7 @@ onUnmounted(() => {
   // 删除事件
   instance?.proxy?.$bus.off(DELETE_USER_EVENT)
   instance?.proxy?.$bus.off(UPDATE_USER_EVENT)
+  instance?.proxy?.$bus.off(REGISTRY_USER_EVENT)
 })
 
 init()
@@ -70,6 +78,10 @@ const queryPropChangeEventFunction = () => {
   align-items: center;
   height: 100%;
   flex-direction: column;
+
+  .user-box-header {
+    width: 100%;
+  }
 
   .user-box-table {
     width: 100%;

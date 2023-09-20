@@ -18,3 +18,6 @@ export const DELETE_USER_EVENT = "DeleteUserEvent"
 
 // 更新用户成功
 export const UPDATE_USER_EVENT = "UpdateUserEvent"
+
+// 用户注册成功
+export const REGISTRY_USER_EVENT = "RegistryUserEvent"
