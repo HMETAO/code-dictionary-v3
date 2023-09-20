@@ -30,7 +30,7 @@ const queryForm = ref<BaseQueryForm>({pageNum: 1, pageSize: 10})
 
 const tableData = ref<PageInfo<UserRole>>({})
 const instance = getCurrentInstance()
-
+const refreshEventName = [DELETE_USER_EVENT, UPDATE_USER_EVENT, REGISTRY_USER_EVENT]
 const findUser = async () => {
   const res = await getUsers(queryForm.value)
   tableData.value = res.data
@@ -42,25 +42,17 @@ const init = () => {
   findUser()
 }
 onMounted(() => {
-  //监听删除用户事件
-  instance?.proxy?.$bus.on(DELETE_USER_EVENT, () => {
-    findUser()
-  })
-  // 监听更新用户事件
-  instance?.proxy?.$bus.on(UPDATE_USER_EVENT, () => {
-    findUser()
-  })
-
-  instance?.proxy?.$bus.on(REGISTRY_USER_EVENT, () => {
-    findUser()
+  refreshEventName.forEach(e => {
+    instance?.proxy?.$bus.on(e, () => {
+      findUser()
+    })
   })
 })
 
 onUnmounted(() => {
-  // 删除事件
-  instance?.proxy?.$bus.off(DELETE_USER_EVENT)
-  instance?.proxy?.$bus.off(UPDATE_USER_EVENT)
-  instance?.proxy?.$bus.off(REGISTRY_USER_EVENT)
+  refreshEventName.forEach(e => {
+    instance?.proxy?.$bus.off(e)
+  })
 })
 
 init()
