@@ -43,7 +43,6 @@
       </el-form-item>
       <el-form-item prop="roles">
         <el-select
-            :disabled="roles.length === 0"
             v-model="userRoleUpdateForm.roles"
             multiple
             placeholder="Select"
