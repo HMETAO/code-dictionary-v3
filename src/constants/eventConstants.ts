@@ -21,3 +21,6 @@ export const UPDATE_USER_EVENT = "UpdateUserEvent"
 
 // 用户注册成功
 export const REGISTRY_USER_EVENT = "RegistryUserEvent"
+
+// 插入角色成功
+export const INSERT_ROLE_EVENT = "InsertRoleEvent"

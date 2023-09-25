@@ -24,34 +24,37 @@ import {getRolesPage} from "@/api/role";
 import {Role} from "@/type/roleType";
 import RoleTable from "@/components/role/RoleTable.vue";
 import RoleHeader from "@/components/role/RoleHeader.vue";
+import {INSERT_ROLE_EVENT} from "@/constants/eventConstants";
 
 const queryForm = ref<BaseQueryForm>({pageNum: 1, pageSize: 10})
 
 const tableData = ref<PageInfo<Role[]>>({})
 const instance = getCurrentInstance()
-// const refreshEventName = [DELETE_USER_EVENT, UPDATE_USER_EVENT, REGISTRY_USER_EVENT]
+const refreshEventName = [INSERT_ROLE_EVENT]
 const findRole = async () => {
   const res = await getRolesPage(queryForm.value)
   tableData.value = res.data
 }
 
-
 // 初始化方法
 const init = () => {
   findRole()
 }
+
+// 挂载事件
 onMounted(() => {
-  // refreshEventName.forEach(e => {
-  //   instance?.proxy?.$bus.on(e, () => {
-  //     findRole()
-  //   })
-  // })
+  refreshEventName.forEach(e => {
+    instance?.proxy?.$bus.on(e, () => {
+      findRole()
+    })
+  })
 })
 
+// 卸载事件
 onUnmounted(() => {
-  // refreshEventName.forEach(e => {
-  //   instance?.proxy?.$bus.off(e)
-  // })
+  refreshEventName.forEach(e => {
+    instance?.proxy?.$bus.off(e)
+  })
 })
 
 init()

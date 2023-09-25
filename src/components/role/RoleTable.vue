@@ -9,8 +9,8 @@
     <el-table-column prop="roleSign" label="角色标识" width="180" align="center"/>
     <el-table-column prop="" label="操作" align="center">
       <template #default="scope">
-        <!--        <el-button type="primary" size="small" @click="userUpdateInfoDialogRef.editUserInfo(scope.row.id)">修改-->
-        <!--        </el-button>-->
+        <el-button type="primary" size="small" @click="">修改
+        </el-button>
         <el-button type="danger" size="small" @click="deleteEventFunction(scope.row)">删除</el-button>
       </template>
     </el-table-column>
