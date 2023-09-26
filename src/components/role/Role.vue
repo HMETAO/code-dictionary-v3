@@ -24,13 +24,13 @@ import {getRolesPage} from "@/api/role";
 import {Role} from "@/type/roleType";
 import RoleTable from "@/components/role/RoleTable.vue";
 import RoleHeader from "@/components/role/RoleHeader.vue";
-import {INSERT_ROLE_EVENT} from "@/constants/eventConstants";
+import {DELETE_ROLE_EVENT, INSERT_ROLE_EVENT} from "@/constants/eventConstants";
 
 const queryForm = ref<BaseQueryForm>({pageNum: 1, pageSize: 10})
 
 const tableData = ref<PageInfo<Role[]>>({})
 const instance = getCurrentInstance()
-const refreshEventName = [INSERT_ROLE_EVENT]
+const refreshEventName = [INSERT_ROLE_EVENT, DELETE_ROLE_EVENT]
 const findRole = async () => {
   const res = await getRolesPage(queryForm.value)
   tableData.value = res.data

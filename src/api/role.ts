@@ -37,3 +37,14 @@ export function insertRole(data: RolePermissionForm): Promise<Result> {
         data
     })
 }
+
+/**
+ * 删除角色
+ * @param roleId 角色ID
+ */
+export function deleteRole(roleId: string): Promise<Result> {
+    return request({
+        url: `/api/v1/role/${roleId}`,
+        method: 'delete',
+    })
+}

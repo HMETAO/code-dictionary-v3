@@ -20,10 +20,10 @@
 
 <script lang="ts" setup>
 import {getCurrentInstance, ref, watch} from "vue";
-import {deleteUser} from "@/api/user";
 import {errorMessageBox, successMessage} from "@/utils/baseMessage";
-import {DELETE_USER_EVENT} from "@/constants/eventConstants";
+import {DELETE_ROLE_EVENT} from "@/constants/eventConstants";
 import {RolePermission} from "@/type/roleType";
+import {deleteRole} from "@/api/role";
 
 const instance = getCurrentInstance()
 const props = defineProps<{
@@ -41,11 +41,12 @@ watch<RolePermission[]>(() => props.modelValue, () => {
 
 // 点击删除用户事件回调
 const deleteEventFunction = async (row: RolePermission) => {
-  // errorMessageBox(undefined, `是否删除 ${row.username} `).then(async () => {
-  //   await deleteUser(row.id as string)
-  //   successMessage("删除成功")
-  //   instance?.proxy?.$bus.emit(DELETE_USER_EVENT)
-  // })
+  errorMessageBox(undefined, `是否删除 ${row.roleName}`).then(async () => {
+    // 删除角色
+    await deleteRole(row.id)
+    successMessage("删除成功")
+    instance?.proxy?.$bus.emit(DELETE_ROLE_EVENT)
+  })
 }
 
 </script>
