@@ -6,3 +6,7 @@ export interface RoleForm {
 export interface RolePermissionForm extends RoleForm {
     perms?: Array<string>
 }
+
+export interface UpdateRoleForm extends RolePermissionForm {
+    id?: string
+}

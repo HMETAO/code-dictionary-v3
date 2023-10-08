@@ -9,13 +9,13 @@
     <el-table-column prop="roleSign" label="角色标识" width="180" align="center"/>
     <el-table-column prop="" label="操作" align="center">
       <template #default="scope">
-        <el-button type="primary" size="small" @click="">修改
+        <el-button type="primary" size="small" @click="roleUpdateInfoDialogRef.editRoleInfo(scope.row.id)">修改
         </el-button>
         <el-button type="danger" size="small" @click="deleteEventFunction(scope.row)">删除</el-button>
       </template>
     </el-table-column>
   </el-table>
-  <!--  <UserUpdateInfoDialog ref="userUpdateInfoDialogRef"/>-->
+  <RoleUpdateInfoDialog ref="roleUpdateInfoDialogRef"/>
 </template>
 
 <script lang="ts" setup>
@@ -24,6 +24,7 @@ import {errorMessageBox, successMessage} from "@/utils/baseMessage";
 import {DELETE_ROLE_EVENT} from "@/constants/eventConstants";
 import {RolePermission} from "@/type/roleType";
 import {deleteRole} from "@/api/role";
+import RoleUpdateInfoDialog from "@/components/role/RoleUpdateInfoDialog.vue";
 
 const instance = getCurrentInstance()
 const props = defineProps<{
@@ -33,7 +34,7 @@ const props = defineProps<{
 const emit = defineEmits<{}>()
 const roleTable = ref<RolePermission[]>([])
 
-// const userUpdateInfoDialogRef = ref<InstanceType<typeof UserUpdateInfoDialog>>()
+const roleUpdateInfoDialogRef = ref<InstanceType<typeof RoleUpdateInfoDialog>>()
 
 watch<RolePermission[]>(() => props.modelValue, () => {
   roleTable.value = props.modelValue

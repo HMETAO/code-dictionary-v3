@@ -1,8 +1,8 @@
 import {PageInfo, Result} from "@/result";
 import request from "@/utils/request";
-import {Role} from "@/type/roleType";
+import {Role, RolePermission} from "@/type/roleType";
 import {BaseQueryForm} from "@/form/base";
-import {RolePermissionForm} from "@/form/role";
+import {RolePermissionForm, UpdateRoleForm} from "@/form/role";
 
 /**
  * 获取角色列表
@@ -17,7 +17,7 @@ export function getRoles(): Promise<Result<Role[]>> {
 /**
  * 获取角色列表(返回分页对象)
  */
-export function getRolesPage(query: BaseQueryForm): Promise<Result<PageInfo<Role[]>>> {
+export function getRolesPage(query: BaseQueryForm): Promise<Result<PageInfo<RolePermission[]>>> {
     return request({
         url: `/api/v1/role/page`,
         method: 'get',
@@ -46,5 +46,26 @@ export function deleteRole(roleId: string): Promise<Result> {
     return request({
         url: `/api/v1/role/${roleId}`,
         method: 'delete',
+    })
+}
+
+
+/**
+ * '查询单个角色
+ * @param roleId
+ */
+export function getRole(roleId: string): Promise<Result<RolePermission>> {
+    return request({
+        url: `/api/v1/role/${roleId}`,
+        method: 'get',
+    })
+}
+
+
+export function updateRole(data: UpdateRoleForm): Promise<Result> {
+    return request({
+        url: `/api/v1/role/`,
+        method: 'put',
+        data
     })
 }

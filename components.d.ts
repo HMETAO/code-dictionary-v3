@@ -109,6 +109,7 @@ declare module '@vue/runtime-core' {
     Role: typeof import('./src/components/role/Role.vue')['default']
     RoleHeader: typeof import('./src/components/role/RoleHeader.vue')['default']
     RoleTable: typeof import('./src/components/role/RoleTable.vue')['default']
+    RoleUpdateInfoDialog: typeof import('./src/components/role/RoleUpdateInfoDialog.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     RunCodeDrawer: typeof import('./src/components/snippet/RunCodeDrawer.vue')['default']

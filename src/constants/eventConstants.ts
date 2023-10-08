@@ -25,4 +25,8 @@ export const REGISTRY_USER_EVENT = "RegistryUserEvent"
 // 插入角色成功
 export const INSERT_ROLE_EVENT = "InsertRoleEvent"
 
+// 删除角色成功
 export const DELETE_ROLE_EVENT = "DeleteRoleEvent"
+
+// 更新角色成功
+export const UPDATE_ROLE_EVENT = "UpdateRoleEvent"
