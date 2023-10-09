@@ -75,7 +75,7 @@ const insertClickEventFunction = async () => {
 // 开启dialog事件函数
 const openClickEventFunction = async () => {
   const res = await getPermission();
-  permissions.value = res.data
+  permissions.value = res.data.list as any
 }
 
 // 关闭dialog事件函数

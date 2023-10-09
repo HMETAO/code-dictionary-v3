@@ -7,7 +7,7 @@
     </el-table-column>
     <el-table-column prop="roleName" label="角色名" width="180" align="center"/>
     <el-table-column prop="roleSign" label="角色标识" width="180" align="center"/>
-    <el-table-column prop="" label="操作" align="center">
+    <el-table-column label="操作" align="center">
       <template #default="scope">
         <el-button type="primary" size="small" @click="roleUpdateInfoDialogRef.editRoleInfo(scope.row.id)">修改
         </el-button>

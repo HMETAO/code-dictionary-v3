@@ -1,7 +1,7 @@
 import {createRouter, createWebHashHistory, Router, RouteRecordRaw} from "vue-router"
 import {useBaseStore, useStateStore} from "@/store";
 // 导入进度条
-import {start, close} from "@/utils/nporgress";
+import {close, start} from "@/utils/nporgress";
 import {infoMessage} from "@/utils/baseMessage";
 
 let baseStore: any = null
@@ -70,6 +70,11 @@ const routes: Array<RouteRecordRaw> = [
                 path: "/role",
                 name: 'role',
                 component: () => import('../components/role/Role.vue')
+            },
+            {
+                path: "/permission",
+                name: 'permission',
+                component: () => import('../components/permission/Permission.vue')
             },
         ]
     }

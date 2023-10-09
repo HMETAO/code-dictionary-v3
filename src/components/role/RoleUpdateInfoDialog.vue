@@ -51,7 +51,7 @@ const permissions = ref<Permission[]>([])
 // 开启dialog事件函数
 const openDialogEventFunction = async () => {
   const res = await getPermission();
-  permissions.value = res.data
+  permissions.value = res.data.list as any
 }
 // 向上触发更新
 const emit = defineEmits<{

@@ -101,6 +101,8 @@ declare module '@vue/runtime-core' {
     MessageVideo: typeof import('./src/components/TUIKit/TUIComponents/container/TUIChat/components/message-video.vue')['default']
     Other: typeof import('./src/components/other/Other.vue')['default']
     OtherQuickPlug: typeof import('./src/components/other/OtherQuickPlug.vue')['default']
+    Permission: typeof import('./src/components/permission/Permission.vue')['default']
+    PermissionTable: typeof import('./src/components/permission/PermissionTable.vue')['default']
     PrismEditor: typeof import('./src/components/snippet/PrismEditor.vue')['default']
     ReadReceiptDialog: typeof import('./src/components/TUIKit/TUIComponents/container/TUIChat/plugin-components/readReceiptDialog/readReceiptDialog.vue')['default']
     RegistryDialog: typeof import('./src/components/login/RegistryDialog.vue')['default']
