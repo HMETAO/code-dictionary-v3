@@ -19,17 +19,18 @@
 import {getCurrentInstance, onMounted, onUnmounted, ref} from "vue";
 import {BaseQueryForm} from "@/form/base";
 import {PageInfo} from "@/result";
-import {getPermission} from "@/api/permission";
+import {getPermissions} from "@/api/permission";
 import PermissionTable from "@/components/permission/PermissionTable.vue";
 import {Permission} from "@/type/permissionType";
+import {UPDATE_PERMISSION_EVENT} from "@/constants/eventConstants";
 
 const queryForm = ref<BaseQueryForm>({pageNum: 1, pageSize: 10})
 
 const tableData = ref<PageInfo<Permission>>({})
 const instance = getCurrentInstance()
-const refreshEventName = ['']
+const refreshEventName = [UPDATE_PERMISSION_EVENT]
 const findPermission = async () => {
-  const res = await getPermission(queryForm.value)
+  const res = await getPermissions(queryForm.value)
   tableData.value = res.data as any
   console.log(tableData.value)
 }

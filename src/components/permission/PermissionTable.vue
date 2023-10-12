@@ -4,13 +4,13 @@
     <el-table-column prop="path" label="权限标识" width="180" align="center"/>
     <el-table-column label="操作" align="center">
       <template #default="scope">
-        <el-button type="primary" size="small" @click="">修改
+        <el-button type="primary" size="small" @click="permissionUpdateInfoDialog.editPermission(scope.row.id)">修改
         </el-button>
         <el-button type="danger" size="small" @click="deleteEventFunction(scope.row)">删除</el-button>
       </template>
     </el-table-column>
   </el-table>
-  <RoleUpdateInfoDialog ref="roleUpdateInfoDialogRef"/>
+  <PermissionUpdateInfoDialog ref="permissionUpdateInfoDialog"/>
 </template>
 
 <script lang="ts" setup>
@@ -18,18 +18,17 @@ import {getCurrentInstance, ref, watch} from "vue";
 import {errorMessageBox, successMessage} from "@/utils/baseMessage";
 import {DELETE_ROLE_EVENT} from "@/constants/eventConstants";
 import {deleteRole} from "@/api/role";
-import RoleUpdateInfoDialog from "@/components/role/RoleUpdateInfoDialog.vue";
 import {Permission} from "@/type/permissionType";
+import PermissionUpdateInfoDialog from "@/components/permission/PermissionUpdateInfoDialog.vue";
 
 const instance = getCurrentInstance()
 const props = defineProps<{
   modelValue: Array<Permission>
 }>()
-
 const emit = defineEmits<{}>()
 const permissionTable = ref<Permission[]>([])
 
-// const roleUpdateInfoDialogRef = ref<InstanceType<typeof RoleUpdateInfoDialog>>()
+const permissionUpdateInfoDialog = ref<InstanceType<typeof PermissionUpdateInfoDialog>>()
 
 watch<Permission[]>(() => props.modelValue, () => {
   permissionTable.value = props.modelValue

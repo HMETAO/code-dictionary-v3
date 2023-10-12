@@ -38,7 +38,7 @@ import {getCurrentInstance, ref, toRaw} from "vue";
 import {FormInstance} from "element-plus";
 import {successMessage} from "@/utils/baseMessage";
 import {UPDATE_ROLE_EVENT} from "@/constants/eventConstants";
-import {getPermission} from "@/api/permission";
+import {getPermissions} from "@/api/permission";
 import {Permission} from "@/type/permissionType";
 import {UpdateRoleForm} from "@/form/role";
 import {getRole, updateRole} from "@/api/role";
@@ -50,7 +50,7 @@ const ruleFormRef = ref<FormInstance>()
 const permissions = ref<Permission[]>([])
 // 开启dialog事件函数
 const openDialogEventFunction = async () => {
-  const res = await getPermission();
+  const res = await getPermissions();
   permissions.value = res.data.list as any
 }
 // 向上触发更新

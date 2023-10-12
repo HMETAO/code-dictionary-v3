@@ -103,6 +103,7 @@ declare module '@vue/runtime-core' {
     OtherQuickPlug: typeof import('./src/components/other/OtherQuickPlug.vue')['default']
     Permission: typeof import('./src/components/permission/Permission.vue')['default']
     PermissionTable: typeof import('./src/components/permission/PermissionTable.vue')['default']
+    PermissionUpdateInfoDialog: typeof import('./src/components/permission/PermissionUpdateInfoDialog.vue')['default']
     PrismEditor: typeof import('./src/components/snippet/PrismEditor.vue')['default']
     ReadReceiptDialog: typeof import('./src/components/TUIKit/TUIComponents/container/TUIChat/plugin-components/readReceiptDialog/readReceiptDialog.vue')['default']
     RegistryDialog: typeof import('./src/components/login/RegistryDialog.vue')['default']

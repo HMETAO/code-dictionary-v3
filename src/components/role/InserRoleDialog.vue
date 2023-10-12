@@ -39,7 +39,7 @@
 <script lang="ts" setup>
 
 import {getCurrentInstance, ref, watch} from "vue";
-import {getPermission} from "@/api/permission";
+import {getPermissions} from "@/api/permission";
 import {Permission} from "@/type/permissionType";
 import {RolePermissionForm} from "@/form/role";
 import {FormInstance} from "element-plus";
@@ -74,7 +74,7 @@ const insertClickEventFunction = async () => {
 }
 // 开启dialog事件函数
 const openClickEventFunction = async () => {
-  const res = await getPermission();
+  const res = await getPermissions();
   permissions.value = res.data.list as any
 }
 
