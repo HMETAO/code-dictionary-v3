@@ -2,7 +2,7 @@
   <el-dialog
       @close="closeDialogEventFunction"
       v-model="dialogVisible"
-      width="30%">
+      width="60%">
     <el-form
         :model='updatePermissionForm'
         ref='ruleFormRef'>

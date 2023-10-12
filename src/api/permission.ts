@@ -18,6 +18,10 @@ export function getPermissions(query: BaseQueryForm = {
     })
 }
 
+/**
+ * 获取单个权限
+ * @param permissionId 权限ID
+ */
 
 export function getPermission(permissionId: string): Promise<Result<Permission>> {
     return request({
@@ -26,6 +30,10 @@ export function getPermission(permissionId: string): Promise<Result<Permission>>
     })
 }
 
+/**
+ * 更新权限
+ * @param data 更新表单
+ */
 export function updatePermission(data: UpdatePermissionForm): Promise<Result> {
     return request({
         url: `/api/v1/permission`,
@@ -34,5 +42,13 @@ export function updatePermission(data: UpdatePermissionForm): Promise<Result> {
     })
 }
 
-
-
+/**
+ * 删除权限
+ * @param permissionId 权限ID
+ */
+export function deletePermission(permissionId: string): Promise<Result> {
+    return request({
+        url: `/api/v1/permission/${permissionId}`,
+        method: 'delete',
+    })
+}
