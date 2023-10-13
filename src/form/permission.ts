@@ -3,3 +3,8 @@ export interface UpdatePermissionForm {
     name?: string,
     path?: string
 }
+
+export interface InsertPermissionForm {
+    name?: string,
+    path?: string
+}

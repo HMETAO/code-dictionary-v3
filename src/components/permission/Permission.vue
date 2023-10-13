@@ -1,6 +1,7 @@
 <template>
   <div class="permission-box">
     <div class="permission-box-header">
+      <PermissionHeader/>
     </div>
     <div class="permission-box-table">
       <PermissionTable v-model="tableData.list"/>
@@ -22,13 +23,14 @@ import {PageInfo} from "@/result";
 import {getPermissions} from "@/api/permission";
 import PermissionTable from "@/components/permission/PermissionTable.vue";
 import {Permission} from "@/type/permissionType";
-import {UPDATE_PERMISSION_EVENT} from "@/constants/eventConstants";
+import {DELETE_PERMISSION_EVENT, INSERT_PERMISSION_EVENT, UPDATE_PERMISSION_EVENT} from "@/constants/eventConstants";
+import PermissionHeader from "@/components/permission/PermissionHeader.vue";
 
 const queryForm = ref<BaseQueryForm>({pageNum: 1, pageSize: 10})
 
 const tableData = ref<PageInfo<Permission>>({})
 const instance = getCurrentInstance()
-const refreshEventName = [UPDATE_PERMISSION_EVENT]
+const refreshEventName = [UPDATE_PERMISSION_EVENT, INSERT_PERMISSION_EVENT, DELETE_PERMISSION_EVENT]
 const findPermission = async () => {
   const res = await getPermissions(queryForm.value)
   tableData.value = res.data as any

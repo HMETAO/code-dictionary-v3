@@ -33,3 +33,9 @@ export const UPDATE_ROLE_EVENT = "UpdateRoleEvent"
 
 // 更新权限成功
 export const UPDATE_PERMISSION_EVENT = "UpdatePermissionEvent"
+
+// 插入权限成功
+export const INSERT_PERMISSION_EVENT = "InsertPermissionEvent"
+
+// 删除权限成功
+export const DELETE_PERMISSION_EVENT = "DeletePermissionEvent"

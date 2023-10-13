@@ -2,7 +2,7 @@ import {PageInfo, Result} from "@/result";
 import request from "@/utils/request";
 import {Permission} from "@/type/permissionType";
 import {BaseQueryForm} from "@/form/base";
-import {UpdatePermissionForm} from "@/form/permission";
+import {InsertPermissionForm, UpdatePermissionForm} from "@/form/permission";
 
 /**
  * 查询用户的permission
@@ -52,3 +52,18 @@ export function deletePermission(permissionId: string): Promise<Result> {
         method: 'delete',
     })
 }
+
+
+/**
+ * 新增权限
+ * @param data 权限数据
+ */
+export function insertPermission(data: InsertPermissionForm): Promise<Result> {
+    return request({
+        url: `/api/v1/permission`,
+        method: 'post',
+        data
+    })
+}
+
+

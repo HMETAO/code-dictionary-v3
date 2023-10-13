@@ -102,6 +102,8 @@ declare module '@vue/runtime-core' {
     Other: typeof import('./src/components/other/Other.vue')['default']
     OtherQuickPlug: typeof import('./src/components/other/OtherQuickPlug.vue')['default']
     Permission: typeof import('./src/components/permission/Permission.vue')['default']
+    PermissionHeader: typeof import('./src/components/permission/PermissionHeader.vue')['default']
+    PermissionInsertDialog: typeof import('./src/components/permission/PermissionInsertDialog.vue')['default']
     PermissionTable: typeof import('./src/components/permission/PermissionTable.vue')['default']
     PermissionUpdateInfoDialog: typeof import('./src/components/permission/PermissionUpdateInfoDialog.vue')['default']
     PrismEditor: typeof import('./src/components/snippet/PrismEditor.vue')['default']
