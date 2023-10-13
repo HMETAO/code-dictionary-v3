@@ -16,7 +16,7 @@
 <script lang="ts" setup>
 import {getCurrentInstance, ref, watch} from "vue";
 import {errorMessageBox, successMessage} from "@/utils/baseMessage";
-import {DELETE_ROLE_EVENT} from "@/constants/eventConstants";
+import {DELETE_PERMISSION_EVENT} from "@/constants/eventConstants";
 import {Permission} from "@/type/permissionType";
 import PermissionUpdateInfoDialog from "@/components/permission/PermissionUpdateInfoDialog.vue";
 import {deletePermission} from "@/api/permission";
@@ -40,7 +40,7 @@ const deleteEventFunction = async (row: Permission) => {
     // 删除角色
     await deletePermission(row.id)
     successMessage("删除成功")
-    instance?.proxy?.$bus.emit(DELETE_ROLE_EVENT)
+    instance?.proxy?.$bus.emit(DELETE_PERMISSION_EVENT)
   })
 }
 
