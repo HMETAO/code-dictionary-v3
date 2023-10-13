@@ -4,6 +4,7 @@
       v-model="dialogVisible"
       width="60%">
     <el-form
+        :rules="rules"
         :model='updatePermissionForm'
         ref='ruleFormRef'>
       <el-form-item label="权限名：" prop="name">
@@ -21,9 +22,9 @@
   </el-dialog>
 </template>
 <script lang="ts" setup>
-import {getCurrentInstance, ref} from "vue";
-import {FormInstance} from "element-plus";
-import {successMessage} from "@/utils/baseMessage";
+import {getCurrentInstance, reactive, ref} from "vue";
+import {FormInstance, FormRules} from "element-plus";
+import {errorMessage, successMessage} from "@/utils/baseMessage";
 import {UPDATE_PERMISSION_EVENT} from "@/constants/eventConstants";
 import {getPermission, updatePermission} from "@/api/permission";
 import {Permission} from "@/type/permissionType";
@@ -34,17 +35,39 @@ const updatePermissionForm = ref<UpdatePermissionForm>({})
 const ruleFormRef = ref<FormInstance>()
 
 const permission = ref<Permission>({} as any)
-
+const rules = reactive<FormRules>({
+  name: [
+    {
+      required: true,
+      message: '权限名是必须的',
+    }
+  ],
+  path: [
+    {
+      required: true,
+      pattern: /.*-?(\*|select|update|delete|insert)/,
+      message: '权限标识格式错误',
+      trigger: 'blur'
+    }
+  ],
+})
 // 向上触发更新
 const emit = defineEmits<{
   (e: "closeDialogEventFunction"): void
 }>()
 const updateClickEventFunction = async () => {
-  await updatePermission(updatePermissionForm.value)
-  // 更新角色
-  successMessage("修改成功")
-  dialogVisible.value = false;
-  instance?.proxy?.$bus.emit(UPDATE_PERMISSION_EVENT)
+  if (!ruleFormRef) return
+  await ruleFormRef.value?.validate(async (valid) => {
+    if (valid) {
+      await updatePermission(updatePermissionForm.value)
+      // 更新角色
+      successMessage("修改成功")
+      dialogVisible.value = false;
+      instance?.proxy?.$bus.emit(UPDATE_PERMISSION_EVENT)
+    } else {
+      errorMessage("请按规则填写内容")
+    }
+  })
 }
 
 // 点击修改角色信息

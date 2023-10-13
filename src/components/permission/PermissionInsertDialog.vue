@@ -4,6 +4,7 @@
       v-model="dialogVisible"
       width="60%">
     <el-form
+        :rules="rules"
         :model='permissionForm'
         ref='ruleFormRef'>
       <el-form-item label="权限名：" prop="name">
@@ -22,10 +23,10 @@
 </template>
 <script lang="ts" setup>
 
-import {getCurrentInstance, ref, watch} from "vue";
+import {getCurrentInstance, reactive, ref, watch} from "vue";
 import {insertPermission} from "@/api/permission";
-import {FormInstance} from "element-plus";
-import {successMessage} from "@/utils/baseMessage";
+import {FormInstance, FormRules} from "element-plus";
+import {errorMessage, successMessage} from "@/utils/baseMessage";
 import {INSERT_PERMISSION_EVENT} from "@/constants/eventConstants";
 import {InsertPermissionForm} from "@/form/permission";
 
@@ -34,6 +35,24 @@ const roleFormRef = ref<FormInstance>()
 const props = defineProps<{ modelValue: boolean }>()
 const dialogVisible = ref<boolean>(false)
 const permissionForm = ref<InsertPermissionForm>({})
+const ruleFormRef = ref<FormInstance>()
+
+const rules = reactive<FormRules>({
+  name: [
+    {
+      required: true,
+      message: '权限名是必须的',
+    }
+  ],
+  path: [
+    {
+      required: true,
+      pattern: /.*-?(\*|select|update|delete|insert)/,
+      message: '权限标识格式错误',
+      trigger: 'blur'
+    }
+  ],
+})
 watch(() => props.modelValue, () => {
   dialogVisible.value = props.modelValue
 })
@@ -46,12 +65,19 @@ const emit = defineEmits<{
 }>()
 // 点击插入事件函数
 const insertClickEventFunction = async () => {
-  // 插入permission
-  await insertPermission(permissionForm.value)
-  successMessage("插入权限成功")
-  dialogVisible.value = false
-  // 触发插入成功事件
-  instance?.proxy?.$bus.emit(INSERT_PERMISSION_EVENT)
+  if (!ruleFormRef) return
+  await ruleFormRef.value?.validate(async (valid) => {
+    if (valid) {
+      // 插入permission
+      await insertPermission(permissionForm.value)
+      successMessage("插入权限成功")
+      dialogVisible.value = false
+      // 触发插入成功事件
+      instance?.proxy?.$bus.emit(INSERT_PERMISSION_EVENT)
+    } else {
+      errorMessage("请按规则填写内容")
+    }
+  })
 }
 
 // 关闭dialog事件函数

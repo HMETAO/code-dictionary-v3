@@ -62,11 +62,11 @@
   </el-dialog>
 </template>
 <script lang="ts" setup>
-import {getCurrentInstance, reactive, ref, toRaw, toRef, toRefs} from "vue";
+import {getCurrentInstance, reactive, ref, toRaw} from "vue";
 import {getUser, updateUser} from "@/api/user";
 import {FormInstance, FormRules} from "element-plus";
 import {UserRoleUpdateForm} from "@/form/user";
-import {successMessage} from "@/utils/baseMessage";
+import {errorMessage, successMessage} from "@/utils/baseMessage";
 import {getRoles} from "@/api/role";
 import {Role} from "@/type/roleType";
 import {UPDATE_USER_EVENT} from "@/constants/eventConstants";
@@ -110,10 +110,17 @@ const emit = defineEmits<{
   (e: "closeDialogEventFunction"): void
 }>()
 const updateClickEventFunction = async () => {
-  await updateUser(userRoleUpdateForm.value)
-  successMessage("修改成功")
-  dialogVisible.value = false;
-  instance?.proxy?.$bus.emit(UPDATE_USER_EVENT)
+  if (!ruleFormRef) return
+  await ruleFormRef.value?.validate(async (valid) => {
+    if (valid) {
+      await updateUser(userRoleUpdateForm.value)
+      successMessage("修改成功")
+      dialogVisible.value = false;
+      instance?.proxy?.$bus.emit(UPDATE_USER_EVENT)
+    } else {
+      errorMessage("请按规则填写内容")
+    }
+  })
 }
 
 // 点击修改用户信息
