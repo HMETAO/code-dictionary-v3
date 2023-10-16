@@ -2,6 +2,7 @@
   <el-table :data="permissionTable as Array<Permission>" style="width: 100%" border>
     <el-table-column prop="name" label="权限名" width="180" align="center"/>
     <el-table-column prop="path" label="权限标识" width="180" align="center"/>
+    <el-table-column prop="createTime" label="赋予时间" width="180" align="center"/>
     <el-table-column label="操作" align="center">
       <template #default="scope">
         <el-button type="primary" size="small" @click="permissionUpdateInfoDialog.editPermission(scope.row.id)">修改
