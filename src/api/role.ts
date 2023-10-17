@@ -61,7 +61,10 @@ export function getRole(roleId: string): Promise<Result<RolePermission>> {
     })
 }
 
-
+/**
+ * 更新角色
+ * @param data 角色数据
+ */
 export function updateRole(data: UpdateRoleForm): Promise<Result> {
     return request({
         url: `/api/v1/role/`,
@@ -69,3 +72,16 @@ export function updateRole(data: UpdateRoleForm): Promise<Result> {
         data
     })
 }
+
+/**
+ * 更新校色状态
+ * @param data 状态数据
+ */
+export function updateStatusRole(data: any): Promise<Result> {
+    return request({
+        url: `/api/v1/role/status`,
+        method: 'put',
+        data
+    })
+}
+

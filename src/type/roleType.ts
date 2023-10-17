@@ -7,5 +7,7 @@ export interface Role {
 }
 
 export interface RolePermission extends Role {
+    status: boolean
+    createTime: string
     perms: Array<Permission>
 }
