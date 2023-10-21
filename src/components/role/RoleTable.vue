@@ -52,7 +52,6 @@ watch<RolePermission[]>(() => props.modelValue, () => {
 
 // 切换role状态
 const switchChangeEventFunction = async (row: any) => {
-  console.log(row)
   try {
     await updateStatusRole({status: row.status, id: row.id})
     successMessage("切换成功")

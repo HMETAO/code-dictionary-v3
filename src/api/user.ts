@@ -3,9 +3,6 @@ import {BaseUserInfoForm, LoginForm, UserRoleUpdateForm} from "@/form/user";
 import {PageInfo, Result} from "@/result";
 import {UserInfo, UserRole} from "@/type/userType";
 import TUIKit from "../plugin/tuikit";
-import {UseFetchReturn} from "@vueuse/core";
-import {MenusType} from "@/type/menusType";
-import {useMyFetch} from "@/utils/requestFetch";
 import {BaseQueryForm} from "@/form/base";
 
 export function login(data: LoginForm): Promise<Result<UserInfo>> {
@@ -96,9 +93,21 @@ export function getUser(userId: string): Promise<Result<UserRole>> {
  * 更行用户
  * @param data 用户数据
  */
-export function updateUser(data: UserRoleUpdateForm | BaseUserInfoForm): Promise<Result<UserRole>> {
+export function updateUser(data: UserRoleUpdateForm | BaseUserInfoForm): Promise<Result> {
     return request({
         url: `/api/v1/user/`,
+        method: 'put',
+        data
+    })
+}
+
+/**
+ * 用户状态切换
+ * @param data 用户数据
+ */
+export function updateUserStatus(data: any): Promise<Result> {
+    return request({
+        url: `/api/v1/admin/user/status`,
         method: 'put',
         data
     })

@@ -9,6 +9,15 @@
     <el-table-column prop="mobile" label="电话" width="180" align="center"/>
     <el-table-column prop="email" label="邮箱" align="center"/>
     <el-table-column prop="lastLoginTime" label="最后登录时间" align="center"/>
+    <el-table-column prop="status" label="状态" align="center">
+      <template #default="props">
+        <el-switch
+            v-model="props.row.status"
+            @change="switchChangeEventFunction(props.row)"
+            style="--el-switch-on-color: #13ce66;"
+        />
+      </template>
+    </el-table-column>
     <el-table-column prop="" label="操作" align="center">
       <template #default="scope">
         <el-button type="primary" size="small" @click="userUpdateInfoDialogRef.editUserInfo(scope.row.id)">修改
@@ -24,7 +33,7 @@
 import UserUpdateInfoDialog from '@/components/user/UserUpdateInfoDialog.vue'
 import {UserRole} from "@/type/userType";
 import {getCurrentInstance, ref, watch} from "vue";
-import {deleteUser} from "@/api/user";
+import {deleteUser, updateUserStatus} from "@/api/user";
 import {errorMessageBox, successMessage} from "@/utils/baseMessage";
 import {DELETE_USER_EVENT} from "@/constants/eventConstants";
 
@@ -37,6 +46,16 @@ const emit = defineEmits<{}>()
 const userTable = ref<UserRole[]>()
 
 const userUpdateInfoDialogRef = ref<InstanceType<typeof UserUpdateInfoDialog>>()
+
+// 却换用户状态事件回调
+const switchChangeEventFunction = async (row: any) => {
+  try {
+    await updateUserStatus({status: row.status, id: row.id})
+    successMessage("切换成功")
+  } catch (e) {
+    row.status = !row.status;
+  }
+}
 
 watch<UserRole[]>(() => props.modelValue, () => {
   userTable.value = props.modelValue

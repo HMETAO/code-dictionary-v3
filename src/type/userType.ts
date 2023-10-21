@@ -9,6 +9,7 @@ export interface UserInfo {
     lastLoginTime?: string
     mobile?: string
     userSig?: string
+    status?: boolean
 }
 
 export interface UserRole extends UserInfo {
