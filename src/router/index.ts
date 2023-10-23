@@ -91,11 +91,15 @@ router.beforeEach((to, from, next) => {
         baseStore = useBaseStore()
         stateStore = useStateStore()
     }
-    if (to.name !== 'login' && !baseStore.token) {
-        infoMessage("请重新登录后在进行访问。。。")
-        next({name: 'login'})
+    if (baseStore.token) {
+        if (to.name == 'login') next({name: 'home'})
+        else next()
     } else {
-        next()
+        if(to.name == 'login') next()
+        else {
+            infoMessage("请重新登录后在进行访问。。。")
+            next({name: 'login'})
+        }
     }
 })
 // 后置守卫
