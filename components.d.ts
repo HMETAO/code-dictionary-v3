@@ -100,6 +100,7 @@ declare module '@vue/runtime-core' {
     MessageTip: typeof import('./src/components/TUIKit/TUIComponents/container/TUIChat/components/message-tip.vue')['default']
     MessageTool: typeof import('./src/components/TUIKit/TUIComponents/container/TUIChat/components/message-tool.vue')['default']
     MessageVideo: typeof import('./src/components/TUIKit/TUIComponents/container/TUIChat/components/message-video.vue')['default']
+    MicSpeechRecognition: typeof import('./src/components/snippet/MicSpeechRecognition.vue')['default']
     Other: typeof import('./src/components/other/Other.vue')['default']
     OtherQuickPlug: typeof import('./src/components/other/OtherQuickPlug.vue')['default']
     Permission: typeof import('./src/components/permission/Permission.vue')['default']
