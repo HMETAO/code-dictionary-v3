@@ -1,5 +1,4 @@
-<template>
-</template>
+<template></template>
 <script lang="ts" setup>
 
 import {ref, watch} from "vue";
@@ -10,7 +9,6 @@ import {storeToRefs} from "pinia";
 const micStart = ref<boolean>(false)
 const recognition = new webkitSpeechRecognition();
 const props = defineProps<{ modelValue: boolean }>()
-const messageVal = ref<string>('')
 watch<boolean>(() => props.modelValue, () => {
   micStart.value = props.modelValue
   if (micStart.value) {
@@ -23,6 +21,9 @@ watch<boolean>(() => props.modelValue, () => {
   }
 })
 
+const emit = defineEmits<{
+  (e: 'update:modelValue', modelValue: boolean): void
+}>()
 // 设置一些语音识别的参数
 recognition.continuous = true;
 recognition.interimResults = true;
@@ -44,6 +45,7 @@ recognition.onresult = (event: SpeechRecognitionEvent) => {
 // 当发生错误时触发的事件处理函数
 recognition.onerror = (event: SpeechRecognitionError) => {
   errorMessage(event.error)
+  emit('update:modelValue', false)
 }
 
 // 当语音识别结束时触发的事件处理函数

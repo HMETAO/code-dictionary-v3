@@ -35,7 +35,7 @@
           effect="dark"
           content="语音识别"
           placement="top">
-        <el-button type="primary" circle size="default" color="#626aef" @click="micStart =!micStart">
+        <el-button type="primary" style="color: #FFFFFF" circle size="default"  :color="micStart ? '#e74c3c':'#27ae60'" @click="micStart =!micStart">
           <el-icon>
             <Mic/>
           </el-icon>

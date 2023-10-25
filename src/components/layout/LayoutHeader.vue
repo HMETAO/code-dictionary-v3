@@ -12,11 +12,11 @@
         </div>
       </el-menu-item>
       <div class="flex-grow">
-
         <el-alert class="flex-grow-alert"
                   v-if="speechMessage"
                   :description="speechMessage"
-                  type="success" show-icon
+                  type="success"
+                  show-icon
                   center/>
       </div>
       <el-sub-menu index="1" class="animate__animated animate__backInRight" v-if="token">
