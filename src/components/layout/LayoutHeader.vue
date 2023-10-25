@@ -1,5 +1,7 @@
 <template>
+
   <div class="header w-full h-full">
+
     <el-menu class="w-full"
              mode="horizontal"
              menu-trigger="click"
@@ -9,7 +11,14 @@
           Code Dictionary
         </div>
       </el-menu-item>
-      <div class="flex-grow"/>
+      <div class="flex-grow">
+
+        <el-alert class="flex-grow-alert"
+                  v-if="speechMessage"
+                  :description="speechMessage"
+                  type="success" show-icon
+                  center/>
+      </div>
       <el-sub-menu index="1" class="animate__animated animate__backInRight" v-if="token">
         <template #title>
           <div class="header-user-info">
@@ -28,13 +37,14 @@
   </div>
 </template>
 <script setup lang="ts">
-import {useBaseStore} from "@/store";
+import {useBaseStore, useStateStore} from "@/store";
 import {logout} from "@/api/user";
 import {useRouter} from "vue-router";
 import {storeToRefs} from "pinia";
 
 const router = useRouter()
 const baseStore = useBaseStore()
+const {speechMessage} = storeToRefs(useStateStore())
 const {token} = storeToRefs(baseStore)
 
 // 退出登录事件回调
@@ -63,7 +73,13 @@ const logoutEventFunction = async () => {
   }
 
   .flex-grow {
-    flex-grow: 1;
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+
+    .flex-grow-alert {
+
+    }
   }
 
   .web-site-title {

@@ -22,6 +22,7 @@ declare module '@vue/runtime-core' {
     Dialog: typeof import('./src/components/TUIKit/TUIComponents/components/dialog/index.vue')['default']
     Drag: typeof import('./src/components/TUIKit/TUIComponents/components/drag/index.vue')['default']
     EditorHeader: typeof import('./src/components/snippet/EditorHeader.vue')['default']
+    ElAlert: typeof import('element-plus/es')['ElAlert']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCalendar: typeof import('element-plus/es')['ElCalendar']
