@@ -8,7 +8,12 @@ import {storeToRefs} from "pinia";
 
 const micStart = ref<boolean>(false)
 const recognition = new webkitSpeechRecognition();
-const props = defineProps<{ modelValue: boolean }>()
+
+const props = defineProps<{
+  modelValue: boolean
+  outputStream: string
+}>()
+
 watch<boolean>(() => props.modelValue, () => {
   micStart.value = props.modelValue
   if (micStart.value) {
@@ -23,7 +28,9 @@ watch<boolean>(() => props.modelValue, () => {
 
 const emit = defineEmits<{
   (e: 'update:modelValue', modelValue: boolean): void
+  (e: 'update:outputStream', outputStream: string): void
 }>()
+
 // 设置一些语音识别的参数
 recognition.continuous = true;
 recognition.interimResults = true;
@@ -38,7 +45,7 @@ recognition.onresult = (event: SpeechRecognitionEvent) => {
       speechMessage.value = ''
     }, 500)
     const result = event.results[event.results.length - 1][0].transcript
-    snippetForm.value.snippet += result
+    emit('update:outputStream', props.outputStream + result)
   }
 }
 

@@ -35,7 +35,8 @@
           effect="dark"
           content="语音识别"
           placement="top">
-        <el-button type="primary" style="color: #FFFFFF" circle size="default"  :color="micStart ? '#e74c3c':'#27ae60'" @click="micStart =!micStart">
+        <el-button type="primary" style="color: #FFFFFF" circle size="default" :color="micStart ? '#e74c3c':'#27ae60'"
+                   @click="micStart =!micStart">
           <el-icon>
             <Mic/>
           </el-icon>
@@ -43,7 +44,7 @@
       </el-tooltip>
     </div>
     <RunCodeDrawer v-model="runCodeDrawer" v-model:snippet="store.snippetForm.snippet"/>
-    <MicSpeechRecognition v-model="micStart"/>
+    <MicSpeechRecognition v-model="micStart" v-model:outputStream="store.snippetForm.snippet as string"/>
   </div>
 </template>
 <script setup lang="ts">
