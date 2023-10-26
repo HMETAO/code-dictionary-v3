@@ -13,10 +13,11 @@
       </el-menu-item>
       <div class="flex-grow">
         <el-alert class="flex-grow-alert"
-                  v-if="speechMessage"
+                  v-if="speechStart"
                   :description="speechMessage"
                   type="success"
                   show-icon
+                  :closable="false"
                   center/>
       </div>
       <el-sub-menu index="1" class="animate__animated animate__backInRight" v-if="token">
@@ -44,7 +45,7 @@ import {storeToRefs} from "pinia";
 
 const router = useRouter()
 const baseStore = useBaseStore()
-const {speechMessage} = storeToRefs(useStateStore())
+const {speechMessage,speechStart} = storeToRefs(useStateStore())
 const {token} = storeToRefs(baseStore)
 
 // 退出登录事件回调

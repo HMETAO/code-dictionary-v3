@@ -10,20 +10,29 @@ const micStart = ref<boolean>(false)
 const {speechStart} = storeToRefs(useStateStore())
 const recognition = new webkitSpeechRecognition();
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   outputStream: string
-}>()
-
+  modelValue?: boolean
+}>(), {
+  modelValue: false
+})
 watch<boolean>(() => speechStart.value, () => {
   micStart.value = speechStart.value
-  if (micStart.value) {
-    successMessage("开启语音识别")
-    // 开始语音识别
-    recognition.start();
+  // 单纯语音识别
+  if (!props.modelValue) {
+    if (micStart.value) {
+      successMessage("开启语音识别")
+      // 开始语音识别
+      recognition.start();
+    } else {
+      errorMessage("关闭语音识别")
+      recognition.stop();
+    }
   } else {
-    errorMessage("关闭语音识别")
-    recognition.stop();
+    // 开启小H
+
   }
+
 })
 
 const emit = defineEmits<{
