@@ -22,14 +22,14 @@ export const useBaseStore = defineStore(Names.BASE, {
 
 // 此store是非缓存对象用来存储不需要缓存的状态变量
 export const useStateStore = defineStore(Names.STATE, {
-
     state() {
         return {
             loading: false,
             snippetForm: <SnippetForm>JSON.parse(BASE_SNIPPET),
             snippetDialogVisible: false,
             menuActive: "snippet",
-            speechMessage: ''
+            speechMessage: '',
+            speechStart: false
         }
     },
     getters: {},

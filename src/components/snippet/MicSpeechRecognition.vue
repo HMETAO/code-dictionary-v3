@@ -7,15 +7,15 @@ import {useStateStore} from "@/store";
 import {storeToRefs} from "pinia";
 
 const micStart = ref<boolean>(false)
+const {speechStart} = storeToRefs(useStateStore())
 const recognition = new webkitSpeechRecognition();
 
 const props = defineProps<{
-  modelValue: boolean
   outputStream: string
 }>()
 
-watch<boolean>(() => props.modelValue, () => {
-  micStart.value = props.modelValue
+watch<boolean>(() => speechStart.value, () => {
+  micStart.value = speechStart.value
   if (micStart.value) {
     successMessage("开启语音识别")
     // 开始语音识别
@@ -27,7 +27,6 @@ watch<boolean>(() => props.modelValue, () => {
 })
 
 const emit = defineEmits<{
-  (e: 'update:modelValue', modelValue: boolean): void
   (e: 'update:outputStream', outputStream: string): void
 }>()
 
@@ -52,7 +51,7 @@ recognition.onresult = (event: SpeechRecognitionEvent) => {
 // 当发生错误时触发的事件处理函数
 recognition.onerror = (event: SpeechRecognitionError) => {
   errorMessage(event.error)
-  emit('update:modelValue', false)
+  speechStart.value = false
 }
 
 // 当语音识别结束时触发的事件处理函数
