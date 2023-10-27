@@ -19,13 +19,22 @@
       </el-col>
     </el-row>
   </div>
+  <div class="home-ai">
+    <GPT/>
+  </div>
 </template>
 <script setup lang="ts">
 import AsideMenu from "../components/layout/AsideMenu.vue";
-
+import GPT from "@/components/gpt/GPT.vue";
 </script>
 <style scoped lang="less">
 .home-container {
   flex: 1;
+}
+
+.home-ai {
+  position: fixed;
+  bottom: 50px;
+  left: 30px;
 }
 </style>

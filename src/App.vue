@@ -7,9 +7,6 @@
       <router-view></router-view>
     </div>
   </div>
-  <div class="home-ai">
-    <GPT/>
-  </div>
   <MicSpeechRecognition/>
 </template>
 <script setup lang="ts">
@@ -17,7 +14,6 @@
 import LayoutHeader from "./components/layout/LayoutHeader.vue";
 import {useStateStore} from "./store";
 import MicSpeechRecognition from "@/components/snippet/MicSpeechRecognition.vue";
-import GPT from "@/components/gpt/GPT.vue";
 import {useGPTStore} from "@/store/GPT";
 
 const stateStore = useStateStore()
@@ -45,10 +41,5 @@ gptStore.$reset()
   }
 }
 
-.home-ai {
-  position: fixed;
-  bottom: 50px;
-  left: 30px;
-}
 
 </style>
