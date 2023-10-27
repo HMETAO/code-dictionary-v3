@@ -42,7 +42,7 @@ const piniaPlugin = (option: Options) => {
             // 如果是状态store不需要缓存
             if (store.$id === Names.STATE) {
                 loadingChange(store.$state.loading)
-            } else {
+            } else if (store.$id === Names.BASE || store.$id === Names.IDE) {
                 // 存储storage
                 setStorage(key, store.$state)
             }

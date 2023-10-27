@@ -39,3 +39,9 @@ export const INSERT_PERMISSION_EVENT = "InsertPermissionEvent"
 
 // 删除权限成功
 export const DELETE_PERMISSION_EVENT = "DeletePermissionEvent"
+
+// ai模式开启
+export const AI_MODEL_OPEN_EVENT = "AiModelOpenEvent"
+
+// ai模式结束
+export const AI_MODEL_CLOSE_EVENT = "AiModelCloseEvent"

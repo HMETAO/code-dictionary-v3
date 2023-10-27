@@ -1,5 +1,6 @@
 export const enum Names {
     BASE = "BASE",
     STATE = "STATE",
-    IDE = "IDE"
+    IDE = "IDE",
+    GPT = "GPT"
 }

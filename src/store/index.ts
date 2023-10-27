@@ -28,8 +28,6 @@ export const useStateStore = defineStore(Names.STATE, {
             snippetForm: <SnippetForm>JSON.parse(BASE_SNIPPET),
             snippetDialogVisible: false,
             menuActive: "snippet",
-            speechMessage: '',
-            speechStart: false
         }
     },
     getters: {},

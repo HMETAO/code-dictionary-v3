@@ -37,7 +37,10 @@
           placement="top">
         <el-button type="primary" style="color: #FFFFFF" circle size="default"
                    :color="speechStart ? '#e74c3c':'#27ae60'"
-                   @click="speechStart =!speechStart">
+                   @click="()=>{
+                     speechStart =!speechStart
+                     outputStream = store.snippetForm
+                   }">
           <el-icon>
             <Mic/>
           </el-icon>
@@ -45,7 +48,6 @@
       </el-tooltip>
     </div>
     <RunCodeDrawer v-model="runCodeDrawer" v-model:snippet="store.snippetForm.snippet"/>
-    <MicSpeechRecognition v-model:outputStream="store.snippetForm.snippet as string"/>
   </div>
 </template>
 <script setup lang="ts">
@@ -54,12 +56,13 @@ import {successMessage, warningMessageBox} from "@/utils/baseMessage";
 import {updateSnippet} from "@/api/snippet";
 import {useStateStore} from "@/store";
 import {BASE_SNIPPET} from "@/constants/baseConstants";
-import MicSpeechRecognition from "@/components/snippet/MicSpeechRecognition.vue";
 import {storeToRefs} from "pinia";
+import {useGPTStore} from "@/store/GPT";
 
 const store = useStateStore()
 const runCodeDrawer = ref<boolean>(false)
-const {speechStart} = storeToRefs(store)
+const {ai, speechStart, outputStream} = storeToRefs(useGPTStore())
+
 // ctrl+s键盘按下处理回调
 const saveContent = (e: KeyboardEvent) => {
   if ((e.ctrlKey || e.metaKey) && e.key === 's') {
