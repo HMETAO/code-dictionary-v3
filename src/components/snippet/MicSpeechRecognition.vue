@@ -1,7 +1,7 @@
 <template></template>
 <script lang="ts" setup>
 import {getCurrentInstance, watch} from "vue";
-import {errorMessage, successMessage} from "@/utils/baseMessage";
+import {errorMessage, successMessage, warningMessage} from "@/utils/baseMessage";
 import {useStateStore} from "@/store";
 import {storeToRefs} from "pinia";
 import {useGPTStore} from "@/store/GPT";
@@ -11,11 +11,23 @@ const recognition = new webkitSpeechRecognition();
 const {snippetForm} = storeToRefs(useStateStore())
 const {speechMessage, ai, speechStart, outputStream} = storeToRefs(useGPTStore())
 const instance = getCurrentInstance()
+const recognitionStart = () => {
+  // 请求麦克风权限
+  navigator.mediaDevices.getUserMedia({audio: true})
+      .then(function () {
+        recognition.start()
+      })
+      .catch(function (error) {
+        warningMessage("请授权麦克风否则无法开启语音识别")
+      });
+}
 watch<boolean>(() => speechStart.value, () => {
   // 单纯语音识别
   if (speechStart.value) {
     // 开始语音识别
-    if (speechStart.value && !ai.value) recognition.start()
+    if (speechStart.value && !ai.value) {
+      recognitionStart()
+    }
     ai.value = false
     successMessage("开启语音识别")
   } else {
@@ -30,7 +42,7 @@ watch<boolean>(() => ai.value, () => {
   if (ai.value) {
     // 开始语音识别
     if (!speechStart.value && ai.value) {
-      recognition.start()
+      recognitionStart()
       instance?.proxy?.$bus.emit(AI_MODEL_OPEN_EVENT)
     }
     speechStart.value = false
