@@ -1,5 +1,5 @@
 <template>
-  <el-button class="snippet-btn" type="primary" size="large" plain @click="()=>{
+  <el-button class="gpt-btn" type="primary" size="large" :color="ai ? '#e74c3c':'#27ae60'" plain @click="()=>{
       ai = !ai
       outputStream = message
     }">
@@ -79,5 +79,7 @@ onUnmounted(() => {
 })
 </script>
 <style scoped lang="less">
+.gpt-btn {
 
+}
 </style>
