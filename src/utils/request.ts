@@ -1,7 +1,6 @@
-import axios, {AxiosInstance, AxiosError, InternalAxiosRequestConfig, AxiosResponse} from 'axios'
-import {ElMessage} from 'element-plus'
+import axios, {AxiosError, AxiosInstance, AxiosResponse, InternalAxiosRequestConfig} from 'axios'
 import {errorMessage} from "./baseMessage";
-import {Result} from "../result";
+import {Result} from "@/result";
 // create an axios instance
 const service: AxiosInstance = axios.create({
     baseURL: import.meta.env.VITE_BASE_API,
@@ -9,10 +8,11 @@ const service: AxiosInstance = axios.create({
     withCredentials: true
 })
 
-
 service.interceptors.request.use(
     (config: InternalAxiosRequestConfig) => {
         // do something before request is sent
+        if (localStorage.getItem("token"))
+            config.headers['code-dictionary'] = localStorage.getItem("token")
         return config
     },
     (err: AxiosError) => {
