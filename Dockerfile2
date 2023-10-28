@@ -9,7 +9,7 @@ RUN rm /etc/nginx/nginx.conf
 COPY ./nginx.conf /etc/nginx/
 # 拷贝前端vue项目打包后生成的文件到nginx下运行
 COPY ./dist /usr/share/nginx/html
-
+COPY ./ssl /etc/nginx/
 # 暴露80端口
 EXPOSE 80
 
