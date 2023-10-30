@@ -27,6 +27,7 @@ COPY ssl/ /etc/nginx/
 COPY --from=build-stage /app/dist /usr/share/nginx/html
 
 # 暴露80端口
+EXPOSE 80
 EXPOSE 443
 
 # 注：CMD不同于RUN，CMD用于指定在容器启动时所要执行的命令，而RUN用于指定镜像构建时所要执行的命令。
