@@ -185,13 +185,14 @@ const nodeDragEndEventFunction = (draggingNode: Node | any,
     // 因为在内部所以移动后的id就是pid
     pid = dropData.id as string
   } else {
+    console.log(draggingData,dropData)
     //要么是前面要么是后面
     // 如果移动的是文件夹那么只可能是在文件夹的内部（因为前面有移动校验，不存在snippet下存在category）
     if (!draggingData.snippet) {
       categoryToCategory = true;
     }
     // pid就是与他同级的pid
-    pid = draggingData.parentId as string
+    pid = dropData.parentId as string
   }
   updateSnippetCategory({pid, currentId: draggingData.id?.replaceAll("sn-", ""), categoryToCategory})
 }
