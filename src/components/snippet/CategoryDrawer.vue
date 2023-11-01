@@ -4,7 +4,8 @@
              :before-close="drawerBeforeCallBack"
              @open="drawerOpenEventFunction">
     <template #default>
-      <SnippetTree @node-click="nodeClickEventFunction" ref="snippetTreeRef">
+      <SnippetTree @node-click="nodeClickEventFunction" ref="snippetTreeRef" draggable
+                   @node-drag-end="nodeDragEndEventFunction">
         <template #node-end="{data}">
           <div>
             <el-button v-if='!data.snippet' text type="primary" size="small" @click="categoryDialogVisible = true">
@@ -34,7 +35,7 @@
 </template>
 <script setup lang="ts">
 import {getCurrentInstance, nextTick, ref, watch} from 'vue';
-import {deleteCategory} from "@/api/category";
+import {deleteCategory, updateSnippetCategory} from "@/api/category";
 import {CategoryMenusType} from "@/type/categoryType";
 import {deleteSnippet, getSnippet} from "@/api/snippet";
 import {TypeEnum} from "@/enums/typeEnum";
@@ -46,6 +47,8 @@ import {errorMessageBox, infoMessageBox, successMessage} from "@/utils/baseMessa
 import {BASE_SNIPPET} from "@/constants/baseConstants";
 import CategoryInsertDialog from "./CategoryInsertDialog.vue";
 import SnippetTree from "./SnippetTree.vue";
+import {NodeDropType} from "element-plus/es/components/tree/src/tree.type";
+import {DragEvents} from "element-plus/es/components/tree/src/model/useDragNode";
 
 // 点击新增 category 事件回调
 const categoryDialogVisible = ref<boolean>(false)
@@ -162,6 +165,35 @@ const drawerBeforeCallBack = () => {
 const drawerOpenEventFunction = () => {
   // 触发获取category网络请求
   snippetTreeRef.value.execute()
+}
+
+// 节点拖拽结束事件函数
+const nodeDragEndEventFunction = (draggingNode: Node | any,
+                                  dropNode: Node | any,
+                                  dropType: NodeDropType,
+                                  ev: DragEvents) => {
+  const draggingData = draggingNode.data as CategoryMenusType
+  const dropData = dropNode.data as CategoryMenusType
+  let categoryToCategory = false
+  let pid
+  // 如果是在它的内部
+  if (dropType === 'inner') {
+    // 如果是两个文件夹直接设置标识
+    if (!draggingData.snippet && !dropData.snippet) {
+      categoryToCategory = true
+    }
+    // 因为在内部所以移动后的id就是pid
+    pid = dropData.id as string
+  } else {
+    //要么是前面要么是后面
+    // 如果移动的是文件夹那么只可能是在文件夹的内部（因为前面有移动校验，不存在snippet下存在category）
+    if (!draggingData.snippet) {
+      categoryToCategory = true;
+    }
+    // pid就是与他同级的pid
+    pid = draggingData.parentId as string
+  }
+  updateSnippetCategory({pid, currentId: draggingData.id?.replaceAll("sn-", ""), categoryToCategory})
 }
 
 </script>

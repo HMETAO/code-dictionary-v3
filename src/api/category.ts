@@ -4,6 +4,7 @@ import {Result} from "@/result";
 import {CategoryMenusType} from "@/type/categoryType";
 import request from "../utils/request";
 import {CategoryInsertForm} from "@/form/category";
+import {SnippetCategoryMenusChangeForm} from "@/form/snippet";
 
 /**
  * 通过useFetch的方式请求category但是为手动触发
@@ -34,3 +35,17 @@ export function deleteCategory(id: string): Promise<Result> {
         method: 'delete',
     })
 }
+
+/**
+ * 更新snippet或category位置
+ * @param data 分组信息
+ */
+export function updateSnippetCategory(data: SnippetCategoryMenusChangeForm): Promise<Result> {
+    return request({
+        url: `/api/v1/snippet-category`,
+        method: 'put',
+        data
+    })
+}
+
+
