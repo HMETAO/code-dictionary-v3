@@ -124,6 +124,7 @@ declare module '@vue/runtime-core' {
     RunCodeDrawer: typeof import('./src/components/snippet/RunCodeDrawer.vue')['default']
     Slider: typeof import('./src/components/TUIKit/TUIComponents/components/slider/index.vue')['default']
     Snippet: typeof import('./src/components/snippet/Snippet.vue')['default']
+    SnippetDownloadDialog: typeof import('./src/components/snippet/SnippetDownloadDialog.vue')['default']
     SnippetInsertDialog: typeof import('./src/components/snippet/SnippetInsertDialog.vue')['default']
     SnippetSelectDialog: typeof import('./src/components/snippet/SnippetSelectDialog.vue')['default']
     SnippetSend: typeof import('./src/components/TUIKit/TUIComponents/container/TUIChat/plugin-components/snippet/SnippetSend.vue')['default']

@@ -1,12 +1,16 @@
 <template>
   <div class="tree-container h-full">
-    <el-tree v-loading="isFetching"
-             :draggable="draggable"
-             :data="data as CategoryMenusType[]"
-             :expand-on-click-node="false"
-             @node-click="nodeClickEventFunction"
-             @node-drag-end='nodeDragEndEventFunction'
-             :allow-drop="allowDropEventFunction"
+    <el-tree
+        ref="treeRef"
+        v-loading="isFetching"
+        :draggable="draggable"
+        :show-checkbox="showCheckBox"
+        node-key="id"
+        :data="data as CategoryMenusType[]"
+        :expand-on-click-node="false"
+        @node-click="nodeClickEventFunction"
+        @node-drag-end='nodeDragEndEventFunction'
+        :allow-drop="allowDropEventFunction"
     >
       <template v-slot="{node,data}">
         <div class="flex w-full">
@@ -30,23 +34,28 @@
 
 </template>
 <script setup lang="ts">
-import {getCurrentInstance} from 'vue';
+import {getCurrentInstance, ref} from 'vue';
 import {CategoryMenusType} from "@/type/categoryType";
 import {getCategory} from "@/api/category";
 import {DragEvents} from "element-plus/es/components/tree/src/model/useDragNode";
 import {AllowDropType, NodeDropType} from "element-plus/es/components/tree/src/tree.type";
+import {ElTree} from "element-plus";
 
 // 请求category但是手动触发模式
 let {data, isFetching, execute} = getCategory(false)
 
 const instance = getCurrentInstance()
 
+const treeRef = ref<InstanceType<typeof ElTree>>()
 // 外部传递参数
 const props = withDefaults(defineProps<{
   // 是否开启拖拽
-  draggable?: boolean
+  draggable?: boolean,
+  // 是否开启前面的小选择框
+  showCheckBox?: boolean
 }>(), {
-  draggable: false
+  draggable: false,
+  showCheckBox: false
 })
 
 // 向上触发更新
@@ -56,7 +65,8 @@ const emit = defineEmits<{
 }>()
 
 defineExpose({
-  execute
+  execute,
+  treeRef
 })
 
 // 点击节点事件函数

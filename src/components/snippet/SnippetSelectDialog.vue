@@ -56,6 +56,5 @@ const dialogOpenEventFunction = () => {
     height: 0;
     flex: auto;
   }
-
 }
 </style>

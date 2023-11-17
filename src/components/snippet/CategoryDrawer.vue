@@ -22,16 +22,17 @@
     </template>
     <template #footer>
       <!--footer区域-->
-      <el-button type="warning" size="large" @click="stateStore.snippetDialogVisible = true">
+      <el-button type="success" size="large" @click="stateStore.snippetDialogVisible = true">
         新增 {{ baseStore.isMarkDown ? "MarkDown" : "Code" }} 文件
       </el-button>
+      <el-button type="warning" size="large" @click="snippetDownloadDialogVisible = true">下载</el-button>
       <el-button type="primary" size="large" @click="changeSnippetEventFunction">切换展示面板</el-button>
     </template>
   </el-drawer>
 
   <!--category-dialog-->
   <CategoryInsertDialog v-model="categoryDialogVisible" @on-insert="insertEventFunction"/>
-
+  <SnippetDownloadDialog v-model="snippetDownloadDialogVisible"/>
 </template>
 <script setup lang="ts">
 import {getCurrentInstance, nextTick, ref, watch} from 'vue';
@@ -49,15 +50,17 @@ import CategoryInsertDialog from "./CategoryInsertDialog.vue";
 import SnippetTree from "./SnippetTree.vue";
 import {NodeDropType} from "element-plus/es/components/tree/src/tree.type";
 import {DragEvents} from "element-plus/es/components/tree/src/model/useDragNode";
+import SnippetDownloadDialog from "@/components/snippet/SnippetDownloadDialog.vue";
 
 // 点击新增 category 事件回调
 const categoryDialogVisible = ref<boolean>(false)
+// 下载按钮窗口
+const snippetDownloadDialogVisible = ref<boolean>(false)
 const instance = getCurrentInstance()
 const baseStore = useBaseStore()
 const stateStore = useStateStore()
 
 const snippetTreeRef = ref<InstanceType<typeof SnippetTree>>()
-
 // 父传子参数
 const prop = defineProps<{
   // isCategoryDrawer
@@ -185,7 +188,6 @@ const nodeDragEndEventFunction = (draggingNode: Node | any,
     // 因为在内部所以移动后的id就是pid
     pid = dropData.id as string
   } else {
-    console.log(draggingData,dropData)
     //要么是前面要么是后面
     // 如果移动的是文件夹那么只可能是在文件夹的内部（因为前面有移动校验，不存在snippet下存在category）
     if (!draggingData.snippet) {
