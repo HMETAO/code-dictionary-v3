@@ -40,6 +40,7 @@ service.interceptors.response.use(
         return {...response.data, headers: response.headers}
     },
     (err: AxiosError) => {
+        console.error(err) // for debug
         const response = err.response as AxiosResponse<Result>
         // 错误消息提示
         errorMessage(response.data.message)

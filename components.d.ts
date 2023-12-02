@@ -54,7 +54,6 @@ declare module '@vue/runtime-core' {
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
     ElTag: typeof import('element-plus/es')['ElTag']
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
-    ElTree: typeof import('element-plus/es')['ElTree']
     ElUpload: typeof import('element-plus/es')['ElUpload']
     Evaluate: typeof import('./src/components/TUIKit/TUIComponents/container/TUIChat/plugin-components/evaluate/evaluate.vue')['default']
     Face: typeof import('./src/components/TUIKit/TUIComponents/container/TUIChat/plugin-components/face/Face.vue')['default']
