@@ -21,3 +21,10 @@ export interface RunCodeForm {
     codeEnum?: string
     args?: string
 }
+
+
+export interface SnippetCategoryMenusChangeForm {
+    pid?: string
+    currentId?: string
+    categoryToCategory?: boolean
+}

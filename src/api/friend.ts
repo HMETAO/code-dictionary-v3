@@ -1,8 +1,8 @@
 import request from '../utils/request'
-import {Result} from "../result";
-import {FriendInformationType, FriendType} from "../type/friendType";
+import {Result} from "@/result";
+import {FriendInformationType, FriendType} from "@/type/friendType";
 import {UseFetchReturn} from "@vueuse/core";
-import {useMyFetch} from "../utils/requestFetch";
+import {useMyFetch} from "@/utils/requestFetch";
 
 /**
  * 获取好友列表

@@ -88,7 +88,8 @@ const loginClickEventFunction = async () => {
     const res: Result<UserInfo> = await login(loginForm.value)
     // 存储用户信息
     baseStore.user = res.data
-    baseStore.token = res.data.token
+    baseStore.token = res.data.token as string
+    localStorage.setItem("token", baseStore.token)
     await router.push('/home')
   } finally {
     // 关闭loading

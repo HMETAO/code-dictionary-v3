@@ -82,3 +82,17 @@ export function receiveSnippet(data: ReceiveSnippetForm): Promise<Result> {
         data
     })
 }
+
+/**
+ * 导出snippet
+ * @param data 导出信息
+ */
+export function downloadSnippet(data: any): Promise<Result> {
+    return request({
+        url: `/api/v1/snippet/download`,
+        method: 'post',
+        data,
+        responseType: "blob"
+    })
+}
+

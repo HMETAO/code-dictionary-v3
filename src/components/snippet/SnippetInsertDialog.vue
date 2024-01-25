@@ -32,7 +32,7 @@ import {SnippetForm} from "@/form/snippet";
 import {FormInstance} from "element-plus";
 import {storeToRefs} from "pinia";
 import {successMessage} from "@/utils/baseMessage";
-import {SNIPPET_GET_EVENT, SNIPPET_INSERT_EVEN} from "@/constants/eventConstants";
+import {SNIPPET_GET_EVENT, SNIPPET_INSERT_EVENT} from "@/constants/eventConstants";
 
 const {data, execute} = getCategory(false, false)
 const stateStore = useStateStore()
@@ -52,7 +52,7 @@ const insertSnippetClickEventFunction = async () => {
   snippetForm.value.type = baseStore.isMarkDown ? 1 : 0;
   const res = await insertSnippet(snippetForm.value as SnippetForm)
   successMessage("插入成功")
-  instance?.proxy?.$bus.emit(SNIPPET_INSERT_EVEN)
+  instance?.proxy?.$bus.emit(SNIPPET_INSERT_EVENT)
   // 刷新Snippet界面数据
   instance?.proxy?.$bus.emit(SNIPPET_GET_EVENT, res.data)
   // 关闭dialog

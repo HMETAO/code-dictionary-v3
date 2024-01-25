@@ -1,21 +1,27 @@
 <template>
-    <div class="common-layout">
-        <div class="header">
-            <layout-header></layout-header>
-        </div>
-        <div class="main">
-            <router-view></router-view>
-        </div>
+  <div class="common-layout">
+    <div class="header">
+      <layout-header></layout-header>
     </div>
+    <div class="main">
+      <router-view></router-view>
+    </div>
+  </div>
+  <MicSpeechRecognition/>
 </template>
 <script setup lang="ts">
 
 import LayoutHeader from "./components/layout/LayoutHeader.vue";
 import {useStateStore} from "./store";
+import MicSpeechRecognition from "@/components/snippet/MicSpeechRecognition.vue";
+import {useGPTStore} from "@/store/GPT";
 
 const stateStore = useStateStore()
+const gptStore = useGPTStore()
 // 将状态缓存全部清除
 stateStore.$reset()
+gptStore.$reset()
+
 </script>
 <style scoped lang="less">
 @DefaultColor: #76bbd7;
@@ -33,6 +39,7 @@ stateStore.$reset()
   .main {
     flex: 1
   }
-
 }
+
+
 </style>

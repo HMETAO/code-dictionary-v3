@@ -1,22 +1,23 @@
 <template>
   <div class="ide-header-box w-full h-full">
     <div>
-      <el-tooltip
-          effect="dark"
-          content="运行代码"
-          placement="top">
-        <el-button type="primary" circle size="default" @click="runCodeDrawer = !runCodeDrawer">
-          <el-icon>
-            <Cpu/>
-          </el-icon>
-        </el-button>
-      </el-tooltip>
+      <el-color-picker v-model="ideBackGroundColor" show-alpha/>
+      <el-button type="primary" circle size="default" @click="runCodeDrawer = !runCodeDrawer" style="margin: 0 15px">
+        <el-icon>
+          <Cpu/>
+        </el-icon>
+      </el-button>
+      <el-color-picker v-model="ideColor" show-alpha/>
     </div>
     <RunCodeDrawer v-model="runCodeDrawer" v-model:snippet="snippet"/>
   </div>
 </template>
 <script setup lang="ts">
 import {onMounted, onUnmounted, ref, watch} from "vue";
+import {storeToRefs} from "pinia";
+import {useIDEStore} from "@/store";
+
+const {ideBackGroundColor, ideColor} = storeToRefs(useIDEStore())
 
 const runCodeDrawer = ref<boolean>(false)
 const saveContent = (e: KeyboardEvent) => {

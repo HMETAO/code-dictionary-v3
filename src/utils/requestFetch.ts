@@ -1,6 +1,6 @@
 import {AfterFetchContext, createFetch} from '@vueuse/core'
 import {errorMessage} from "./baseMessage";
-import {Result} from "../result";
+import {Result} from "@/result";
 
 export const useMyFetch = <T>(url: string, immediate: boolean = true) => {
     return createOption(immediate)<T>(url)
@@ -15,6 +15,9 @@ const createOption = (immediate: boolean) => {
             async beforeFetch({options}) {
                 // const myToken = await getMyToken()
                 // options.headers.Authorization = `Bearer ${myToken}`
+                if (localStorage.getItem("token")) { // @ts-ignore
+                    options.headers['code-dictionary'] = localStorage.getItem("token")
+                }
                 return {options}
             },
             // 在请求后处理数据，如：拦截错误、处理过期

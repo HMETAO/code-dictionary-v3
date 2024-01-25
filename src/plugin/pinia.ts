@@ -2,7 +2,7 @@ import {createPinia, PiniaPluginContext} from "pinia";
 import {nextTick} from "vue";
 import {ElLoading} from "element-plus";
 import {LoadingInstance} from "element-plus/es/components/loading/src/loading";
-import {Names} from "../store/store-name";
+import {Names} from "@/store/store-name";
 
 // pinia start
 const pinia = createPinia()
@@ -42,7 +42,7 @@ const piniaPlugin = (option: Options) => {
             // 如果是状态store不需要缓存
             if (store.$id === Names.STATE) {
                 loadingChange(store.$state.loading)
-            } else {
+            } else if (store.$id === Names.BASE || store.$id === Names.IDE) {
                 // 存储storage
                 setStorage(key, store.$state)
             }

@@ -31,19 +31,38 @@
           </el-icon>
         </el-button>
       </el-tooltip>
+      <el-tooltip
+          effect="dark"
+          content="语音识别"
+          placement="top">
+        <el-button type="primary" style="color: #FFFFFF" circle size="default"
+                   :color="speechStart ? '#e74c3c':'#27ae60'"
+                   @click="()=>{
+                     speechStart =!speechStart
+                     outputStream = store.snippetForm
+                   }">
+          <el-icon>
+            <Mic/>
+          </el-icon>
+        </el-button>
+      </el-tooltip>
     </div>
     <RunCodeDrawer v-model="runCodeDrawer" v-model:snippet="store.snippetForm.snippet"/>
   </div>
 </template>
 <script setup lang="ts">
-import {ref, onMounted, onUnmounted} from 'vue';
+import {onMounted, onUnmounted, ref} from 'vue';
 import {successMessage, warningMessageBox} from "@/utils/baseMessage";
 import {updateSnippet} from "@/api/snippet";
 import {useStateStore} from "@/store";
 import {BASE_SNIPPET} from "@/constants/baseConstants";
+import {storeToRefs} from "pinia";
+import {useGPTStore} from "@/store/GPT";
 
 const store = useStateStore()
 const runCodeDrawer = ref<boolean>(false)
+const {ai, speechStart, outputStream} = storeToRefs(useGPTStore())
+
 // ctrl+s键盘按下处理回调
 const saveContent = (e: KeyboardEvent) => {
   if ((e.ctrlKey || e.metaKey) && e.key === 's') {
@@ -60,11 +79,11 @@ onUnmounted(() => {
   document.removeEventListener('keydown', saveContent)
 })
 
+
 // 点击初始化Snippet面板事件回调
 const initSnippetClickEventFunction = async () => {
   await warningMessageBox("初始化面板", "是否确定初始化Snippet面板？")
   store.snippetForm = JSON.parse(BASE_SNIPPET)
-
 }
 
 // 点击保存按钮事件回调

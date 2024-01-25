@@ -4,7 +4,8 @@
              :before-close="drawerBeforeCallBack"
              @open="drawerOpenEventFunction">
     <template #default>
-      <SnippetTree @node-click="nodeClickEventFunction" ref="snippetTreeRef">
+      <SnippetTree @node-click="nodeClickEventFunction" ref="snippetTreeRef" draggable
+                   @node-drag-end="nodeDragEndEventFunction">
         <template #node-end="{data}">
           <div>
             <el-button v-if='!data.snippet' text type="primary" size="small" @click="categoryDialogVisible = true">
@@ -21,40 +22,45 @@
     </template>
     <template #footer>
       <!--footer区域-->
-      <el-button type="warning" size="large" @click="stateStore.snippetDialogVisible = true">
+      <el-button type="success" size="large" @click="stateStore.snippetDialogVisible = true">
         新增 {{ baseStore.isMarkDown ? "MarkDown" : "Code" }} 文件
       </el-button>
+      <el-button type="warning" size="large" @click="snippetDownloadDialogVisible = true">下载</el-button>
       <el-button type="primary" size="large" @click="changeSnippetEventFunction">切换展示面板</el-button>
     </template>
   </el-drawer>
 
   <!--category-dialog-->
   <CategoryInsertDialog v-model="categoryDialogVisible" @on-insert="insertEventFunction"/>
-
+  <SnippetDownloadDialog v-model="snippetDownloadDialogVisible"/>
 </template>
 <script setup lang="ts">
 import {getCurrentInstance, nextTick, ref, watch} from 'vue';
-import {deleteCategory} from "@/api/category";
+import {deleteCategory, updateSnippetCategory} from "@/api/category";
 import {CategoryMenusType} from "@/type/categoryType";
 import {deleteSnippet, getSnippet} from "@/api/snippet";
 import {TypeEnum} from "@/enums/typeEnum";
 import {useBaseStore, useStateStore} from "@/store";
 import {SnippetType} from "@/type/snippetType";
 import {Result} from "@/result";
-import {SNIPPET_GET_EVENT, SNIPPET_INSERT_EVEN} from "@/constants/eventConstants";
+import {SNIPPET_GET_EVENT, SNIPPET_INSERT_EVENT} from "@/constants/eventConstants";
 import {errorMessageBox, infoMessageBox, successMessage} from "@/utils/baseMessage";
 import {BASE_SNIPPET} from "@/constants/baseConstants";
 import CategoryInsertDialog from "./CategoryInsertDialog.vue";
 import SnippetTree from "./SnippetTree.vue";
+import {NodeDropType} from "element-plus/es/components/tree/src/tree.type";
+import {DragEvents} from "element-plus/es/components/tree/src/model/useDragNode";
+import SnippetDownloadDialog from "@/components/snippet/SnippetDownloadDialog.vue";
 
 // 点击新增 category 事件回调
 const categoryDialogVisible = ref<boolean>(false)
+// 下载按钮窗口
+const snippetDownloadDialogVisible = ref<boolean>(false)
 const instance = getCurrentInstance()
 const baseStore = useBaseStore()
 const stateStore = useStateStore()
 
 const snippetTreeRef = ref<InstanceType<typeof SnippetTree>>()
-
 // 父传子参数
 const prop = defineProps<{
   // isCategoryDrawer
@@ -67,7 +73,7 @@ const emit = defineEmits<{
 }>()
 
 // 新增Snippet触发回调
-instance?.proxy?.$bus.on(SNIPPET_INSERT_EVEN, () => {
+instance?.proxy?.$bus.on(SNIPPET_INSERT_EVENT, () => {
   if (snippetTreeRef.value)
     snippetTreeRef.value.execute()
 })
@@ -162,6 +168,35 @@ const drawerBeforeCallBack = () => {
 const drawerOpenEventFunction = () => {
   // 触发获取category网络请求
   snippetTreeRef.value.execute()
+}
+
+// 节点拖拽结束事件函数
+const nodeDragEndEventFunction = (draggingNode: Node | any,
+                                  dropNode: Node | any,
+                                  dropType: NodeDropType,
+                                  ev: DragEvents) => {
+  const draggingData = draggingNode.data as CategoryMenusType
+  const dropData = dropNode.data as CategoryMenusType
+  let categoryToCategory = false
+  let pid
+  // 如果是在它的内部
+  if (dropType === 'inner') {
+    // 如果是两个文件夹直接设置标识
+    if (!draggingData.snippet && !dropData.snippet) {
+      categoryToCategory = true
+    }
+    // 因为在内部所以移动后的id就是pid
+    pid = dropData.id as string
+  } else {
+    //要么是前面要么是后面
+    // 如果移动的是文件夹那么只可能是在文件夹的内部（因为前面有移动校验，不存在snippet下存在category）
+    if (!draggingData.snippet) {
+      categoryToCategory = true;
+    }
+    // pid就是与他同级的pid
+    pid = dropData.parentId as string
+  }
+  updateSnippetCategory({pid, currentId: draggingData.id?.replaceAll("sn-", ""), categoryToCategory})
 }
 
 </script>

@@ -20,6 +20,7 @@
       </div>
     </template>
   </el-calendar>
+
 </template>
 <script setup lang="ts">
 import {ref} from 'vue';
@@ -48,5 +49,8 @@ init()
 </script>
 <style scoped lang="less">
 
+:deep(.el-calendar__body) {
+  padding: 0;
+}
 
 </style>

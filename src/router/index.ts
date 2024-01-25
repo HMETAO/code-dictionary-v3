@@ -1,7 +1,7 @@
 import {createRouter, createWebHashHistory, Router, RouteRecordRaw} from "vue-router"
 import {useBaseStore, useStateStore} from "@/store";
 // 导入进度条
-import {start, close} from "@/utils/nporgress";
+import {close, start} from "@/utils/nporgress";
 import {infoMessage} from "@/utils/baseMessage";
 
 let baseStore: any = null
@@ -60,7 +60,22 @@ const routes: Array<RouteRecordRaw> = [
                 path: "/ide",
                 name: 'ide',
                 component: () => import('../components/ide/IDE.vue')
-            }
+            },
+            {
+                path: "/user",
+                name: 'user',
+                component: () => import('../components/user/User.vue')
+            },
+            {
+                path: "/role",
+                name: 'role',
+                component: () => import('../components/role/Role.vue')
+            },
+            {
+                path: "/permission",
+                name: 'permission',
+                component: () => import('../components/permission/Permission.vue')
+            },
         ]
     }
 
@@ -76,11 +91,15 @@ router.beforeEach((to, from, next) => {
         baseStore = useBaseStore()
         stateStore = useStateStore()
     }
-    if (to.name !== 'login' && !baseStore.token) {
-        infoMessage("请重新登录后在进行访问。。。")
-        next({name: 'login'})
+    if (baseStore.token) {
+        if (to.name == 'login') next({name: 'home'})
+        else next()
     } else {
-        next()
+        if(to.name == 'login') next()
+        else {
+            infoMessage("请重新登录后在进行访问。。。")
+            next({name: 'login'})
+        }
     }
 })
 // 后置守卫

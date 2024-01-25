@@ -1,8 +1,9 @@
 import request from '../utils/request'
-import {LoginForm} from "@/form/user";
-import {Result} from "@/result";
-import {UserInfo} from "@/type/userType";
+import {BaseUserInfoForm, LoginForm, UserRoleUpdateForm} from "@/form/user";
+import {PageInfo, Result} from "@/result";
+import {UserInfo, UserRole} from "@/type/userType";
 import TUIKit from "../plugin/tuikit";
+import {BaseQueryForm} from "@/form/base";
 
 export function login(data: LoginForm): Promise<Result<UserInfo>> {
     return request({
@@ -19,7 +20,10 @@ export function logout(): Promise<Result> {
     })
 }
 
-
+/**
+ * 用户注册
+ * @param data 用户数据
+ */
 export function registry(data: FormData): Promise<Result> {
     return request({
         url: '/api/v1/user/registry',
@@ -48,4 +52,63 @@ export function loginIM(userID: string, userSig: string): Promise<any> {
 export function logoutIM(): Promise<any> {
     // login TUIKit
     return TUIKit.logout();
+}
+
+
+/**
+ * 获取用户列表
+ * @param query 请求参数
+ */
+export function getUsers(query: BaseQueryForm): Promise<Result<PageInfo<UserRole>>> {
+    return request({
+        url: `/api/v1/admin/user`,
+        method: 'get',
+        params: query
+    })
+}
+
+/**
+ * 删除用户
+ * @param userId 用户ID
+ */
+export function deleteUser(userId: string): Promise<Result> {
+    return request({
+        url: `/api/v1/admin/user/` + userId,
+        method: 'delete',
+    })
+}
+
+/**
+ * 查询用户
+ * @param userId 用户ID
+ */
+export function getUser(userId: string): Promise<Result<UserRole>> {
+    return request({
+        url: `/api/v1/user/` + userId,
+        method: 'get',
+    })
+}
+
+/**
+ * 更行用户
+ * @param data 用户数据
+ */
+export function updateUser(data: UserRoleUpdateForm | BaseUserInfoForm): Promise<Result> {
+    return request({
+        url: `/api/v1/user/`,
+        method: 'put',
+        data
+    })
+}
+
+/**
+ * 用户状态切换
+ * @param data 用户数据
+ */
+export function updateUserStatus(data: any): Promise<Result> {
+    return request({
+        url: `/api/v1/admin/user/status`,
+        method: 'put',
+        data
+    })
 }

@@ -74,8 +74,8 @@
         </el-upload>
         <!-- 按钮区域 -->
         <el-form-item class='login-btn'>
-          <el-button type='primary' @click='registryClickEventFunction'>注册</el-button>
-          <el-button type='info' @click='resetCloseEventFunction'>重置</el-button>
+          <el-button type='primary' @click='registryClickEventFunction'>注 册</el-button>
+          <el-button type='info' @click='resetCloseEventFunction'>重 置</el-button>
         </el-form-item>
       </el-form>
     </el-dialog>
@@ -83,13 +83,14 @@
 </template>
 <script setup lang="ts">
 
-import {reactive, ref, watch} from "vue";
+import {getCurrentInstance, reactive, ref, watch} from "vue";
 import {RegistryForm} from "@/form/user";
 import {FormInstance, FormRules, UploadUserFile} from "element-plus";
 import {registry} from "@/api/user";
 import {infoMessage, successMessage} from "@/utils/baseMessage";
+import {REGISTRY_USER_EVENT} from "@/constants/eventConstants";
 
-
+const instance = getCurrentInstance();
 const fileList = ref<UploadUserFile[]>([])
 const ruleFormRef = ref<FormInstance>()
 
@@ -153,6 +154,7 @@ const props = defineProps<{
 const emit = defineEmits<{
   (e: 'update:modelValue', modelValue: boolean): void
 }>()
+
 const dialogVisible = ref<boolean>(false)
 watch(() => props.modelValue, () => {
       dialogVisible.value = props.modelValue
@@ -180,13 +182,12 @@ const registryClickEventFunction = async () => {
         formData.append('file', fileList.value[0].raw as File)
       await registry(formData)
       successMessage("注册成功")
+      instance?.proxy?.$bus?.emit(REGISTRY_USER_EVENT)
       registryDialogCloseEventFunction()
     } else {
       infoMessage("请按要求填写注册表单")
     }
-
   })
-
 }
 
 const resetCloseEventFunction = () => {

@@ -52,7 +52,6 @@
 </template>
 <script setup lang="ts">
 import {ref, watch} from 'vue';
-import {useStateStore} from "@/store";
 import {runCode} from "@/api/snippet";
 import {CodeEnum} from "@/enums/codeEnum";
 
@@ -62,10 +61,10 @@ const codeEnum = ref<string>(CodeEnum.Cpp)
 const codeResult = ref<string>("")
 // run点击事件回调
 const runClickEventFunction = async () => {
-  console.log(props.snippet)
   const res = await runCode({
     code: props.snippet,
-    codeEnum: codeEnum.value, args: args.value
+    codeEnum: codeEnum.value,
+    args: args.value
   })
   codeResult.value = res.data
 }

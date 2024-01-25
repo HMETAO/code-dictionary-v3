@@ -4,12 +4,20 @@
              mode="horizontal"
              menu-trigger="click"
              :ellipsis="false">
-      <el-menu-item index="0">
+      <el-menu-item index="0" @click="">
         <div class="animate__animated animate__backInLeft web-site-title">
           Code Dictionary
         </div>
       </el-menu-item>
-      <div class="flex-grow"/>
+      <div class="flex-grow">
+        <el-alert class="flex-grow-alert"
+                  v-if="speechStart || ai"
+                  :description="speechMessage"
+                  type="success"
+                  show-icon
+                  :closable="false"
+                  center/>
+      </div>
       <el-sub-menu index="1" class="animate__animated animate__backInRight" v-if="token">
         <template #title>
           <div class="header-user-info">
@@ -32,9 +40,12 @@ import {useBaseStore} from "@/store";
 import {logout} from "@/api/user";
 import {useRouter} from "vue-router";
 import {storeToRefs} from "pinia";
+import {useGPTStore} from "@/store/GPT";
 
 const router = useRouter()
 const baseStore = useBaseStore()
+const {speechMessage, ai, speechStart} = storeToRefs(useGPTStore())
+
 const {token} = storeToRefs(baseStore)
 
 // 退出登录事件回调
@@ -63,7 +74,9 @@ const logoutEventFunction = async () => {
   }
 
   .flex-grow {
-    flex-grow: 1;
+    flex: 1;
+    display: flex;
+    overflow: hidden;
   }
 
   .web-site-title {
@@ -79,8 +92,6 @@ const logoutEventFunction = async () => {
     -webkit-background-clip: text;
     color: transparent;
   }
-
-
 }
 
 

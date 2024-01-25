@@ -24,8 +24,8 @@ const xterm = ref<HTMLDivElement>()
 let globalTerm: Terminal;
 onMounted(() => {
   initSocket()
-
 })
+
 const initTerm = () => {
   const fitAddon = new FitAddon()
 
