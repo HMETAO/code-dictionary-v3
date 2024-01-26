@@ -104,7 +104,7 @@ const nodeClickEventFunction = async (data: CategoryMenusType) => {
     // 查询snippet
     const res: Result<SnippetType> = await getSnippet(data.id.replaceAll('sn-', ''))
     // 选择的是code文件，但是当前在markdown面板
-    if (data.type == TypeEnum.code) {
+    if (data.type == TypeEnum.code || data.type as number > 1) {
       if (baseStore.isMarkDown) {
         try {
           await infoMessageBox("界面切换", "选择的Snippet为Code，是否切换界面")

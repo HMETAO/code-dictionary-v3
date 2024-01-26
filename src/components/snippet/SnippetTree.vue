@@ -23,7 +23,7 @@
                 <Memo/>
               </el-icon>
             </div>
-            {{ data.label + (!data.snippet ? "" : (data.type === 0 ? ".cd" : ".md")) }}
+            {{ data.label + ((!data.snippet || data.type > 1) ? "" : (data.type === 0 ? ".cd" : ".md")) }}
           </div>
           <div class="flex-1"></div>
           <slot name="node-end" :data="data as CategoryMenusType"></slot>
