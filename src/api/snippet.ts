@@ -96,3 +96,16 @@ export function downloadSnippet(data: any): Promise<Result> {
     })
 }
 
+/**
+ * 上传zip包
+ * @param data 表单数据
+ */
+export function uploadSnippet(data: any): Promise<Result> {
+    return request({
+        url: `/api/v1/snippet/upload`,
+        method: 'post',
+        headers: {'Content-Type': 'multipart/form-data'},
+        data
+    })
+}
+
