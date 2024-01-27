@@ -25,14 +25,15 @@
             <div class="user-info-text">{{ baseStore.user.username }}</div>
           </div>
         </template>
-        <!--        <el-menu-item index="2-2" style="justify-content: center">-->
-        <!--          修改信息-->
-        <!--        </el-menu-item>-->
+        <el-menu-item index="2-2" style="justify-content: center" @click="editDialogVisible = true">
+          修改信息
+        </el-menu-item>
         <el-menu-item index="2-1" style="justify-content: center" @click="logoutEventFunction">
           退出登录
         </el-menu-item>
       </el-sub-menu>
     </el-menu>
+    <EditDialog v-model="editDialogVisible"></EditDialog>
   </div>
 </template>
 <script setup lang="ts">
@@ -41,6 +42,8 @@ import {logout} from "@/api/user";
 import {useRouter} from "vue-router";
 import {storeToRefs} from "pinia";
 import {useGPTStore} from "@/store/GPT";
+import {ref} from "vue";
+import EditDialog from "@/components/layout/EditDialog.vue";
 
 const router = useRouter()
 const baseStore = useBaseStore()
@@ -48,6 +51,8 @@ const {speechMessage, ai, speechStart} = storeToRefs(useGPTStore())
 
 const {token} = storeToRefs(baseStore)
 
+
+const editDialogVisible = ref<boolean>(false)
 // 退出登录事件回调
 const logoutEventFunction = async () => {
   try {

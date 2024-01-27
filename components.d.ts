@@ -21,6 +21,7 @@ declare module '@vue/runtime-core' {
     Custom: typeof import('./src/components/TUIKit/TUIComponents/container/TUIChat/plugin-components/custom/Custom.vue')['default']
     Dialog: typeof import('./src/components/TUIKit/TUIComponents/components/dialog/index.vue')['default']
     Drag: typeof import('./src/components/TUIKit/TUIComponents/components/drag/index.vue')['default']
+    EditDialog: typeof import('./src/components/layout/EditDialog.vue')['default']
     EditorHeader: typeof import('./src/components/snippet/EditorHeader.vue')['default']
     ElAlert: typeof import('element-plus/es')['ElAlert']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']

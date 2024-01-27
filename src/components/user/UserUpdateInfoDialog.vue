@@ -70,6 +70,7 @@ import {errorMessage, successMessage} from "@/utils/baseMessage";
 import {getRoles} from "@/api/role";
 import {Role} from "@/type/roleType";
 import {UPDATE_USER_EVENT} from "@/constants/eventConstants";
+import {paramsToFormData} from "@/utils/data";
 
 const instance = getCurrentInstance()
 const userRoleUpdateForm = ref<UserRoleUpdateForm>({})
@@ -113,7 +114,8 @@ const updateClickEventFunction = async () => {
   if (!ruleFormRef) return
   await ruleFormRef.value?.validate(async (valid) => {
     if (valid) {
-      await updateUser(userRoleUpdateForm.value)
+      const formData = paramsToFormData(userRoleUpdateForm.value)
+      await updateUser(formData)
       successMessage("修改成功")
       dialogVisible.value = false;
       instance?.proxy?.$bus.emit(UPDATE_USER_EVENT)

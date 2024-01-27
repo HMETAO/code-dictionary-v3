@@ -1,5 +1,5 @@
 import request from '../utils/request'
-import {BaseUserInfoForm, LoginForm, UserRoleUpdateForm} from "@/form/user";
+import {LoginForm} from "@/form/user";
 import {PageInfo, Result} from "@/result";
 import {UserInfo, UserRole} from "@/type/userType";
 import TUIKit from "../plugin/tuikit";
@@ -90,17 +90,19 @@ export function getUser(userId: string): Promise<Result<UserRole>> {
 }
 
 /**
- * 更行用户
+ * 更新用户
  * @param data 用户数据
  */
-export function updateUser(data: UserRoleUpdateForm | BaseUserInfoForm): Promise<Result> {
+export function updateUser(data: FormData): Promise<Result> {
     return request({
-        url: `/api/v1/user/`,
-        method: 'put',
+        url: `/api/v1/user/edit`,
+        method: 'post',
+        headers:{
+            'Content-Type': 'multipart/form-data'
+        },
         data
     })
 }
-
 /**
  * 用户状态切换
  * @param data 用户数据
