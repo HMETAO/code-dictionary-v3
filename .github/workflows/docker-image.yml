@@ -9,10 +9,13 @@ on:
 jobs:
 
   build:
-
     runs-on: ubuntu-latest
-
     steps:
+    - name: 拉取master分支代码
+      uses: actions/checkout@v3
+      with:
+        # 默认当前分支
+        ref: 'master'
     - name: login ali cloud
       uses: aliyun/acr-login@v1
       with:
@@ -21,7 +24,7 @@ jobs:
         password: "${{ secrets.ALICLOUD_PASSWORD }}"
     - name: Build and push image
       run: |
-        docker build -t registry.cn-hangzhou.aliyuncs.com/hmetao_docker/vue-code-dictionary-v3 -f ../../Dockerfile2 .
+        docker build -t registry.cn-hangzhou.aliyuncs.com/hmetao_docker/vue-code-dictionary-v3 -f Dockerfile2 .
         docker push registry.cn-hangzhou.aliyuncs.com/hmetao_docker/vue-code-dictionary-v3
     - name: executing remote ssh commands using password
       uses: appleboy/ssh-action@v1.0.3
