@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: CI / CD
 
 on:
   push:
@@ -20,7 +20,7 @@ jobs:
         username: "${{ secrets.ALICLOUD_USERNAME }}"
         password: "${{ secrets.ALICLOUD_PASSWORD }}"
     - name: Build and push image
-      run: 
+      run: |
         docker build -t registry.cn-hangzhou.aliyuncs.com/hmetao_docker/vue-code-dictionary-v3 -f Dockerfile2 .
         docker push registry.cn-hangzhou.aliyuncs.com/hmetao_docker/vue-code-dictionary-v3
     - name: executing remote ssh commands using password
