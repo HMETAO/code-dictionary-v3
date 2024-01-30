@@ -21,7 +21,7 @@ jobs:
         password: "${{ secrets.ALICLOUD_PASSWORD }}"
     - name: Build and push image
       run: |
-        docker build -t registry.cn-hangzhou.aliyuncs.com/hmetao_docker/vue-code-dictionary-v3 -f ../Dockerfile2 .
+        docker build -t registry.cn-hangzhou.aliyuncs.com/hmetao_docker/vue-code-dictionary-v3 -f ../../Dockerfile2 .
         docker push registry.cn-hangzhou.aliyuncs.com/hmetao_docker/vue-code-dictionary-v3
     - name: executing remote ssh commands using password
       uses: appleboy/ssh-action@v1.0.3
