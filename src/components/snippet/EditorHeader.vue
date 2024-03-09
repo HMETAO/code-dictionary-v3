@@ -3,7 +3,7 @@
     <div>
       <el-tooltip
           effect="dark"
-          content="初始化Snippet面板"
+          content="新建Snippet面板"
           placement="top">
         <el-button @click="initSnippetClickEventFunction" type="warning" circle size="default">
           <el-icon>
@@ -80,9 +80,9 @@ onUnmounted(() => {
 })
 
 
-// 点击初始化Snippet面板事件回调
+// 点击新建Snippet面板事件回调
 const initSnippetClickEventFunction = async () => {
-  await warningMessageBox("初始化面板", "是否确定初始化Snippet面板？")
+  await warningMessageBox("新建Snippet面板", "是否确定新建一个Snippet面板？")
   store.snippetForm = JSON.parse(BASE_SNIPPET)
 }
 

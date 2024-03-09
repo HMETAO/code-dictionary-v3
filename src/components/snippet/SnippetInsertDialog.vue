@@ -23,7 +23,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import {ref, watch, getCurrentInstance} from 'vue';
+import {getCurrentInstance, ref, watch} from 'vue';
 import {getCategory} from "@/api/category";
 import {useBaseStore, useStateStore} from "@/store";
 import {CategoryMenusType} from "@/type/categoryType";
@@ -33,6 +33,7 @@ import {FormInstance} from "element-plus";
 import {storeToRefs} from "pinia";
 import {successMessage} from "@/utils/baseMessage";
 import {SNIPPET_GET_EVENT, SNIPPET_INSERT_EVENT} from "@/constants/eventConstants";
+import {BASE_SNIPPET} from "@/constants/baseConstants";
 
 const {data, execute} = getCategory(false, false)
 const stateStore = useStateStore()
@@ -60,6 +61,8 @@ const insertSnippetClickEventFunction = async () => {
 }
 // 打开dialog后事件回调
 const dialogOpenEventFunction = () => {
+  // 清空原有的snippetForm信息
+  snippetForm.value = JSON.parse(BASE_SNIPPET)
   // 发送请求category信息
   execute()
 }
