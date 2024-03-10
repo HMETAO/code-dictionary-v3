@@ -62,7 +62,9 @@ const insertSnippetClickEventFunction = async () => {
 // 打开dialog后事件回调
 const dialogOpenEventFunction = () => {
   // 清空原有的snippetForm信息
+  let str = snippetForm.value.snippet
   snippetForm.value = JSON.parse(BASE_SNIPPET)
+  snippetForm.value.snippet = str
   // 发送请求category信息
   execute()
 }
