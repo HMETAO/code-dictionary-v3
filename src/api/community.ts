@@ -12,7 +12,7 @@ export function getCommunities(query: BaseQueryForm): Promise<Result<PageInfo<Co
     return request({
         url: '/api/v1/community',
         method: 'get',
-        data: query
+        params: query
     })
 }
 

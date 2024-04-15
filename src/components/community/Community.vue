@@ -11,7 +11,7 @@
             small
             background
             layout="prev, pager, next"
-            :total="community.total"
+            :page-count="community.pages"
             v-model:current-page="queryForm.pageNum"
             @update:current-page="queryPropChangeEventFunction"
         />
@@ -68,6 +68,7 @@ const init = async () => {
 const queryPropChangeEventFunction = async () => {
   const res = await getCommunities(queryForm.value)
   community.value = res.data
+  console.log(community.value)
 }
 init()
 
